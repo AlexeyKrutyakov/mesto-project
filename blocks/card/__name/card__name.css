@@ -1,0 +1,19 @@
+.card__name {
+  /* position: absolute; */
+  /* left: 21px; */
+  /* bottom: 31px; */
+  margin: 0;
+  padding-left: 21px;
+  padding-bottom: 25px;
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 187px;
+  overflow: hidden;
+}

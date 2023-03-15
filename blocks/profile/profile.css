@@ -1,4 +1,12 @@
 .profile {
   padding-top: 40px;
-  color: rgb(79, 123, 79);
+  /* background-color: rgb(79, 123, 79); */
+  width: 100%;
+  max-width: 880px;
+  /* margin: auto; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  position: relative;
 }

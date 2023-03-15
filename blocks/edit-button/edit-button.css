@@ -1,0 +1,12 @@
+.edit-button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #fff;
+  grid-area: edit-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

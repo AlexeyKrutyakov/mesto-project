@@ -1,0 +1,12 @@
+.card {
+  background-color: #fff;
+  width: 282px;
+  height: 361px;
+  background-image: url("../../images/karachaevsk.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  border-radius: 10px;
+  display: flex;
+  align-items: end;
+}

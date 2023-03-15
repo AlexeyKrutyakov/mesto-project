@@ -1,0 +1,9 @@
+.profile__info {
+  background-color: rgb(176, 176, 119);
+  padding-top: 22px;
+  display: grid;
+  grid-template-areas: "name edit-button" "text .";
+  column-gap: 18px;
+  row-gap: 16px;
+  align-items: center;
+}
