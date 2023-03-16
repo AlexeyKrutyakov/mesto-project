@@ -1,17 +1,18 @@
-# Проект: Место
+# Проект: [Место](https://alexeykrutyakov.github.io/russian-travel/)
 
-### Обзор
+(Проект курса "Веб-разработчик плюс" от Яндекс Практикума)
 
-* Figma
-* Картинки
+#### _Цель проекта:_
 
-**Figma**
+Освоение навыков вёрстки адаптивных сайтов и подготовка шаблона для работы с Java Script
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+#### _Разработчик:_
 
-**Картинки**
+[Алексей Крутяков](https://github.com/AlexeyKrutyakov)
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
+#### _Используемые инструменты и технологии:_
 
-Удачи!
+![Figma](https://img.shields.io/badge/-Figma-011?&logo=figma)
+![HTML5](https://img.shields.io/badge/-HTML5-011?&logo=html5)
+![CSS3](https://img.shields.io/badge/-CSS3-011?&logo=css3)
+![GIT](https://img.shields.io/badge/-GIT-011?&logo=git)
