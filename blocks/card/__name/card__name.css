@@ -7,7 +7,7 @@
   line-height: 1.2;
   margin: 0;
   overflow: hidden;
-  padding-left: 21px;
+  padding: 25px 0 25px 21px;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;

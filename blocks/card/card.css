@@ -6,7 +6,6 @@
   grid-template-areas: "image image" "name like-button";
   grid-template-columns: 189px 1fr;
   grid-template-rows: min-content 1fr;
-  height: 361px;
   overflow: hidden;
   width: 282px;
 }
