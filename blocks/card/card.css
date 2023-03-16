@@ -2,11 +2,11 @@
   background-color: #fff;
   width: 282px;
   height: 361px;
-  background-image: url("../../images/karachaevsk.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: relative;
   border-radius: 10px;
-  display: flex;
-  align-items: end;
+  display: grid;
+  grid-template-areas: "image image" "name like-button";
+  overflow: hidden;
+  align-items: center;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: 189px 1fr;
 }
