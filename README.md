@@ -1,4 +1,4 @@
-# Проект: [Место](https://alexeykrutyakov.github.io/russian-travel/)
+# Проект: [Место](https://alexeykrutyakov.github.io/mesto-project/)
 
 (Проект курса "Веб-разработчик плюс" от Яндекс Практикума)
 
