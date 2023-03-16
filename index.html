@@ -19,14 +19,20 @@
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__text">Исследователь океана</p>
-        <button class="button profile__edit-button">
-          <img src="./images/edit-button-icon.svg" alt="Схематичное изображение карандаша"
-            class="profile__edit-button-icon">
-        </button>
+        <button class="button profile__edit-button"></button>
       </div>
-      <button class="button profile__add-button">
-        <img src="./images/add-button-icon.svg" alt="Знак плюс" class="profile__add-button-icon">
-      </button>
+      <button class="button profile__add-button"></button>
+    </section>
+    <section class="popup">
+      <form class="popup__container">
+        <fieldset class="popup__profile-info">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" class="popup__profile-name" value="Жак-Ив Кусто">
+          <input type="text" class="popup__profile-text" value="Исследователь океана">
+          <button class="popup__save-button">Сохранить</button>
+        </fieldset>
+      </form>
+      <button class="button button popup__close-button"></button>
     </section>
     <section class="cards" aria-label="Галлерея карточек мест">
       <article class="card">
