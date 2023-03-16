@@ -20,7 +20,7 @@
 @import url("../blocks/profile/__add-button-icon/profile__add-button-icon.css");
 @import url("../blocks/profile/__edit-button/profile__edit-button.css");
 @import url("../blocks/profile/__edit-button-icon/profile__edit-button-icon.css");
-@import url("../blocks/elements/elements.css");
+@import url("../blocks/cards/cards.css");
 @import url("../blocks/card/card.css");
 @import url("../blocks/card/__image/card__image.css");
 @import url("../blocks/card/__name/card__name.css");
@@ -30,7 +30,3 @@
 /* import footer */
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");
-
-* {
-  border: 1px solid red;
-}

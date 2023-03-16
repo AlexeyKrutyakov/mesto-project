@@ -1,12 +1,17 @@
 .profile {
-  padding-top: 40px;
-  /* background-color: rgb(79, 123, 79); */
-  width: 100%;
-  max-width: 880px;
-  /* margin: auto; */
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 30px;
+  max-width: 880px;
+  padding-top: 40px;
   position: relative;
+  width: 100%;
+}
+
+@media (max-width: 1279px) {
+  .profile {
+    flex-direction: column;
+    max-width: 282px;
+    padding-top: 42px;
+  }
 }

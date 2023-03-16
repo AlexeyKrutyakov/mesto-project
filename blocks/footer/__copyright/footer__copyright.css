@@ -1,14 +1,21 @@
 .footer__copyright {
   color: #545454;
-  text-decoration: none;
   font-family: "Inter", "Arial", sans-serif;
+  font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
   line-height: 1.22;
+  text-decoration: none;
 }
 
 .footer__copyright:hover {
-  opacity: 0.8;
   cursor: pointer;
+  opacity: 0.8;
+}
+
+@media (max-width: 1279px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }

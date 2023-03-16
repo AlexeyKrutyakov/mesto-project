@@ -1,9 +1,19 @@
 .profile__info {
-  /* background-color: rgb(176, 176, 119); */
-  padding-top: 22px;
+  align-items: center;
+  column-gap: 18px;
   display: grid;
   grid-template-areas: "name edit-button" "text .";
-  column-gap: 18px;
+  padding-left: 30px;
+  padding-top: 22px;
   row-gap: 16px;
-  align-items: center;
+}
+
+@media (max-width: 1279px) {
+  .profile__info {
+    column-gap: 10px;
+    grid-template-areas: "name edit-button" "text text";
+    padding-left: 0;
+    padding-top: 26px;
+    row-gap: 14px;
+  }
 }
