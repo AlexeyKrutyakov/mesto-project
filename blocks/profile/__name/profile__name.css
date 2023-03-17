@@ -7,6 +7,9 @@
   grid-area: name;
   line-height: 1.14;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (max-width: 1279px) {
