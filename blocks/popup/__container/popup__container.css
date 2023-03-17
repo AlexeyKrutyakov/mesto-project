@@ -3,7 +3,6 @@
   background-color: rgba(255, 255, 255);
   border-radius: 10px;
   display: flex;
-  height: 330px;
   justify-content: center;
   margin: auto;
   overflow: hidden;
@@ -14,7 +13,6 @@
 
 @media (max-width: 1279px) {
   .popup__container {
-    height: 322px;
     width: 282px;
   }
 }

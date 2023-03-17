@@ -23,16 +23,18 @@
       </div>
       <button class="button profile__add-button"></button>
     </section>
-    <section class="popup">
-      <form class="popup__container">
-        <fieldset class="popup__profile-info">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__profile-name" value="Жак-Ив Кусто">
-          <input type="text" class="popup__profile-text" value="Исследователь океана">
-          <button class="popup__save-button">Сохранить</button>
-        </fieldset>
-      </form>
-      <button class="button button popup__close-button"></button>
+    <section class="popup popup_opened">
+      <div class="popup__container">
+        <button class="button popup__close-button"></button>
+        <form class="form" name="profile-info">
+          <fieldset class="form__profile-info">
+            <h2 class="form__title">Редактировать профиль</h2>
+            <input type="text" class="form__input" name="profile-name" value="Жак-Ив Кусто">
+            <input type="text" class="form__input" name="profile-text" value="Исследователь океана">
+            <button class="form__save-button">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
     </section>
     <section class="cards" aria-label="Галлерея карточек мест">
       <article class="card">
