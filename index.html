@@ -23,7 +23,7 @@
       </div>
       <button type="button" class="button profile__add-button" aria-label="Добавить карточку"></button>
     </section>
-    <section class="popup">
+    <section class="popup popup_edit-profile">
       <div class="popup__container">
         <button type="button" class="button popup__close-button" aria-label="Закрыть модальное окно"></button>
         <form class="form" name="profile-info">
@@ -31,6 +31,19 @@
             <h2 class="form__title">Редактировать профиль</h2>
             <input type="text" class="form__input" name="profile-name" value="Жак-Ив Кусто">
             <input type="text" class="form__input" name="profile-text" value="Исследователь океана">
+            <button type="submit" class="form__save-button">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+    <section class="popup popup_add-card">
+      <div class="popup__container">
+        <button type="button" class="button popup__close-button" aria-label="Закрыть модальное окно"></button>
+        <form class="form" name="profile-info">
+          <fieldset class="form__profile-info">
+            <h2 class="form__title">Новое место</h2>
+            <input type="text" class="form__input" name="profile-name" placeholder="Название">
+            <input type="text" class="form__input" name="profile-text" placeholder="Ссылка на картинку">
             <button type="submit" class="form__save-button">Сохранить</button>
           </fieldset>
         </form>
