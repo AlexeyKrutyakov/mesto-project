@@ -1,6 +1,6 @@
 // define profile data
 const profile = {
-  name: "Жак-Ив Кусто",
+  name: "Жак-Ив Куст",
   text: "Исследователь океана",
 };
 
@@ -10,13 +10,13 @@ const openedPopupClass = "popup_opened";
 // define 'edit profile' button
 const editProfileBtn = document.querySelector(".profile__edit-button");
 
-// define 'add card' button
-const addCardBtn = document.querySelector(".profile__add-button");
+// define 'add place' button
+const addPlaceBtn = document.querySelector(".profile__add-button");
 
 // define list of buttons and the popups they open
 const popupBtns = {
   "profile__edit-button": "popup_edit-profile",
-  "profile__add-button": "popup_add-card",
+  "profile__add-button": "popup_add-place",
 };
 
 // define class for 'close popup' button
@@ -37,6 +37,10 @@ const inputProfileName = document.querySelector(
 const inputProfileText = document.querySelector(
   ".form__input[name=profile-text]"
 );
+
+function definePopupBtn(popup, btnClass) {
+  return popup.querySelector(btnClass);
+}
 
 function openPopup(event) {
   // select all classes of clicked button
@@ -73,10 +77,6 @@ function openPopup(event) {
   saveFormBtn.addEventListener("click", submitForm);
 }
 
-function definePopupBtn(popup, btnClass) {
-  return popup.querySelector(btnClass);
-}
-
 function closePopup(event) {
   // define popup to close
   const clickedBtn = event.target;
@@ -93,10 +93,21 @@ function submitForm(event) {
   const clickedBtn = event.target;
   const popup = popupOfClickedBtn(clickedBtn);
 
-  // read data from form and put into the profile
-  const name = inputProfileName.value;
-  const text = inputProfileText.value;
-  saveProfile(name, text);
+  // define classes of opened popup
+  const popupClasses = popup.classList.value.split(" ");
+
+  // read data from form
+  const inputData = popup.querySelectorAll(".form__input");
+
+  // save profile if popup is profile form
+  if (popupClasses.includes("popup_edit-profile")) {
+    saveProfile(inputData);
+  }
+
+  // add place if popup is place form
+  if (popupClasses.includes("popup_add-place")) {
+    addPlace(inputData);
+  }
 
   // refresh profile data into the site
   refreshProfile();
@@ -105,14 +116,33 @@ function submitForm(event) {
   popup.classList.remove(openedPopupClass);
 }
 
-function saveProfile(name, text) {
-  profile.name = name;
-  profile.text = text;
+function saveProfile(inputData) {
+  // extract info from input
+  const data = extractDataFromInput(inputData);
+  // get keys of data object
+  const keys = Object.keys(data);
+
+  // update profile object
+  keys.forEach((key) => {
+    switch (key) {
+      case "profile-name":
+        profile.name = data[key];
+        break;
+      case "profile-text":
+        profile.text = data[key];
+        break;
+    }
+  });
 }
 
 function refreshProfile() {
   profileNameElement.textContent = profile.name;
   profileTextElement.textContent = profile.text;
+}
+
+function addPlace(inputData) {
+  const data = extractDataFromInput(inputData);
+  console.log("data: ", data);
 }
 
 function popupOfClickedBtn(btn) {
@@ -123,13 +153,27 @@ function popupOfClickedBtn(btn) {
   return popup;
 }
 
+function extractDataFromInput(inputData) {
+  const data = {};
+  for (let i = 0; i < inputData.length; i++) {
+    const name = inputData[i].name;
+    const value = inputData[i].value;
+    data[name] = value;
+  }
+  return data;
+}
+
 // initialize profile data
 refreshProfile();
 
 // add listener to 'edit profile' button
 editProfileBtn.addEventListener("click", openPopup);
 
-// add listener to 'add card' button
-addCardBtn.addEventListener("click", openPopup);
+// add listener to 'add place' button
+addPlaceBtn.addEventListener("click", openPopup);
 
-// TO-DO: fix add card popup in index.htmll
+// TO-DO:
+// 1. js-like-btn
+// 2. js-add-cards
+// 3. js-add-new-card
+// 4. js-remove-card

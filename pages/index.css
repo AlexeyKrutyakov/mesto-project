@@ -24,11 +24,12 @@
 /* import popup */
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/_edit-profile/popup_edit-profile.css");
-@import url("../blocks/popup/_add-card/popup_add-card.css");
+@import url("../blocks/popup/_add-place/popup_add-place.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/popup/__container/popup__container.css");
 @import url("../blocks/form/form.css");
 @import url("../blocks/form/__profile-info/form__profile-info.css");
+@import url("../blocks/form/__place-info/form__place-info.css");
 @import url("../blocks/form/__title/form__title.css");
 @import url("../blocks/form/__input/form__input.css");
 @import url("../blocks/form/__save-button/form__save-button.css");
