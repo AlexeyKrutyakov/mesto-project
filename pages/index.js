@@ -1,6 +1,6 @@
 // define profile data
 const profile = {
-  name: "Жак-Ив Куст",
+  name: "Жак-Ив Кусто",
   text: "Исследователь океана",
 };
 
@@ -8,22 +8,44 @@ const profile = {
 const openedPopupClass = "popup_opened";
 
 // define 'edit profile' button
-const editProfileBtn = document.querySelector(".profile__edit-button");
+const editProfileBtnClass = "profile__edit-button";
+const editProfileBtn = document.querySelector(`.${editProfileBtnClass}`);
+
+// define 'edit profile' popup
+const editProfilePopupClass = "popup_edit-profile";
+const editProfilePopup = document.querySelector(`.${editProfilePopupClass}`);
 
 // define 'add place' button
-const addPlaceBtn = document.querySelector(".profile__add-button");
+const addPlaceBtnClass = "profile__add-button";
+const addPlaceBtn = document.querySelector(`.${addPlaceBtnClass}`);
+
+// define 'add place' popup
+const addPlacePopupClass = "popup_add-place";
+const addPlacePopup = document.querySelector(`.${addPlacePopupClass}`);
 
 // define list of buttons and the popups they open
-const popupBtns = {
-  "profile__edit-button": "popup_edit-profile",
-  "profile__add-button": "popup_add-place",
+const popups = {
+  editProfile: {
+    btn: editProfileBtn,
+    popup: editProfilePopup,
+  },
+  addPlace: {
+    btn: addPlaceBtn,
+    popup: addPlacePopup,
+  },
 };
 
 // define class for 'close popup' button
-const popupCloseBtnClass = ".popup__close-button";
+const popupCloseBtnClass = "popup__close-button";
 
 // define class for 'save form' button
-const saveFormBtnClass = ".form__save-button";
+const saveFormBtnClass = "form__save-button";
+
+// define class for 'like' button
+const likeBtnClass = "card__like-button";
+
+// define class for active 'like' button
+const activeLikeBtnClass = "card__like-button_active";
 
 // define profile name and profile text elements
 let profileNameElement = document.querySelector(".profile__name");
@@ -39,32 +61,24 @@ const inputProfileText = document.querySelector(
 );
 
 function definePopupBtn(popup, btnClass) {
-  return popup.querySelector(btnClass);
+  return popup.querySelector(`.${btnClass}`);
 }
 
-function openPopup(event) {
-  // select all classes of clicked button
-  const btnClasses = event.target.classList.value.split(" ");
-  // find the class of popup that opens with a clicked button
-  const popupBtnsKeys = Object.keys(popupBtns);
-  let popupClass = "";
-
-  for (let i = 0; i < btnClasses.length; i++) {
-    const btnClass = btnClasses[i];
-    if (popupBtnsKeys.includes(btnClass)) {
-      popupClass = popupBtns[btnClass];
+function openPopup(btn) {
+  let popup;
+  switch (btn) {
+    case editProfileBtn:
+      popup = popups.editProfile.popup;
+      // initiate input values with current profile data
+      inputProfileName.value = profile.name;
+      inputProfileText.value = profile.text;
       break;
-    }
+    case addPlaceBtn:
+      popup = popups.addPlace.popup;
+      break;
   }
-
-  // select the popup to open
-  const popup = document.querySelector(`.${popupClass}`);
   // add open modifier to popup
   popup.classList.add(openedPopupClass);
-
-  // initiate input values with current profile data
-  inputProfileName.value = profile.name;
-  inputProfileText.value = profile.text;
 
   // define close button for opened popup
   const popupCloseBtn = definePopupBtn(popup, popupCloseBtnClass);
@@ -163,14 +177,37 @@ function extractDataFromInput(inputData) {
   return data;
 }
 
+function toggleLike(event) {
+  const likeBtn = event.target;
+  const btnClasses = likeBtn.classList;
+  if (btnClasses.value.split(" ").includes(activeLikeBtnClass)) {
+    btnClasses.remove(activeLikeBtnClass);
+  } else {
+    btnClasses.add(activeLikeBtnClass);
+  }
+}
+
+function eventRunner(event) {
+  switch (event.target) {
+    case editProfileBtn:
+      openPopup(editProfileBtn);
+      break;
+    case addPlaceBtn:
+      openPopup(addPlaceBtn);
+      break;
+  }
+
+  const targetClasses = event.target.classList.value.split(" ");
+  if (targetClasses.includes(likeBtnClass)) {
+    toggleLike(event);
+  }
+}
+
 // initialize profile data
 refreshProfile();
 
-// add listener to 'edit profile' button
-editProfileBtn.addEventListener("click", openPopup);
-
-// add listener to 'add place' button
-addPlaceBtn.addEventListener("click", openPopup);
+// initialize listener for document
+document.addEventListener("click", (e) => eventRunner(e));
 
 // TO-DO:
 // 1. js-like-btn
