@@ -1,5 +1,17 @@
+// define profile data
+const profile = {
+  name: "Жак-Ив Кусто",
+  text: "Исследователь океана",
+};
+
 // define class for opened popup
 const openedPopupClass = "popup_opened";
+
+// define 'edit profile' button
+const editProfileBtn = document.querySelector(".profile__edit-button");
+
+// define 'add card' button
+const addCardBtn = document.querySelector(".profile__add-button");
 
 // define list of buttons and the popups they open
 const popupBtns = {
@@ -7,23 +19,15 @@ const popupBtns = {
   "profile__add-button": "popup_add-card",
 };
 
-// define 'edit profile' button
-const editProfileBtnClass = "profile__edit-button";
-const editProfileBtn = document.querySelector(`.${editProfileBtnClass}`);
-
-// define 'add card' button
-const addCardBtnClass = "profile__add-button";
-const addCardBtn = document.querySelector(`.${addCardBtnClass}`);
-
 // define class for 'close popup' button
-const popupCloseButtonClass = "popup__close-button";
+const popupCloseBtnClass = ".popup__close-button";
 
 // define class for 'save form' button
-const saveFormButtonClass = "form__save-button";
+const saveFormBtnClass = ".form__save-button";
 
 // define profile name and profile text elements
-const profileName = document.querySelector(".profile__name");
-const profileText = document.querySelector(".profile__text");
+let profileNameElement = document.querySelector(".profile__name");
+let profileTextElement = document.querySelector(".profile__text");
 
 // define 'profile name' input value
 const inputProfileName = document.querySelector(
@@ -50,36 +54,82 @@ function openPopup(event) {
   }
 
   // select the popup to open
-  popup = document.querySelector(`.${popupClass}`);
+  const popup = document.querySelector(`.${popupClass}`);
   // add open modifier to popup
   popup.classList.add(openedPopupClass);
 
-  // define closse button for opened popup
-  const popupCloseButton = popup.querySelector(`.${popupCloseButtonClass}`);
+  // initiate input values with current profile data
+  inputProfileName.value = profile.name;
+  inputProfileText.value = profile.text;
+
+  // define close button for opened popup
+  const popupCloseBtn = definePopupBtn(popup, popupCloseBtnClass);
+
   // define save button for opened popup
-  const saveFormButton = popup.querySelector(`.${saveFormButtonClass}`);
+  const saveFormBtn = definePopupBtn(popup, saveFormBtnClass);
 
   // add listeners to close button and save button for opened popup
-  popupCloseButton.addEventListener("click", closePopup);
-  saveFormButton.addEventListener("click", saveForm);
+  popupCloseBtn.addEventListener("click", closePopup);
+  saveFormBtn.addEventListener("click", submitForm);
+}
+
+function definePopupBtn(popup, btnClass) {
+  return popup.querySelector(btnClass);
 }
 
 function closePopup(event) {
   // define popup to close
-  popup = event.target.parentElement.parentElement;
+  const clickedBtn = event.target;
+  const popup = popupOfClickedBtn(clickedBtn);
   // add close modifier to popup
   popup.classList.remove(openedPopupClass);
 }
 
-function saveForm() {
-  alert("funct: saveForm");
+function submitForm(event) {
+  // override the default submit behavior
+  event.preventDefault();
+
+  // define opened popup
+  const clickedBtn = event.target;
+  const popup = popupOfClickedBtn(clickedBtn);
+
+  // read data from form and put into the profile
+  const name = inputProfileName.value;
+  const text = inputProfileText.value;
+  saveProfile(name, text);
+
+  // refresh profile data into the site
+  refreshProfile();
+
+  // close opened popup
+  popup.classList.remove(openedPopupClass);
 }
 
-// initiate input values with current profile data
-inputProfileName.value = profileName.textContent;
-inputProfileText.value = profileText.textContent;
+function saveProfile(name, text) {
+  profile.name = name;
+  profile.text = text;
+}
+
+function refreshProfile() {
+  profileNameElement.textContent = profile.name;
+  profileTextElement.textContent = profile.text;
+}
+
+function popupOfClickedBtn(btn) {
+  let popup = btn.parentElement;
+  while (!popup.classList.value.split(" ").includes("popup")) {
+    popup = popup.parentElement;
+  }
+  return popup;
+}
+
+// initialize profile data
+refreshProfile();
 
 // add listener to 'edit profile' button
 editProfileBtn.addEventListener("click", openPopup);
+
 // add listener to 'add card' button
 addCardBtn.addEventListener("click", openPopup);
+
+// TO-DO: fix add card popup in index.htmll
