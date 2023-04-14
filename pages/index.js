@@ -4,6 +4,33 @@ const profile = {
   text: "Исследователь океана",
 };
 
+const places = {
+  Молога: {
+    src: "./images/flooded-city.jpg",
+    alt: "Затопленный монастырь в озере",
+  },
+  "Петропавловск Камчатский": {
+    src: "./images/petropavlovsk-kamchatskiy.jpg",
+    alt: "Город у подножия вулкана",
+  },
+  Якутск: {
+    src: "./images/yakutsk.jpg",
+    alt: "Лошади в снегу",
+  },
+  Магадан: {
+    src: "./images/magadan.jpg",
+    alt: "Закат на море в Магадане",
+  },
+  Рускеала: {
+    src: "./images/ruskeala-failure.jpg",
+    alt: "Провал в пещеру",
+  },
+  "Чагаз-Узун": {
+    src: "./images/mars-mountains.jpg",
+    alt: "Долина с рыжыми пейзажами на фоне голубых гор",
+  },
+};
+
 // define class for opened popup
 const openedPopupClass = "popup_opened";
 
@@ -35,6 +62,9 @@ const popups = {
   },
 };
 
+// define section cards
+const cards = document.querySelector(".cards");
+
 // define class for 'close popup' button
 const popupCloseBtnClass = "popup__close-button";
 
@@ -59,6 +89,9 @@ const inputProfileName = document.querySelector(
 const inputProfileText = document.querySelector(
   ".form__input[name=profile-text]"
 );
+
+// define card template
+const cardTemplate = document.querySelector("#card-template").content;
 
 function definePopupBtn(popup, btnClass) {
   return popup.querySelector(`.${btnClass}`);
@@ -156,7 +189,7 @@ function refreshProfile() {
 
 function addPlace(inputData) {
   const data = extractDataFromInput(inputData);
-  console.log("data: ", data);
+  createPlace(cardTemplate, data["place-name"], data["place-image"]);
 }
 
 function popupOfClickedBtn(btn) {
@@ -203,14 +236,33 @@ function eventRunner(event) {
   }
 }
 
+function createPlace(cardTemplate, placeName, placeImage, imageAlt = "") {
+  // create copy of template
+  const template = cardTemplate.cloneNode(true);
+  // define and initialize card name
+  const cardName = template.querySelector(".card__name");
+  cardName.textContent = placeName;
+  // define and initialize card image
+  cardImage = template.querySelector(".card__image");
+  cardImage.src = placeImage;
+  cardImage.alt = imageAlt;
+  // add card into the cards
+  cards.append(template);
+}
+
 // initialize profile data
 refreshProfile();
+
+// initialize place cards
+const placesKeys = Object.keys(places);
+placesKeys.forEach((key) => {
+  createPlace(cardTemplate, key, places[key].src, places[key].alt);
+});
 
 // initialize listener for document
 document.addEventListener("click", (e) => eventRunner(e));
 
 // TO-DO:
-// 1. js-like-btn
 // 2. js-add-cards
 // 3. js-add-new-card
 // 4. js-remove-card
