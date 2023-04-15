@@ -71,6 +71,9 @@ const popupCloseBtnClass = "popup__close-button";
 // define class for 'save form' button
 const saveFormBtnClass = "form__save-button";
 
+// define class for 'remove card' button
+const removeCardBtnClass = "card__remove-button";
+
 // define class for 'like' button
 const likeBtnClass = "card__like-button";
 
@@ -127,7 +130,7 @@ function openPopup(btn) {
 function closePopup(event) {
   // define popup to close
   const clickedBtn = event.target;
-  const popup = popupOfClickedBtn(clickedBtn);
+  const popup = parentOfClickedBtn(clickedBtn);
   // add close modifier to popup
   popup.classList.remove(openedPopupClass);
 }
@@ -138,7 +141,7 @@ function submitForm(event) {
 
   // define opened popup
   const clickedBtn = event.target;
-  const popup = popupOfClickedBtn(clickedBtn);
+  const popup = parentOfClickedBtn(clickedBtn);
 
   // define classes of opened popup
   const popupClasses = popup.classList.value.split(" ");
@@ -192,12 +195,14 @@ function addPlace(inputData) {
   createPlace(cardTemplate, data["place-name"], data["place-image"]);
 }
 
-function popupOfClickedBtn(btn) {
-  let popup = btn.parentElement;
-  while (!popup.classList.value.split(" ").includes("popup")) {
-    popup = popup.parentElement;
+function parentOfClickedBtn(btn) {
+  let parent = btn.parentElement;
+  let parentClasses = parent.classList.value.split(" ");
+  while (!parentClasses.includes("popup") && !parentClasses.includes("card")) {
+    parent = parent.parentElement;
+    parentClasses = parent.classList.value.split(" ");
   }
-  return popup;
+  return parent;
 }
 
 function extractDataFromInput(inputData) {
@@ -234,6 +239,9 @@ function eventRunner(event) {
   if (targetClasses.includes(likeBtnClass)) {
     toggleLike(event);
   }
+  if (targetClasses.includes(removeCardBtnClass)) {
+    removePlace(event);
+  }
 }
 
 function createPlace(cardTemplate, placeName, placeImage, imageAlt = "") {
@@ -250,6 +258,12 @@ function createPlace(cardTemplate, placeName, placeImage, imageAlt = "") {
   cards.prepend(template);
 }
 
+function removePlace(event) {
+  const removeBtn = event.target;
+  const card = parentOfClickedBtn(removeBtn);
+  card.remove();
+}
+
 // initialize profile data
 refreshProfile();
 
@@ -264,6 +278,5 @@ document.addEventListener("click", (e) => eventRunner(e));
 
 // TO-DO:
 // 1. js-remove-card
-// 2. fix: add card to begin of cards
-// 3. fix: github pages
-// 4.
+// 2. fix: github pages
+// 3.
