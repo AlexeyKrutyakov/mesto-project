@@ -5,29 +5,29 @@ const profile = {
 };
 
 const places = {
-  Молога: {
-    src: "./images/flooded-city.jpg",
-    alt: "Затопленный монастырь в озере",
-  },
-  "Петропавловск Камчатский": {
-    src: "./images/petropavlovsk-kamchatskiy.jpg",
-    alt: "Город у подножия вулкана",
-  },
-  Якутск: {
-    src: "./images/yakutsk.jpg",
-    alt: "Лошади в снегу",
-  },
-  Магадан: {
-    src: "./images/magadan.jpg",
-    alt: "Закат на море в Магадане",
+  "Чагаз-Узун": {
+    src: "./images/mars-mountains.jpg",
+    alt: "Долина с рыжыми пейзажами на фоне голубых гор",
   },
   Рускеала: {
     src: "./images/ruskeala-failure.jpg",
     alt: "Провал в пещеру",
   },
-  "Чагаз-Узун": {
-    src: "./images/mars-mountains.jpg",
-    alt: "Долина с рыжыми пейзажами на фоне голубых гор",
+  Магадан: {
+    src: "./images/magadan.jpg",
+    alt: "Закат на море в Магадане",
+  },
+  Якутск: {
+    src: "./images/yakutsk.jpg",
+    alt: "Лошади в снегу",
+  },
+  "Петропавловск Камчатский": {
+    src: "./images/petropavlovsk-kamchatskiy.jpg",
+    alt: "Город у подножия вулкана",
+  },
+  Молога: {
+    src: "./images/flooded-city.jpg",
+    alt: "Затопленный монастырь в озере",
   },
 };
 
@@ -247,7 +247,7 @@ function createPlace(cardTemplate, placeName, placeImage, imageAlt = "") {
   cardImage.src = placeImage;
   cardImage.alt = imageAlt;
   // add card into the cards
-  cards.append(template);
+  cards.prepend(template);
 }
 
 // initialize profile data
@@ -264,4 +264,6 @@ document.addEventListener("click", (e) => eventRunner(e));
 
 // TO-DO:
 // 1. js-remove-card
-// 2. add card delete button
+// 2. fix: add card to begin of cards
+// 3. fix: github pages
+// 4.
