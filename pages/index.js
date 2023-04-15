@@ -263,6 +263,5 @@ placesKeys.forEach((key) => {
 document.addEventListener("click", (e) => eventRunner(e));
 
 // TO-DO:
-// 2. js-add-cards
-// 3. js-add-new-card
-// 4. js-remove-card
+// 1. js-remove-card
+// 2. add card delete button
