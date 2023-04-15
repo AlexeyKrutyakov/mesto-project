@@ -1,0 +1,15 @@
+.popup__container_type_profile-form {
+  align-items: center;
+  background-color: rgba(255, 255, 255);
+  border-radius: 10px;
+  justify-content: center;
+  margin: auto;
+  overflow: hidden;
+  width: 430px;
+}
+
+@media (max-width: 1279px) {
+  .popup__container_type_profile-form {
+    width: 282px;
+  }
+}
