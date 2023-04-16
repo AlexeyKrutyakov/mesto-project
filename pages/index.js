@@ -304,6 +304,5 @@ placesKeys.forEach((key) => {
 document.addEventListener("click", (e) => eventRunner(e));
 
 // TO-DO:
-// 1. js-popup_type_image
 // 2. fix: github pages
 // 3. fix: big image width < 320px -> crash
