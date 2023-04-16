@@ -50,6 +50,10 @@ const addPlaceBtn = document.querySelector(`.${addPlaceBtnClass}`);
 const addPlacePopupClass = "popup_type_add-place";
 const addPlacePopup = document.querySelector(`.${addPlacePopupClass}`);
 
+// define 'enlarge image' popup
+const imagePopupClass = "popup_type_enlarge-image";
+const imagePopup = document.querySelector(`.${imagePopupClass}`);
+
 // define list of buttons and the popups they open
 const popups = {
   editProfile: {
@@ -64,6 +68,9 @@ const popups = {
 
 // define section cards
 const cards = document.querySelector(".cards");
+
+const cardImageClass = "card__image";
+const cardImage = document.querySelector(`.${cardImageClass}`);
 
 // define class for 'close popup' button
 const popupCloseBtnClass = "popup__close-button";
@@ -107,20 +114,34 @@ function definePopupBtn(popup, btnClass) {
   return popup.querySelector(`.${btnClass}`);
 }
 
-function openPopup(btn) {
+function openPopup(target) {
   let popup;
-  switch (btn) {
-    case editProfileBtn:
-      popup = popups.editProfile.popup;
-      // initiate input values with current profile data
-      inputProfileName.value = profile.name;
-      inputProfileText.value = profile.text;
-      break;
-    case addPlaceBtn:
-      popup = popups.addPlace.popup;
-      inputPlaceName.value = "";
-      inputPlaceImage.value = "";
-      break;
+  let saveFormBtn;
+
+  if (target.classList.value.split(" ").includes(cardImageClass)) {
+    popup = imagePopup;
+    const image = popup.querySelector(".popup__image");
+    image.src = target.src;
+    const name = target.parentElement.querySelector(".card__name").textContent;
+    const figcaption = popup.querySelector(".popup__figcaption");
+    figcaption.textContent = name;
+  } else {
+    switch (target) {
+      case editProfileBtn:
+        popup = popups.editProfile.popup;
+        // initiate input values with current profile data
+        inputProfileName.value = profile.name;
+        inputProfileText.value = profile.text;
+        break;
+      case addPlaceBtn:
+        popup = popups.addPlace.popup;
+        inputPlaceName.value = "";
+        inputPlaceImage.value = "";
+        break;
+    }
+    // define save button for opened popup
+    saveFormBtn = definePopupBtn(popup, saveFormBtnClass);
+    saveFormBtn.addEventListener("click", submitForm);
   }
   // add open modifier to popup
   popup.classList.add(openedPopupClass);
@@ -128,12 +149,8 @@ function openPopup(btn) {
   // define close button for opened popup
   const popupCloseBtn = definePopupBtn(popup, popupCloseBtnClass);
 
-  // define save button for opened popup
-  const saveFormBtn = definePopupBtn(popup, saveFormBtnClass);
-
   // add listeners to close button and save button for opened popup
   popupCloseBtn.addEventListener("click", closePopup);
-  saveFormBtn.addEventListener("click", submitForm);
 }
 
 function closePopup(event) {
@@ -224,8 +241,7 @@ function extractDataFromInput(inputData) {
   return data;
 }
 
-function toggleLike(event) {
-  const likeBtn = event.target;
+function toggleLike(likeBtn) {
   const btnClasses = likeBtn.classList;
   if (btnClasses.value.split(" ").includes(activeLikeBtnClass)) {
     btnClasses.remove(activeLikeBtnClass);
@@ -246,10 +262,13 @@ function eventRunner(event) {
 
   const targetClasses = event.target.classList.value.split(" ");
   if (targetClasses.includes(likeBtnClass)) {
-    toggleLike(event);
+    toggleLike(event.target);
   }
   if (targetClasses.includes(removeCardBtnClass)) {
-    removePlace(event);
+    removePlace(event.target);
+  }
+  if (targetClasses.includes(cardImageClass)) {
+    openPopup(event.target);
   }
 }
 
@@ -260,15 +279,14 @@ function createPlace(cardTemplate, placeName, placeImage, imageAlt = "") {
   const cardName = template.querySelector(".card__name");
   cardName.textContent = placeName;
   // define and initialize card image
-  cardImage = template.querySelector(".card__image");
+  const cardImage = template.querySelector(".card__image");
   cardImage.src = placeImage;
   cardImage.alt = imageAlt;
   // add card into the cards
   cards.prepend(template);
 }
 
-function removePlace(event) {
-  const removeBtn = event.target;
+function removePlace(removeBtn) {
   const card = parentOfClickedBtn(removeBtn);
   card.remove();
 }
@@ -286,6 +304,6 @@ placesKeys.forEach((key) => {
 document.addEventListener("click", (e) => eventRunner(e));
 
 // TO-DO:
-// 1. js-remove-card
+// 1. js-popup_type_image
 // 2. fix: github pages
 // 3. fix: big image width < 320px -> crash
