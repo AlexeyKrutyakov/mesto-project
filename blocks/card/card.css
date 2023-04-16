@@ -1,5 +1,4 @@
 .card {
-  position: relative;
   align-items: center;
   background-color: #fff;
   border-radius: 10px;
@@ -8,5 +7,6 @@
   grid-template-columns: 189px 1fr;
   grid-template-rows: min-content 1fr;
   overflow: hidden;
+  position: relative;
   width: 282px;
 }

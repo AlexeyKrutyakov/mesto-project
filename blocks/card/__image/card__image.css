@@ -1,8 +1,8 @@
 .card__image {
+  cursor: pointer;
   grid-area: image;
   height: 282px;
-  width: 282px;
   object-fit: cover;
   object-position: 50% 50%;
-  cursor: pointer;
+  width: 282px;
 }

@@ -1,10 +1,10 @@
 .card__remove-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 18px;
-  height: 19px;
   background-image: url("../../../images/trash.svg");
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: cover;
+  height: 19px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 18px;
 }
