@@ -5,17 +5,13 @@
   border: none;
   cursor: pointer;
   height: 32px;
-  left: calc(50% + 430px / 2 + 8px);
   position: fixed;
-  top: calc(50% - 330px / 2 - 32px - 8px);
   width: 32px;
 }
 
 @media (max-width: 1279px) {
   .popup__close-button {
     height: 20px;
-    left: calc(50% + 282px / 2 - 20px);
-    top: calc(50% - 322px / 2 - 20px - 16px);
     width: 20px;
   }
 }

@@ -39,7 +39,7 @@ const editProfileBtnClass = "profile__edit-button";
 const editProfileBtn = document.querySelector(`.${editProfileBtnClass}`);
 
 // define 'edit profile' popup
-const editProfilePopupClass = "popup_edit-profile";
+const editProfilePopupClass = "popup_type_edit-profile";
 const editProfilePopup = document.querySelector(`.${editProfilePopupClass}`);
 
 // define 'add place' button
@@ -47,7 +47,7 @@ const addPlaceBtnClass = "profile__add-button";
 const addPlaceBtn = document.querySelector(`.${addPlaceBtnClass}`);
 
 // define 'add place' popup
-const addPlacePopupClass = "popup_add-place";
+const addPlacePopupClass = "popup_type_add-place";
 const addPlacePopup = document.querySelector(`.${addPlacePopupClass}`);
 
 // define list of buttons and the popups they open
@@ -93,6 +93,13 @@ const inputProfileText = document.querySelector(
   ".form__input[name=profile-text]"
 );
 
+// define 'place name' input value
+const inputPlaceName = document.querySelector(".form__input[name=place-name]");
+// define 'place text' input value
+const inputPlaceImage = document.querySelector(
+  ".form__input[name=place-image]"
+);
+
 // define card template
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -111,6 +118,8 @@ function openPopup(btn) {
       break;
     case addPlaceBtn:
       popup = popups.addPlace.popup;
+      inputPlaceName.value = "";
+      inputPlaceImage.value = "";
       break;
   }
   // add open modifier to popup
@@ -150,12 +159,12 @@ function submitForm(event) {
   const inputData = popup.querySelectorAll(".form__input");
 
   // save profile if popup is profile form
-  if (popupClasses.includes("popup_edit-profile")) {
+  if (popupClasses.includes(editProfilePopupClass)) {
     saveProfile(inputData);
   }
 
   // add place if popup is place form
-  if (popupClasses.includes("popup_add-place")) {
+  if (popupClasses.includes(addPlacePopupClass)) {
     addPlace(inputData);
   }
 
@@ -279,4 +288,4 @@ document.addEventListener("click", (e) => eventRunner(e));
 // TO-DO:
 // 1. js-remove-card
 // 2. fix: github pages
-// 3.
+// 3. fix: big image width < 320px -> crash

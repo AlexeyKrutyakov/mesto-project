@@ -23,9 +23,10 @@
       </div>
       <button type="button" class="button profile__add-button" aria-label="Добавить карточку"></button>
     </section>
-    <section class="popup popup_edit-profile">
+    <section class="popup popup_type_edit-profile">
       <div class="popup__container popup__container_type_profile-form">
-        <button type="button" class="button popup__close-button" aria-label="Закрыть модальное окно"></button>
+        <button type="button" class="button popup__close-button popup__close-button_type_profile-form"
+          aria-label="Закрыть модальное окно"></button>
         <form class="form" name="profile-info">
           <fieldset class="form__profile-info">
             <h2 class="form__title">Редактировать профиль</h2>
@@ -36,9 +37,10 @@
         </form>
       </div>
     </section>
-    <section class="popup popup_add-place">
+    <section class="popup popup_type_add-place">
       <div class="popup__container popup__container_type_place-form">
-        <button type="button" class="button popup__close-button" aria-label="Закрыть модальное окно"></button>
+        <button type="button" class="button popup__close-button popup__close-button_type_place-form"
+          aria-label="Закрыть модальное окно"></button>
         <form class="form" name="place-info">
           <fieldset class="form__place-info">
             <h2 class="form__title">Новое место</h2>
@@ -49,9 +51,14 @@
         </form>
       </div>
     </section>
-    <section class="popup">
-      <div class="popup__container_type_figure">
-        <img src="./images/ruskeala-failure.jpg" alt="">
+    <section class="popup popup_type_enlarge-image popup_opened">
+      <div class="popup__container popup__container_type_figure">
+        <button type="button" class="button popup__close-button popup__close-button_type_fugure"
+          aria-label="Закрыть модальное окно"></button>
+        <figure class="popup__figure">
+          <img class="popup__image" src="./images/yakutsk.jpg" alt="">
+          <figcaption class="popup__figcaption">Якутск</figcaption>
+        </figure>
       </div>
     </section>
     <section class="cards" aria-label="Галлерея карточек мест">

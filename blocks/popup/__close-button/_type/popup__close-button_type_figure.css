@@ -1,0 +1,12 @@
+.popup__close-button_type_fugure {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+}
+
+@media (max-width: 1279px) {
+  .popup__close-button_type_fugure {
+    right: 0;
+    top: -36px;
+  }
+}

@@ -1,5 +1,11 @@
 .popup__container_type_figure {
-  background-color: rgb(119, 54, 54);
-  width: 75vw;
-  height: 75vw;
+  align-self: center;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media (max-width: 1279px) {
+  .popup__container_type_figure {
+    width: 240px;
+  }
 }
