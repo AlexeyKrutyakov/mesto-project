@@ -7,6 +7,9 @@ const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddPlace = document.querySelector(".popup_type_add-place");
 // popup with 'enlarge image place'
 const popupEnlargeImage = document.querySelector(".popup_type_enlarge-image");
+// elements of enlarge image popup
+const popupImage = popupEnlargeImage.querySelector(".popup__image");
+const popupFigcaption = popupEnlargeImage.querySelector(".popup__figcaption");
 
 // FORMS
 // form for edit profile
@@ -72,11 +75,6 @@ function openPopupEditProfile() {
   // initiate input values with current profile data
   inputProfileName.value = profile.name;
   inputProfileText.value = profile.text;
-  // add listeners for popup buttons
-  btnClosePopupEditProfile.addEventListener("click", () =>
-    closePopup(popupEditProfile)
-  );
-  formEditProfile.addEventListener("submit", submitFormEditProfile);
 }
 
 function openPopupAddPlace() {
@@ -85,12 +83,6 @@ function openPopupAddPlace() {
   // clear old name and text in input fields
   inputPlaceName.value = "";
   inputPlaceImage.value = "";
-
-  // add listeners for popup buttons
-  btnClosePopupAddPlace.addEventListener("click", () =>
-    closePopup(popupAddPlace)
-  );
-  formAddPlace.addEventListener("submit", submitFormAddPlace);
 }
 
 function openPopupEnlargeImage(event) {
@@ -98,17 +90,11 @@ function openPopupEnlargeImage(event) {
   const placeName = event.target
     .closest(".card")
     .querySelector(".card__name").textContent;
-  const popupImage = popupEnlargeImage.querySelector(".popup__image");
-  const popupFigcaption = popupEnlargeImage.querySelector(".popup__figcaption");
 
   popupImage.src = imageLink;
   popupFigcaption.textContent = placeName;
 
   openPopup(popupEnlargeImage);
-
-  btnClosePopupEnlargeImage.addEventListener("click", () =>
-    closePopup(popupEnlargeImage)
-  );
 }
 
 function submitFormEditProfile(event, form) {
@@ -195,5 +181,19 @@ initialCards.forEach((place) => {
   addPlaceCard(place.name, place.link, place.alt);
 });
 
+// add listeners for popups buttons
 btnEditProfile.addEventListener("click", openPopupEditProfile);
+btnClosePopupEditProfile.addEventListener("click", () =>
+  closePopup(popupEditProfile)
+);
+formEditProfile.addEventListener("submit", submitFormEditProfile);
+
 btnAddPlace.addEventListener("click", openPopupAddPlace);
+btnClosePopupAddPlace.addEventListener("click", () =>
+  closePopup(popupAddPlace)
+);
+formAddPlace.addEventListener("submit", submitFormAddPlace);
+
+btnClosePopupEnlargeImage.addEventListener("click", () =>
+  closePopup(popupEnlargeImage)
+);
