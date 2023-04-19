@@ -92,6 +92,7 @@ function openPopupEnlargeImage(event) {
     .querySelector(".card__name").textContent;
 
   popupImage.src = imageLink;
+  popupImage.alt = "Увеличенное изображение места " + placeName;
   popupFigcaption.textContent = placeName;
 
   openPopup(popupEnlargeImage);
