@@ -136,11 +136,7 @@ function refreshProfile() {
 function toggleLike(event) {
   const btnLike = event.target;
   const btnClasses = btnLike.classList;
-  if (btnClasses.value.split(" ").includes(classActiveLikeBtn)) {
-    btnClasses.remove(classActiveLikeBtn);
-  } else {
-    btnClasses.add(classActiveLikeBtn);
-  }
+  btnClasses.toggle(classActiveLikeBtn);
 }
 
 function addPlaceCard(placeName, placeImage, imageAlt = "") {
