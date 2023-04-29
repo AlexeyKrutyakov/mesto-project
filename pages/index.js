@@ -27,21 +27,25 @@ const classRemoveCardBtn = 'card__remove-button';
 // class for opened popup
 const classOpenedPopup = 'popup_opened';
 // popup for edit profile
-const popupEditProfile = page.querySelector('.popup_type_edit-profile');
+const classPopupEditProfile = 'popup_type_edit-profile';
+const popupEditProfile = page.querySelector(`.${classPopupEditProfile}`);
 // button 'close edit-profile popup'
+const classBtnClosePopupEditProfile = 'popup__close-button';
 const btnClosePopupEditProfile = popupEditProfile.querySelector(
-  '.popup__close-button'
+  `.${classBtnClosePopupEditProfile}`
 );
 // popup for add place
-const popupAddPlace = page.querySelector('.popup_type_add-place');
+const classPopupAddPlace = 'popup_type_add-place';
+const popupAddPlace = page.querySelector(`.${classPopupAddPlace}`);
 // popup with 'enlarge image place'
 const popupEnlargeImage = page.querySelector('.popup_type_enlarge-image');
 // elements of enlarge image popup
 const popupImage = popupEnlargeImage.querySelector('.popup__image');
 const popupFigcaption = popupEnlargeImage.querySelector('.popup__figcaption');
 // button close 'add place popup'
+const classBtnClosePopupAddPlace = 'popup__close-button';
 const btnClosePopupAddPlace = popupAddPlace.querySelector(
-  '.popup__close-button'
+  `.${classBtnClosePopupAddPlace}`
 );
 // button close 'enlarge image popup'
 const btnClosePopupEnlargeImage = popupEnlargeImage.querySelector(
@@ -65,6 +69,8 @@ const inputPlaceName = formAddPlace.querySelector(
 const inputPlaceImage = formAddPlace.querySelector(
   '.form__input[name=place-image]'
 );
+// 'submit' button of the popup
+const classPopupSubmitBtn = 'form__save-button';
 
 // FUNCTIONS
 function openPopup(popup) {
@@ -80,6 +86,9 @@ function openPopupEditProfile() {
   // initiate input values with current profile data
   inputProfileName.value = profile.name;
   inputProfileText.value = profile.text;
+  // add listeners for popup buttons
+  popupEditProfile.addEventListener('click', clickHandler);
+  formEditProfile.addEventListener('submit', submitFormEditProfile);
 }
 
 function openPopupAddPlace() {
@@ -88,6 +97,9 @@ function openPopupAddPlace() {
   // clear old name and text in input fields
   inputPlaceName.value = '';
   inputPlaceImage.value = '';
+  // add listeners for popup buttons
+  popupAddPlace.addEventListener('click', clickHandler);
+  formAddPlace.addEventListener('submit', submitFormAddPlace);
 }
 
 function openPopupEnlargeImage(event) {
@@ -190,6 +202,27 @@ function clickHandler(event) {
   if (event.target.classList.contains(classRemoveCardBtn)) {
     removeCard(event);
   }
+  if (event.target.classList.contains(classBtnClosePopupEditProfile)) {
+    popupEditProfile.removeEventListener('click', clickHandler);
+    closePopup(popupEditProfile);
+  }
+  if (event.target.classList.contains(classBtnClosePopupAddPlace)) {
+    popupAddPlace.removeEventListener('click', clickHandler);
+    closePopup(popupAddPlace);
+  }
+  if (event.target.classList.contains(classPopupSubmitBtn)) {
+    const form = event.target.closest('.form');
+    switch (form.name) {
+      case 'profile-info':
+        popupEditProfile.removeEventListener('click', clickHandler);
+        formEditProfile.removeEventListener('submit', submitFormEditProfile);
+        break;
+      case 'place-info':
+        popupAddPlace.removeEventListener('click', clickHandler);
+        formAddPlace.removeEventListener('submit', submitFormAddPlace);
+        break;
+    }
+  }
 }
 
 // initialize place cards
@@ -200,16 +233,6 @@ initialCards.forEach((place) => {
 // add listeners for popups buttons
 profileSection.addEventListener('click', clickHandler);
 cardsSection.addEventListener('click', clickHandler);
-
-btnClosePopupEditProfile.addEventListener('click', () =>
-  closePopup(popupEditProfile)
-);
-formEditProfile.addEventListener('submit', submitFormEditProfile);
-
-btnClosePopupAddPlace.addEventListener('click', () =>
-  closePopup(popupAddPlace)
-);
-formAddPlace.addEventListener('submit', submitFormAddPlace);
 
 btnClosePopupEnlargeImage.addEventListener('click', () =>
   closePopup(popupEnlargeImage)
