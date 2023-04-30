@@ -29,6 +29,8 @@ const classOpenedPopup = 'popup_opened';
 // popup for edit profile
 const classPopupEditProfile = 'popup_type_edit-profile';
 const popupEditProfile = page.querySelector(`.${classPopupEditProfile}`);
+// form for edit profile
+const classFieldsetEditProfile = 'form__profile-info';
 // button 'close edit-profile popup'
 const classBtnClosePopupEditProfile = 'popup__close-button';
 const btnClosePopupEditProfile = popupEditProfile.querySelector(
@@ -38,8 +40,10 @@ const btnClosePopupEditProfile = popupEditProfile.querySelector(
 const classPopupAddPlace = 'popup_type_add-place';
 const popupAddPlace = page.querySelector(`.${classPopupAddPlace}`);
 // popup with 'enlarge image place'
-const popupEnlargeImage = page.querySelector('.popup_type_enlarge-image');
+const classPopupEnlargeImage = 'popup_type_enlarge-image';
+const popupEnlargeImage = page.querySelector(`.${classPopupEnlargeImage}`);
 // elements of enlarge image popup
+const classPopupFigure = 'popup__figure';
 const popupImage = popupEnlargeImage.querySelector('.popup__image');
 const popupFigcaption = popupEnlargeImage.querySelector('.popup__figcaption');
 // button close 'add place popup'
@@ -56,6 +60,7 @@ const btnClosePopupEnlargeImage = popupEnlargeImage.querySelector(
 // form for edit profile
 const formEditProfile = popupEditProfile.querySelector('.form');
 // form for add place
+const classFieldsetAddPlace = 'form__place-info';
 const formAddPlace = popupAddPlace.querySelector('.form');
 // 'profile name' input value
 const inputProfileName = page.querySelector('.form__input[name=profile-name]');
@@ -88,6 +93,7 @@ function openPopupEditProfile() {
   inputProfileText.value = profile.text;
   // add listeners for popup buttons
   popupEditProfile.addEventListener('click', clickHandler);
+  // popupEditProfile.addEventListener('keydown', keydownHandler);
   formEditProfile.addEventListener('submit', submitFormEditProfile);
 }
 
@@ -187,30 +193,31 @@ function removeCard(event) {
 }
 
 function clickHandler(event) {
-  if (event.target.classList.contains(classBtnEditProfile)) {
+  const targetClassList = event.target.classList;
+  if (targetClassList.contains(classBtnEditProfile)) {
     openPopupEditProfile();
   }
-  if (event.target.classList.contains(classBtnAddPlace)) {
+  if (targetClassList.contains(classBtnAddPlace)) {
     openPopupAddPlace();
   }
-  if (event.target.classList.contains(classCardImage)) {
+  if (targetClassList.contains(classCardImage)) {
     openPopupEnlargeImage(event);
   }
-  if (event.target.classList.contains(classLikeBtn)) {
+  if (targetClassList.contains(classLikeBtn)) {
     toggleLike(event);
   }
-  if (event.target.classList.contains(classRemoveCardBtn)) {
+  if (targetClassList.contains(classRemoveCardBtn)) {
     removeCard(event);
   }
-  if (event.target.classList.contains(classBtnClosePopupEditProfile)) {
+  if (targetClassList.contains(classBtnClosePopupEditProfile)) {
     popupEditProfile.removeEventListener('click', clickHandler);
     closePopup(popupEditProfile);
   }
-  if (event.target.classList.contains(classBtnClosePopupAddPlace)) {
+  if (targetClassList.contains(classBtnClosePopupAddPlace)) {
     popupAddPlace.removeEventListener('click', clickHandler);
     closePopup(popupAddPlace);
   }
-  if (event.target.classList.contains(classPopupSubmitBtn)) {
+  if (targetClassList.contains(classPopupSubmitBtn)) {
     const form = event.target.closest('.form');
     switch (form.name) {
       case 'profile-info':
@@ -223,7 +230,30 @@ function clickHandler(event) {
         break;
     }
   }
+  if (
+    targetClassList.contains(classPopupEditProfile) &&
+    !targetClassList.contains(classFieldsetEditProfile)
+  ) {
+    closePopup(popupEditProfile);
+  }
+  if (
+    targetClassList.contains(classPopupAddPlace) &&
+    !targetClassList.contains(classFieldsetAddPlace)
+  ) {
+    closePopup(popupAddPlace);
+  }
+  // if (
+  //   targetClassList.contains(classPopupEnlargeImage) &&
+  //   !targetClassList.contains(classPopupFigure)
+  // ) {
+  //   console.log('not figure');
+  //   closePopup(popupEnlargeImage);
+  // }
 }
+
+// function keydownHandler(event) {
+//   console.log(event.target);
+// }
 
 // initialize place cards
 initialCards.forEach((place) => {
