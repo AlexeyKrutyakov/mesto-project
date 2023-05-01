@@ -93,7 +93,7 @@ function openPopupEditProfile() {
   inputProfileText.value = profile.text;
   // add listeners for popup buttons
   popupEditProfile.addEventListener('click', clickHandler);
-  // popupEditProfile.addEventListener('keydown', keydownHandler);
+  page.addEventListener('keydown', keydownHandler);
   formEditProfile.addEventListener('submit', submitFormEditProfile);
 }
 
@@ -121,7 +121,7 @@ function openPopupEnlargeImage(event) {
   openPopup(popupEnlargeImage);
 }
 
-function submitFormEditProfile(event, form) {
+function submitFormEditProfile(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
@@ -223,10 +223,12 @@ function clickHandler(event) {
       case 'profile-info':
         popupEditProfile.removeEventListener('click', clickHandler);
         formEditProfile.removeEventListener('submit', submitFormEditProfile);
+        submitFormEditProfile(event);
         break;
       case 'place-info':
         popupAddPlace.removeEventListener('click', clickHandler);
         formAddPlace.removeEventListener('submit', submitFormAddPlace);
+        submitFormAddPlace(event);
         break;
     }
   }
@@ -251,9 +253,9 @@ function clickHandler(event) {
   // }
 }
 
-// function keydownHandler(event) {
-//   console.log(event.target);
-// }
+function keydownHandler(event) {
+  if (event.keyCode === 27) console.log(event);
+}
 
 // initialize place cards
 initialCards.forEach((place) => {
@@ -267,3 +269,7 @@ cardsSection.addEventListener('click', clickHandler);
 btnClosePopupEnlargeImage.addEventListener('click', () =>
   closePopup(popupEnlargeImage)
 );
+
+// to-do:
+// 1. close popups by escape
+// 2. close popupEnlargeImage
