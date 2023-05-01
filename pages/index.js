@@ -58,20 +58,20 @@ const btnClosePopupEnlargeImage = popupEnlargeImage.querySelector(
 
 // FORMS
 // form for edit profile
-const formEditProfile = popupEditProfile.querySelector('.form');
+const formProfileInfo = document.forms['profile-info'];
 // form for add place
 const classFieldsetAddPlace = 'form__place-info';
-const formAddPlace = popupAddPlace.querySelector('.form');
+const formPlaceInfo = document.forms['place-info'];
 // 'profile name' input value
 const inputProfileName = page.querySelector('.form__input[name=profile-name]');
 // 'profile text' input value
 const inputProfileText = page.querySelector('.form__input[name=profile-text]');
 // define 'place name' input value
-const inputPlaceName = formAddPlace.querySelector(
+const inputPlaceName = formPlaceInfo.querySelector(
   '.form__input[name=place-name]'
 );
 // define 'place text' input value
-const inputPlaceImage = formAddPlace.querySelector(
+const inputPlaceImage = formPlaceInfo.querySelector(
   '.form__input[name=place-image]'
 );
 // 'submit' button of the popup
@@ -94,18 +94,18 @@ function openPopupEditProfile() {
   // add listeners for popup buttons
   popupEditProfile.addEventListener('click', clickHandler);
   page.addEventListener('keydown', keydownHandler);
-  formEditProfile.addEventListener('submit', submitFormEditProfile);
+  formProfileInfo.addEventListener('submit', submitFormEditProfile);
 }
 
 function openPopupAddPlace() {
   openPopup(popupAddPlace);
 
-  // clear old name and text in input fields
-  inputPlaceName.value = '';
-  inputPlaceImage.value = '';
+  // // clear old name and text in input fields -> form.reset()
+  // inputPlaceName.value = '';
+  // inputPlaceImage.value = '';
   // add listeners for popup buttons
   popupAddPlace.addEventListener('click', clickHandler);
-  formAddPlace.addEventListener('submit', submitFormAddPlace);
+  formPlaceInfo.addEventListener('submit', submitformPlaceInfo);
 }
 
 function openPopupEnlargeImage(event) {
@@ -134,7 +134,7 @@ function submitFormEditProfile(event) {
   closePopup(popupEditProfile);
 }
 
-function submitFormAddPlace(event) {
+function submitformPlaceInfo(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
@@ -142,7 +142,7 @@ function submitFormAddPlace(event) {
   const placeImage = inputPlaceImage.value;
 
   addPlaceCard(placeName, placeImage);
-
+  formPlaceInfo.reset();
   closePopup(popupAddPlace);
 }
 
@@ -222,13 +222,13 @@ function clickHandler(event) {
     switch (form.name) {
       case 'profile-info':
         popupEditProfile.removeEventListener('click', clickHandler);
-        formEditProfile.removeEventListener('submit', submitFormEditProfile);
+        formProfileInfo.removeEventListener('submit', submitFormEditProfile);
         submitFormEditProfile(event);
         break;
       case 'place-info':
         popupAddPlace.removeEventListener('click', clickHandler);
-        formAddPlace.removeEventListener('submit', submitFormAddPlace);
-        submitFormAddPlace(event);
+        formPlaceInfo.removeEventListener('submit', submitformPlaceInfo);
+        submitformPlaceInfo(event);
         break;
     }
   }
