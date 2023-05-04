@@ -32,9 +32,9 @@ const popupEditProfile = page.querySelector(`.${classPopupEditProfile}`);
 // form for edit profile
 const classFieldsetEditProfile = 'form__profile-info';
 // button 'close edit-profile popup'
-const classBtnClosePopupEditProfile = 'popup__close-button';
+const classBtnClosePopup = 'popup__close-button';
 const btnClosePopupEditProfile = popupEditProfile.querySelector(
-  `.${classBtnClosePopupEditProfile}`
+  `.${classBtnClosePopup}`
 );
 // popup for add place
 const classPopupAddPlace = 'popup_type_add-place';
@@ -47,13 +47,12 @@ const classPopupFigure = 'popup__figure';
 const popupImage = popupEnlargeImage.querySelector('.popup__image');
 const popupFigcaption = popupEnlargeImage.querySelector('.popup__figcaption');
 // button close 'add place popup'
-const classBtnClosePopupAddPlace = 'popup__close-button';
 const btnClosePopupAddPlace = popupAddPlace.querySelector(
-  `.${classBtnClosePopupAddPlace}`
+  `.${classBtnClosePopup}`
 );
 // button close 'enlarge image popup'
 const btnClosePopupEnlargeImage = popupEnlargeImage.querySelector(
-  '.popup__close-button'
+  `.${classBtnClosePopup}`
 );
 
 // FORMS
@@ -63,19 +62,15 @@ const formProfileInfo = document.forms['profile-info'];
 const classFieldsetAddPlace = 'form__place-info';
 const formPlaceInfo = document.forms['place-info'];
 // 'profile name' input value
-const inputProfileName = page.querySelector('.form__input[name=profile-name]');
+const inputProfileName = page.querySelector('#profile-name-input');
 // 'profile text' input value
-const inputProfileText = page.querySelector('.form__input[name=profile-text]');
+const inputProfileText = page.querySelector('#profile-text-input');
 // define 'place name' input value
-const inputPlaceName = formPlaceInfo.querySelector(
-  '.form__input[name=place-name]'
-);
+const inputPlaceName = formPlaceInfo.querySelector('#place-name-input');
 // define 'place text' input value
-const inputPlaceImage = formPlaceInfo.querySelector(
-  '.form__input[name=place-image]'
-);
+const inputPlaceImage = formPlaceInfo.querySelector('#place-image-input');
 // 'submit' button of the popup
-const classPopupSubmitBtn = 'form__save-button';
+const classPopupSubmitBtn = 'form__submit';
 
 // FUNCTIONS
 function openPopup(popup) {
@@ -93,16 +88,15 @@ function openPopupEditProfile() {
   inputProfileText.value = profile.text;
   // add listeners for popup buttons
   popupEditProfile.addEventListener('click', clickHandler);
-  page.addEventListener('keydown', keydownHandler);
   formProfileInfo.addEventListener('submit', submitFormEditProfile);
 }
 
 function openPopupAddPlace() {
   openPopup(popupAddPlace);
-
+  const buttonElement = popupAddPlace.querySelector('.form__submit');
   // // clear old name and text in input fields -> form.reset()
-  // inputPlaceName.value = '';
-  // inputPlaceImage.value = '';
+  inputPlaceName.value = '';
+  inputPlaceImage.value = '';
   // add listeners for popup buttons
   popupAddPlace.addEventListener('click', clickHandler);
   formPlaceInfo.addEventListener('submit', submitformPlaceInfo);
@@ -117,7 +111,7 @@ function openPopupEnlargeImage(event) {
   popupImage.src = imageLink;
   popupImage.alt = 'Увеличенное изображение места ' + placeName;
   popupFigcaption.textContent = placeName;
-
+  popupEnlargeImage.addEventListener('click', clickHandler);
   openPopup(popupEnlargeImage);
 }
 
@@ -130,7 +124,7 @@ function submitFormEditProfile(event) {
   // update profile
   saveNewProfile(name, text);
   refreshProfile();
-
+  // removeFormEventListeners(formProfileInfo);
   closePopup(popupEditProfile);
 }
 
@@ -209,13 +203,10 @@ function clickHandler(event) {
   if (targetClassList.contains(classRemoveCardBtn)) {
     removeCard(event);
   }
-  if (targetClassList.contains(classBtnClosePopupEditProfile)) {
-    popupEditProfile.removeEventListener('click', clickHandler);
-    closePopup(popupEditProfile);
-  }
-  if (targetClassList.contains(classBtnClosePopupAddPlace)) {
-    popupAddPlace.removeEventListener('click', clickHandler);
-    closePopup(popupAddPlace);
+  if (targetClassList.contains(classBtnClosePopup)) {
+    const popup = event.target.closest('.popup');
+    popup.removeEventListener('click', clickHandler);
+    closePopup(popup);
   }
   if (targetClassList.contains(classPopupSubmitBtn)) {
     const form = event.target.closest('.form');
@@ -233,28 +224,85 @@ function clickHandler(event) {
     }
   }
   if (
-    targetClassList.contains(classPopupEditProfile) &&
-    !targetClassList.contains(classFieldsetEditProfile)
+    targetClassList.contains('popup') &&
+    !targetClassList.contains('popup__container')
   ) {
-    closePopup(popupEditProfile);
+    const popup = event.target.closest('.popup');
+    closePopup(popup);
   }
-  if (
-    targetClassList.contains(classPopupAddPlace) &&
-    !targetClassList.contains(classFieldsetAddPlace)
-  ) {
-    closePopup(popupAddPlace);
-  }
-  // if (
-  //   targetClassList.contains(classPopupEnlargeImage) &&
-  //   !targetClassList.contains(classPopupFigure)
-  // ) {
-  //   console.log('not figure');
-  //   closePopup(popupEnlargeImage);
-  // }
 }
 
 function keydownHandler(event) {
-  if (event.keyCode === 27) console.log(event);
+  if (event.keyCode === 27) {
+    const popupOpened = page.querySelector('.popup_opened');
+    if (popupOpened) closePopup(popupOpened);
+  }
+}
+
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('form__input_type_invalid');
+  errorElement.textContent = errorMessage;
+}
+
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__input_type_invalid');
+  errorElement.textContent = '';
+}
+
+function checkInputValidity(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+}
+
+function setFormEventListeners(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const buttonElement = formElement.querySelector('.form__submit');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+}
+
+// function removeFormEventListeners(formElement) {
+//   const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+//   const buttonElement = formElement.querySelector('.form__submit');
+//   inputList.forEach((inputElement) => {
+//     inputElement.removeEventListener('input', () => {
+//       checkInputValidity(formElement, inputElement);
+//       toggleButtonState(inputList, buttonElement);
+//     });
+//   });
+// }
+
+function enableFormValidation(formElement) {
+  const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'));
+  fieldsetList.forEach((fieldset) => {
+    setFormEventListeners(fieldset);
+  });
+}
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('form__submit_inactive');
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove('form__submit_inactive');
+    buttonElement.disabled = false;
+  }
 }
 
 // initialize place cards
@@ -262,14 +310,17 @@ initialCards.forEach((place) => {
   addPlaceCard(place.name, place.link, place.alt);
 });
 
-// add listeners for popups buttons
+// add listeners
 profileSection.addEventListener('click', clickHandler);
 cardsSection.addEventListener('click', clickHandler);
+page.addEventListener('keydown', keydownHandler);
 
-btnClosePopupEnlargeImage.addEventListener('click', () =>
-  closePopup(popupEnlargeImage)
-);
+// enable forms validation
+enableFormValidation(formProfileInfo);
+enableFormValidation(formPlaceInfo);
+
+// btnClosePopupEnlargeImage.addEventListener('click', () =>
+//   closePopup(popupEnlargeImage)
+// );
 
 // to-do:
-// 1. close popups by escape
-// 2. close popupEnlargeImage

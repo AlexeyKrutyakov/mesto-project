@@ -1,0 +1,13 @@
+.form__input-error {
+  color: #ff0000;
+  cursor: default;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  padding: 0;
+  padding-top: 5px;
+  margin: 0;
+  min-height: 20px;
+}
