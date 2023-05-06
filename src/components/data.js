@@ -3,36 +3,53 @@ const profile = {
   name: 'Жак-Ив Кусто',
   text: 'Исследователь океана',
 };
+// add links for images
+const chagazUzunImage = new URL(
+  '../images/mars-mountains.jpg',
+  import.meta.url
+);
+const ruskealaImage = new URL(
+  '../images/ruskeala-failure.jpg',
+  import.meta.url
+);
+const magadanImage = new URL('../images/magadan.jpg', import.meta.url);
+const yakutskImage = new URL('../images/yakutsk.jpg', import.meta.url);
+const petropavlovskImage = new URL(
+  '../images/petropavlovsk-kamchatskiy.jpg',
+  import.meta.url
+);
+const mologaImage = new URL('../images/flooded-city.jpg', import.meta.url);
+
 // initial cards data
 const initialCards = [
   {
     name: 'Чагаз-Узун',
-    link: './images/mars-mountains.jpg',
+    link: chagazUzunImage,
     alt: 'Долина с рыжыми пейзажами на фоне голубых гор',
   },
   {
     name: 'Рускеала',
-    link: './images/ruskeala-failure.jpg',
+    link: ruskealaImage,
     alt: 'Провал в пещеру',
   },
   {
     name: 'Магадан',
-    link: './images/magadan.jpg',
+    link: magadanImage,
     alt: 'Закат на море в Магадане',
   },
   {
     name: 'Якутск',
-    link: './images/yakutsk.jpg',
+    link: yakutskImage,
     alt: 'Лошади в снегу',
   },
   {
     name: 'Петропавловск Камчатский',
-    link: './images/petropavlovsk-kamchatskiy.jpg',
+    link: petropavlovskImage,
     alt: 'Город у подножия вулкана',
   },
   {
     name: 'Молога',
-    link: './images/flooded-city.jpg',
+    link: mologaImage,
     alt: 'Затопленный монастырь в озере',
   },
 ];
