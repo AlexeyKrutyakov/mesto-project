@@ -1,5 +1,5 @@
 .card__remove-button {
-  background-image: url("../../../images/trash.svg");
+  background-image: url('../../../src/images/trash.svg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 19px;
