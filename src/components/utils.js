@@ -49,7 +49,7 @@ function clickHandler(event) {
         elements.popupEditProfile.removeEventListener('click', clickHandler);
         elements.formProfileInfo.removeEventListener(
           'submit',
-          elements.submitFormEditProfile
+          submitFormEditProfile
         );
         submitFormEditProfile(event);
         break;
@@ -57,7 +57,7 @@ function clickHandler(event) {
         elements.popupAddPlace.removeEventListener('click', clickHandler);
         elements.formPlaceInfo.removeEventListener(
           'submit',
-          elements.submitformPlaceInfo
+          submitformPlaceInfo
         );
         submitformPlaceInfo(event);
         break;
