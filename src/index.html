@@ -54,8 +54,8 @@
             <input type="text" class="form__input" name="place-name-input" placeholder="Название" minlength="2"
               required>
             <span class="form__input-error place-name-input-error"></span>
-            <input type="url" class="form__input" name="place-image-input" placeholder="Ссылка на картинку"
-              minlength='4' required>
+            <input type="text" class="form__input" name="place-image-input" placeholder="Ссылка на картинку"
+              pattern="https?://[\S]{4,}" data-error-message="В поле «Ссылка на картинку» должен быть URL" required>
             <span class="form__input-error place-image-input-error"></span>
             <button type="submit" class="form__submit">Сохранить</button>
           </fieldset>
