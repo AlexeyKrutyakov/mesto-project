@@ -1,4 +1,4 @@
-import '../pages/index.css';
+import './index.css';
 
 import * as elements from './components/elements.js';
 

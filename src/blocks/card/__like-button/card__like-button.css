@@ -1,6 +1,6 @@
 .card__like-button {
   align-items: center;
-  background-image: url('../../../src/images/__like-button.svg');
+  background-image: url('../../../images/__like-button.svg');
   background-repeat: no-repeat;
   background-size: cover;
   color: #000;
