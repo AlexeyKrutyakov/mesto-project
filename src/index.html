@@ -52,6 +52,8 @@
           <fieldset class="form__set">
             <h2 class="form__title">Новое место</h2>
             <input type="text" class="form__input" name="place-name-input" placeholder="Название" minlength="2"
+              maxlength="30" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+              data-error-message="Поле «Название» может содержать латинские буквы, кириллические буквы, знаки дефиса и пробелы"
               required>
             <span class="form__input-error place-name-input-error"></span>
             <input type="text" class="form__input" name="place-image-input" placeholder="Ссылка на картинку"
