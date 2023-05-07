@@ -26,9 +26,10 @@ function validateInput(formElement, inputElement) {
   }
 }
 
-function enableFormValidation(formElement) {
-  const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'));
-  fieldsetList.forEach((fieldset) => {
+function enableFormValidation(form) {
+  const fieldsets = Array.from(form.querySelectorAll('.form__set'));
+
+  fieldsets.forEach((fieldset) => {
     setFormEventListeners(fieldset);
   });
 }

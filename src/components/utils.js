@@ -46,19 +46,16 @@ function clickHandler(event) {
     const form = event.target.closest('.form');
     switch (form.name) {
       case 'profile-info':
-        elements.popupEditProfile.removeEventListener('click', clickHandler);
-        elements.formProfileInfo.removeEventListener(
+        elements.profilePopup.removeEventListener('click', clickHandler);
+        elements.profileForm.removeEventListener(
           'submit',
           submitFormEditProfile
         );
         submitFormEditProfile(event);
         break;
       case 'place-info':
-        elements.popupAddPlace.removeEventListener('click', clickHandler);
-        elements.formPlaceInfo.removeEventListener(
-          'submit',
-          submitformPlaceInfo
-        );
+        elements.placePopup.removeEventListener('click', clickHandler);
+        elements.placeForm.removeEventListener('submit', submitformPlaceInfo);
         submitformPlaceInfo(event);
         break;
     }
