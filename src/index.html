@@ -30,10 +30,14 @@
           <fieldset class="form__set">
             <h2 class="form__title">Редактировать профиль</h2>
             <input type="text" class="form__input" name="profile-name-input" value="Жак-Ив Кусто" minlength="2"
+              maxlength="40" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+              data-error-message='Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы'
               required>
             <span class="form__input-error profile-name-input-error"></span>
-            <input type="text" class="form__input" name="profile-text-input" value="Исследователь океана" required
-              minlength="3">
+            <input type="text" class="form__input" name="profile-text-input" value="Исследователь океана" minlength="2"
+              maxlength="200" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+              data-error-message='Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы'
+              required>
             <span class="form__input-error profile-text-input-error"></span>
             <button type="submit" class="form__submit">Сохранить</button>
           </fieldset>
@@ -63,7 +67,7 @@
         <button type="button" class="button popup__close-button popup__close-button_type_fugure"
           aria-label="Закрыть модальное окно"></button>
         <figure class="popup__figure">
-          <img class="popup__image" src="./images/yakutsk.jpg" alt="">
+          <img class="popup__image" src="#" alt="">
           <figcaption class="popup__figcaption">Якутск</figcaption>
         </figure>
       </div>

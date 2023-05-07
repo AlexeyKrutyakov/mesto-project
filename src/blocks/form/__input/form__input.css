@@ -12,11 +12,11 @@
 }
 
 .form__input:last-of-type {
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 @media (max-width: 1279px) {
   .form__input {
-    margin-top: 75px;
+    margin-top: 65px;
   }
 }

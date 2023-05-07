@@ -17,6 +17,10 @@ export const btnAddPlace = profileSection.querySelector(`.${classBtnAddPlace}`);
 export const cardsSection = page.querySelector('.cards');
 // card template
 export const templateCard = page.querySelector('#card-template').content;
+// card element class
+export const cardElementClass = 'card';
+// card name class
+export const cardNameClass = 'card__name';
 // card image class
 export const classCardImage = 'card__image';
 // like button class
@@ -66,6 +70,8 @@ export const formProfileInfo = document.forms['profile-info'];
 // form for add place
 export const classFieldsetAddPlace = 'form__place-info';
 export const formPlaceInfo = document.forms['place-info'];
+// class for input elements
+export const classFormInput = 'form__input';
 // 'profile name' input value
 export const inputProfileName = formProfileInfo.elements['profile-name-input'];
 // 'profile text' input value
@@ -76,3 +82,7 @@ export const inputPlaceName = formPlaceInfo.elements['place-name-input'];
 export const inputPlaceImage = formPlaceInfo.elements['place-image-input'];
 // 'submit' button of the popup
 export const classPopupSubmitBtn = 'form__submit';
+export const classSubmitBtnInactive = 'form__submit_inactive';
+export const submitFormEditProfile = formProfileInfo.querySelector(
+  `.${classPopupSubmitBtn}`
+);

@@ -12,7 +12,13 @@ function hideInputError(formElement, inputElement) {
   errorElement.textContent = '';
 }
 
-function checkInputValidity(formElement, inputElement) {
+function validateInput(formElement, inputElement) {
+  if (inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+    inputElement.setCustomValidity('');
+  }
+
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -36,7 +42,7 @@ function hasInvalidInput(inputList) {
 export {
   showInputError,
   hideInputError,
-  checkInputValidity,
+  validateInput,
   enableFormValidation,
   hasInvalidInput,
 };
