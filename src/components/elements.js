@@ -67,13 +67,12 @@ export const formProfileInfo = document.forms['profile-info'];
 export const classFieldsetAddPlace = 'form__place-info';
 export const formPlaceInfo = document.forms['place-info'];
 // 'profile name' input value
-export const inputProfileName = page.querySelector('#profile-name-input');
+export const inputProfileName = formProfileInfo.elements['profile-name-input'];
 // 'profile text' input value
-export const inputProfileText = page.querySelector('#profile-text-input');
+export const inputProfileText = formProfileInfo.elements['profile-text-input'];
 // define 'place name' input value
-export const inputPlaceName = formPlaceInfo.querySelector('#place-name-input');
+export const inputPlaceName = formPlaceInfo.elements['place-name-input'];
 // define 'place text' input value
-export const inputPlaceImage =
-  formPlaceInfo.querySelector('#place-image-input');
+export const inputPlaceImage = formPlaceInfo.elements['place-image-input'];
 // 'submit' button of the popup
 export const classPopupSubmitBtn = 'form__submit';

@@ -29,9 +29,10 @@
         <form class="form" name="profile-info">
           <fieldset class="form__set">
             <h2 class="form__title">Редактировать профиль</h2>
-            <input type="text" class="form__input" id="profile-name-input" value="Жак-Ив Кусто" minlength="2" required>
+            <input type="text" class="form__input" name="profile-name-input" value="Жак-Ив Кусто" minlength="2"
+              required>
             <span class="form__input-error profile-name-input-error"></span>
-            <input type="text" class="form__input" id="profile-text-input" value="Исследователь океана" required
+            <input type="text" class="form__input" name="profile-text-input" value="Исследователь океана" required
               minlength="3">
             <span class="form__input-error profile-text-input-error"></span>
             <button type="submit" class="form__submit">Сохранить</button>
@@ -46,10 +47,11 @@
         <form class="form" name="place-info">
           <fieldset class="form__set">
             <h2 class="form__title">Новое место</h2>
-            <input type="text" class="form__input" id="place-name-input" placeholder="Название" minlength="2" required>
-            <span class="form__input-error place-name-input-error"></span>
-            <input type="url" class="form__input" id="place-image-input" placeholder="Ссылка на картинку" minlength='4'
+            <input type="text" class="form__input" name="place-name-input" placeholder="Название" minlength="2"
               required>
+            <span class="form__input-error place-name-input-error"></span>
+            <input type="url" class="form__input" name="place-image-input" placeholder="Ссылка на картинку"
+              minlength='4' required>
             <span class="form__input-error place-image-input-error"></span>
             <button type="submit" class="form__submit">Сохранить</button>
           </fieldset>

@@ -1,13 +1,13 @@
 import { setFormEventListeners } from './modal.js';
 
 function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
   inputElement.classList.add('form__input_type_invalid');
   errorElement.textContent = errorMessage;
 }
 
 function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
   inputElement.classList.remove('form__input_type_invalid');
   errorElement.textContent = '';
 }
