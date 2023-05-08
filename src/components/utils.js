@@ -1,4 +1,10 @@
-import * as elements from './elements.js';
+import {
+  classPopupSubmitBtn,
+  profilePopup,
+  profileForm,
+  placePopup,
+  placeForm,
+} from './commonElements.js';
 import { profile } from './data.js';
 import {
   openPopupEditProfile,
@@ -51,20 +57,17 @@ function clickHandler(event) {
     popup.removeEventListener('click', clickHandler);
     closePopup(popup);
   }
-  if (targetClassList.contains(elements.classPopupSubmitBtn)) {
+  if (targetClassList.contains(classPopupSubmitBtn)) {
     const form = event.target.closest('.form');
     switch (form.name) {
       case 'profile-info':
-        elements.profilePopup.removeEventListener('click', clickHandler);
-        elements.profileForm.removeEventListener(
-          'submit',
-          submitFormEditProfile
-        );
+        profilePopup.removeEventListener('click', clickHandler);
+        profileForm.removeEventListener('submit', submitFormEditProfile);
         submitFormEditProfile(event);
         break;
       case 'place-info':
-        elements.placePopup.removeEventListener('click', clickHandler);
-        elements.placeForm.removeEventListener('submit', submitformPlaceInfo);
+        placePopup.removeEventListener('click', clickHandler);
+        placeForm.removeEventListener('submit', submitformPlaceInfo);
         submitformPlaceInfo(event);
         break;
     }

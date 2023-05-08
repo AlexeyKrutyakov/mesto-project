@@ -1,4 +1,15 @@
-import * as elements from './elements.js';
+import {
+  profilePopup,
+  profileForm,
+  profileInputName,
+  profileInputText,
+  profileSubmitBnt,
+  placePopup,
+  placeForm,
+  placeInputName,
+  placeInputImage,
+  classPopupSubmitBtn,
+} from './commonElements.js';
 import { profile } from './data.js';
 import { hasInvalidInput, validateInput } from './validate.js';
 import { clickHandler, saveNewProfile, refreshProfile } from './utils.js';
@@ -9,17 +20,6 @@ const classOpenedPopup = 'popup_opened';
 //form
 const classFormInput = 'form__input';
 const classSubmitBtnInactive = 'form__submit_inactive';
-// profile elements
-const profilePopup = elements.profilePopup;
-const profileForm = elements.profileForm;
-const profileInputName = elements.profileInputName;
-const profileInputText = elements.profileInputText;
-const profileSubmitBnt = elements.profileSubmitBnt;
-// place elements
-const placePopup = elements.placePopup;
-const placeForm = elements.placeForm;
-const placeInputName = elements.placeInputName;
-const placeInputImage = elements.placeInputImage;
 // enlarge image elements
 const enlargeImagePopupClass = 'popup_type_enlarge-image';
 const enlargeImagePopup = document.querySelector(`.${enlargeImagePopupClass}`);
@@ -109,7 +109,7 @@ function submitformPlaceInfo(event) {
 
 function setFormEventListeners(form) {
   const inputs = Array.from(form.querySelectorAll(`.${classFormInput}`));
-  const btn = form.querySelector(`.${elements.classPopupSubmitBtn}`);
+  const btn = form.querySelector(`.${classPopupSubmitBtn}`);
 
   toggleButtonState(inputs, btn);
 

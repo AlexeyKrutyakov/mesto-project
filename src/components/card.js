@@ -1,11 +1,11 @@
-import * as elements from './elements.js';
+import { cardsSection } from './commonElements.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const classActiveLikeBtn = 'card__like-button_active';
 
 function addPlaceCard(placeName, placeImage, imageAlt = '') {
   const newCard = createPlaceCard(placeName, placeImage, imageAlt);
-  elements.cardsSection.prepend(newCard);
+  cardsSection.prepend(newCard);
 }
 
 function createPlaceCard(placeName, placeImage, imageAlt = '') {
@@ -14,8 +14,6 @@ function createPlaceCard(placeName, placeImage, imageAlt = '') {
   // elements of card
   const cardName = placeCard.querySelector('.card__name');
   const cardImage = placeCard.querySelector('.card__image');
-  // const btnRemoveCard = placeCard.querySelector('.card__remove-button');
-  // const btnLikeCard = placeCard.querySelector('.card__like-button');
   // initialize data place into place card
   cardName.textContent = placeName;
   cardImage.src = placeImage;

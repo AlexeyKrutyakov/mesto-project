@@ -1,6 +1,6 @@
 import './index.css';
 
-import * as elements from './components/elements.js';
+import * as elements from './components/commonElements.js';
 
 import { initialCards } from './components/data.js';
 
