@@ -1,5 +1,8 @@
 import * as elements from './elements.js';
 
+const cardTemplate = document.querySelector('#card-template').content;
+const classActiveLikeBtn = 'card__like-button_active';
+
 function addPlaceCard(placeName, placeImage, imageAlt = '') {
   const newCard = createPlaceCard(placeName, placeImage, imageAlt);
   elements.cardsSection.prepend(newCard);
@@ -7,9 +10,7 @@ function addPlaceCard(placeName, placeImage, imageAlt = '') {
 
 function createPlaceCard(placeName, placeImage, imageAlt = '') {
   // copy of template element
-  const placeCard = elements.templateCard
-    .querySelector('.card')
-    .cloneNode(true);
+  const placeCard = cardTemplate.querySelector('.card').cloneNode(true);
   // elements of card
   const cardName = placeCard.querySelector('.card__name');
   const cardImage = placeCard.querySelector('.card__image');
@@ -35,7 +36,7 @@ function removeCard(event) {
 function toggleLike(event) {
   const btnLike = event.target;
   const btnClasses = btnLike.classList;
-  btnClasses.toggle(elements.classActiveLikeBtn);
+  btnClasses.toggle(classActiveLikeBtn);
 }
 
 export { addPlaceCard, createPlaceCard, removeCard, toggleLike };

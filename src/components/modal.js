@@ -4,6 +4,11 @@ import { hasInvalidInput, validateInput } from './validate.js';
 import { clickHandler, saveNewProfile, refreshProfile } from './utils.js';
 import { addPlaceCard } from './card.js';
 
+// popup
+const classOpenedPopup = 'popup_opened';
+//form
+const classFormInput = 'form__input';
+const classSubmitBtnInactive = 'form__submit_inactive';
 // profile elements
 const profilePopup = elements.profilePopup;
 const profileForm = elements.profileForm;
@@ -16,16 +21,20 @@ const placeForm = elements.placeForm;
 const placeInputName = elements.placeInputName;
 const placeInputImage = elements.placeInputImage;
 // enlarge image elements
-const enlargeImagePopup = elements.enlargeImagePopup;
-const enlargeImage = elements.enlargeImage;
-const figcaption = elements.figcaption;
+const enlargeImagePopupClass = 'popup_type_enlarge-image';
+const enlargeImagePopup = document.querySelector(`.${enlargeImagePopupClass}`);
+const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
+const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
+// card elements
+const cardElementClass = 'card';
+const cardNameClass = 'card__name';
 
 function openPopup(popup) {
-  popup.classList.add(elements.classOpenedPopup);
+  popup.classList.add(classOpenedPopup);
 }
 
 function closePopup(popup) {
-  popup.classList.remove(elements.classOpenedPopup);
+  popup.classList.remove(classOpenedPopup);
 }
 
 function openPopupEditProfile() {
@@ -66,8 +75,8 @@ function openPopupAddPlace() {
 function openPopupEnlargeImage(event) {
   const imageLink = event.target.src;
   const placeName = event.target
-    .closest(`.${elements.cardElementClass}`)
-    .querySelector(`.${elements.cardNameClass}`).textContent;
+    .closest(`.${cardElementClass}`)
+    .querySelector(`.${cardNameClass}`).textContent;
 
   enlargeImage.src = imageLink;
   enlargeImage.alt = 'Увеличенное изображение места ' + placeName;
@@ -82,7 +91,7 @@ function submitFormEditProfile(event) {
   event.preventDefault();
 
   // update profile
-  saveNewProfile(profileInputName, profileInputText);
+  saveNewProfile(profileInputName.value, profileInputText.value);
   refreshProfile();
 
   closePopup(profilePopup);
@@ -92,16 +101,14 @@ function submitformPlaceInfo(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  addPlaceCard(placeInputName, placeInputImage);
+  addPlaceCard(placeInputName.value, placeInputImage.value);
   placeForm.reset();
 
   closePopup(placePopup);
 }
 
 function setFormEventListeners(form) {
-  const inputs = Array.from(
-    form.querySelectorAll(`.${elements.classFormInput}`)
-  );
+  const inputs = Array.from(form.querySelectorAll(`.${classFormInput}`));
   const btn = form.querySelector(`.${elements.classPopupSubmitBtn}`);
 
   toggleButtonState(inputs, btn);
@@ -115,7 +122,7 @@ function setFormEventListeners(form) {
 }
 
 function toggleButtonState(inputList, btn) {
-  const submitBtnInactiveClass = elements.classSubmitBtnInactive;
+  const submitBtnInactiveClass = classSubmitBtnInactive;
 
   if (hasInvalidInput(inputList)) {
     btn.classList.add(submitBtnInactiveClass);

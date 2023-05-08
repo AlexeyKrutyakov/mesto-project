@@ -10,7 +10,9 @@ import { addPlaceCard } from './components/card.js';
 
 import { clickHandler, keydownHandler } from './components/utils.js';
 
+const profileSection = document.querySelector('.profile');
 const formsList = Array.from(document.forms);
+const page = document.querySelector('.page');
 
 // initialize place cards
 initialCards.forEach((place) => {
@@ -18,9 +20,9 @@ initialCards.forEach((place) => {
 });
 
 // add listeners
-elements.profileSection.addEventListener('click', clickHandler);
+profileSection.addEventListener('click', clickHandler);
 elements.cardsSection.addEventListener('click', clickHandler);
-elements.page.addEventListener('keydown', keydownHandler);
+page.addEventListener('keydown', keydownHandler);
 
 // enable forms validation
 formsList.forEach((form) => enableFormValidation(form));

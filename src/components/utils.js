@@ -10,34 +10,43 @@ import {
 } from './modal.js';
 import { removeCard, toggleLike } from './card.js';
 
+const elementProfileName = document.querySelector('.profile__name');
+const elementProfileText = document.querySelector('.profile__text');
+const classBtnEditProfile = 'profile__edit-button';
+const classBtnAddPlace = 'profile__add-button';
+const classCardImage = 'card__image';
+const classLikeBtn = 'card__like-button';
+const classRemoveCardBtn = 'card__remove-button';
+const classBtnClosePopup = 'popup__close-button';
+
 function saveNewProfile(name, text) {
   profile['name'] = name;
   profile['text'] = text;
 }
 
 function refreshProfile() {
-  elements.elementProfileName.textContent = profile.name;
-  elements.elementProfileText.textContent = profile.text;
+  elementProfileName.textContent = profile.name;
+  elementProfileText.textContent = profile.text;
 }
 
 function clickHandler(event) {
   const targetClassList = event.target.classList;
-  if (targetClassList.contains(elements.classBtnEditProfile)) {
+  if (targetClassList.contains(classBtnEditProfile)) {
     openPopupEditProfile();
   }
-  if (targetClassList.contains(elements.classBtnAddPlace)) {
+  if (targetClassList.contains(classBtnAddPlace)) {
     openPopupAddPlace();
   }
-  if (targetClassList.contains(elements.classCardImage)) {
+  if (targetClassList.contains(classCardImage)) {
     openPopupEnlargeImage(event);
   }
-  if (targetClassList.contains(elements.classLikeBtn)) {
+  if (targetClassList.contains(classLikeBtn)) {
     toggleLike(event);
   }
-  if (targetClassList.contains(elements.classRemoveCardBtn)) {
+  if (targetClassList.contains(classRemoveCardBtn)) {
     removeCard(event);
   }
-  if (targetClassList.contains(elements.classBtnClosePopup)) {
+  if (targetClassList.contains(classBtnClosePopup)) {
     const popup = event.target.closest('.popup');
     popup.removeEventListener('click', clickHandler);
     closePopup(popup);
@@ -71,7 +80,7 @@ function clickHandler(event) {
 
 function keydownHandler(event) {
   if (event.keyCode === 27) {
-    const popupOpened = elements.page.querySelector('.popup_opened');
+    const popupOpened = document.querySelector('.popup_opened');
     if (popupOpened) closePopup(popupOpened);
   }
 }
