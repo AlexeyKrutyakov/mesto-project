@@ -1,4 +1,4 @@
-import { setFormEventListeners } from './modal.js';
+import { toggleButtonState } from './modal.js';
 
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
@@ -26,11 +26,20 @@ function validateInput(formElement, inputElement) {
   }
 }
 
-function enableFormValidation(form) {
-  const fieldsets = Array.from(form.querySelectorAll('.form__set'));
+function enableValidation(params) {
+  const forms = document.querySelectorAll(params.formSelector);
+  forms.forEach((form) => {
+    const inputs = Array.from(form.querySelectorAll(params.inputSelector));
+    const submitBtn = form.querySelector(params.submitButtonSelector);
 
-  fieldsets.forEach((fieldset) => {
-    setFormEventListeners(fieldset);
+    toggleButtonState(inputs, submitBtn);
+
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        validateInput(form, input);
+        toggleButtonState(inputs, submitBtn);
+      });
+    });
   });
 }
 
@@ -44,6 +53,6 @@ export {
   showInputError,
   hideInputError,
   validateInput,
-  enableFormValidation,
+  enableValidation,
   hasInvalidInput,
 };

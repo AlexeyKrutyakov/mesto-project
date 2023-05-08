@@ -8,7 +8,6 @@ import {
   placeForm,
   placeInputName,
   placeInputImage,
-  classPopupSubmitBtn,
 } from './commonElements.js';
 import { profile } from './data.js';
 import { hasInvalidInput, validateInput } from './validate.js';
@@ -16,10 +15,9 @@ import { clickHandler, saveNewProfile, refreshProfile } from './utils.js';
 import { addPlaceCard } from './card.js';
 
 // popup
-const classOpenedPopup = 'popup_opened';
+const openedPopupClass = 'popup_opened';
 //form
-const classFormInput = 'form__input';
-const classSubmitBtnInactive = 'form__submit_inactive';
+const submitInactiveClass = 'form__submit_inactive';
 // enlarge image elements
 const enlargeImagePopupClass = 'popup_type_enlarge-image';
 const enlargeImagePopup = document.querySelector(`.${enlargeImagePopupClass}`);
@@ -30,14 +28,14 @@ const cardElementClass = 'card';
 const cardNameClass = 'card__name';
 
 function openPopup(popup) {
-  popup.classList.add(classOpenedPopup);
+  popup.classList.add(openedPopupClass);
 }
 
 function closePopup(popup) {
-  popup.classList.remove(classOpenedPopup);
+  popup.classList.remove(openedPopupClass);
 }
 
-function openPopupEditProfile() {
+function openProfilePopup() {
   openPopup(profilePopup);
 
   // initiate input values with current profile data
@@ -53,15 +51,14 @@ function openPopupEditProfile() {
 
   // add listeners
   profilePopup.addEventListener('click', clickHandler);
-  profileForm.addEventListener('submit', submitFormEditProfile);
+  profileForm.addEventListener('submit', submitProfileForm);
 }
 
-function openPopupAddPlace() {
+function openPlacePopup() {
   openPopup(placePopup);
 
-  // clear old name and text in input fields -> form.reset()
-  placeInputName.value = '';
-  placeInputImage.value = '';
+  // clear old name and text in input fields
+  placeForm.reset();
 
   // validate inputs
   validateInput(placeForm, placeInputName);
@@ -69,10 +66,10 @@ function openPopupAddPlace() {
 
   // add listeners for popup buttons
   placePopup.addEventListener('click', clickHandler);
-  placeForm.addEventListener('submit', submitformPlaceInfo);
+  placeForm.addEventListener('submit', submitPlaceForm);
 }
 
-function openPopupEnlargeImage(event) {
+function openEnlargeImagePopup(event) {
   const imageLink = event.target.src;
   const placeName = event.target
     .closest(`.${cardElementClass}`)
@@ -86,7 +83,7 @@ function openPopupEnlargeImage(event) {
   openPopup(enlargeImagePopup);
 }
 
-function submitFormEditProfile(event) {
+function submitProfileForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
@@ -97,7 +94,7 @@ function submitFormEditProfile(event) {
   closePopup(profilePopup);
 }
 
-function submitformPlaceInfo(event) {
+function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
@@ -107,22 +104,8 @@ function submitformPlaceInfo(event) {
   closePopup(placePopup);
 }
 
-function setFormEventListeners(form) {
-  const inputs = Array.from(form.querySelectorAll(`.${classFormInput}`));
-  const btn = form.querySelector(`.${classPopupSubmitBtn}`);
-
-  toggleButtonState(inputs, btn);
-
-  inputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      validateInput(form, input);
-      toggleButtonState(inputs, btn);
-    });
-  });
-}
-
 function toggleButtonState(inputList, btn) {
-  const submitBtnInactiveClass = classSubmitBtnInactive;
+  const submitBtnInactiveClass = submitInactiveClass;
 
   if (hasInvalidInput(inputList)) {
     btn.classList.add(submitBtnInactiveClass);
@@ -136,11 +119,10 @@ function toggleButtonState(inputList, btn) {
 export {
   openPopup,
   closePopup,
-  openPopupEditProfile,
-  openPopupAddPlace,
-  openPopupEnlargeImage,
-  submitFormEditProfile,
-  submitformPlaceInfo,
-  setFormEventListeners,
+  openProfilePopup,
+  openPlacePopup,
+  openEnlargeImagePopup,
+  submitProfileForm,
+  submitPlaceForm,
   toggleButtonState,
 };
