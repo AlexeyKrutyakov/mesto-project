@@ -11,7 +11,12 @@ import {
 } from './commonElements.js';
 import { profile } from './data.js';
 import { hasInvalidInput, validateInput } from './validate.js';
-import { clickHandler, saveNewProfile, refreshProfile } from './utils.js';
+import {
+  clickHandler,
+  saveNewProfile,
+  refreshProfile,
+  keydownHandler,
+} from './utils.js';
 import { addPlaceCard } from './card.js';
 
 // popup
@@ -29,9 +34,11 @@ const cardNameClass = 'card__name';
 
 function openPopup(popup) {
   popup.classList.add(openedPopupClass);
+  document.addEventListener('keydown', keydownHandler);
 }
 
 function closePopup(popup) {
+  document.removeEventListener('keydown', keydownHandler);
   popup.classList.remove(openedPopupClass);
 }
 
@@ -78,6 +85,7 @@ function openEnlargeImagePopup(event) {
   enlargeImage.src = imageLink;
   enlargeImage.alt = 'Увеличенное изображение места ' + placeName;
   figcaption.textContent = placeName;
+
   enlargeImagePopup.addEventListener('click', clickHandler);
 
   openPopup(enlargeImagePopup);
@@ -90,7 +98,7 @@ function submitProfileForm(event) {
   // update profile
   saveNewProfile(profileInputName.value, profileInputText.value);
   refreshProfile();
-
+  document.removeEventListener('keydown', keydownHandler);
   closePopup(profilePopup);
 }
 

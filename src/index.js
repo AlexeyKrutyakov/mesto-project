@@ -21,7 +21,7 @@ initialCards.forEach((place) => {
 // add listeners
 profileSection.addEventListener('click', clickHandler);
 cardsSection.addEventListener('click', clickHandler);
-page.addEventListener('keydown', keydownHandler);
+// page.addEventListener('keydown', keydownHandler);
 
 // enable forms validation
 enableValidation({

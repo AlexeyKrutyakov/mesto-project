@@ -55,6 +55,7 @@ function clickHandler(event) {
   if (targetClassList.contains(closePopupBtnClass)) {
     const popup = event.target.closest('.popup');
     popup.removeEventListener('click', clickHandler);
+    document.removeEventListener('keydown', keydownHandler);
     closePopup(popup);
   }
   if (targetClassList.contains(submitBtnClass)) {
@@ -84,7 +85,10 @@ function clickHandler(event) {
 function keydownHandler(event) {
   if (event.keyCode === 27) {
     const openedPopup = document.querySelector('.popup_opened');
-    if (openedPopup) closePopup(openedPopup);
+    if (openedPopup) {
+      document.removeEventListener('keydown', keydownHandler);
+      closePopup(openedPopup);
+    }
   }
 }
 
