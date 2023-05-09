@@ -4,7 +4,7 @@
 
 #### _Цель проекта:_
 
-Освоение навыков вёрстки адаптивных сайтов и использование JavaScript
+Освоение навыков вёрстки адаптивных сайтов и использование **_JavaScript_**
 для реализации различного функционала, в том числе:
 
 - создания галлереи карточек мест из шаблона;
@@ -18,8 +18,4 @@
 
 #### _Используемые инструменты и технологии:_
 
-![Figma](https://img.shields.io/badge/-Figma-011?&logo=figma)
-![HTML5](https://img.shields.io/badge/-HTML5-011?&logo=html5)
-![CSS3](https://img.shields.io/badge/-CSS3-011?&logo=css3)
-![JavaScript](https://img.shields.io/badge/-JavaScript-011?&logo=javascript)
-![GIT](https://img.shields.io/badge/-GIT-011?&logo=git)
+![Stack](https://skillicons.dev/icons?i=vscode,figma,git,html,css,js,webpack,babel&perline=10)
