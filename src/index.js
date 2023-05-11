@@ -8,7 +8,7 @@ import { enableValidation } from './components/validate.js';
 
 import { addPlaceCard } from './components/card.js';
 
-import { clickHandler, keydownHandler } from './components/utils.js';
+import { clickHandler } from './components/utils.js';
 
 const profileSection = document.querySelector('.profile');
 const page = document.querySelector('.page');
@@ -21,11 +21,11 @@ initialCards.forEach((place) => {
 // add listeners
 profileSection.addEventListener('click', clickHandler);
 cardsSection.addEventListener('click', clickHandler);
-// page.addEventListener('keydown', keydownHandler);
 
 // enable forms validation
 enableValidation({
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit',
+  inactiveBtnClass: 'form__submit_inactive',
 });

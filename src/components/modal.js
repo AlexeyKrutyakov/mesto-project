@@ -3,7 +3,6 @@ import {
   profileForm,
   profileInputName,
   profileInputText,
-  profileSubmitBnt,
   placePopup,
   placeForm,
   placeInputName,
@@ -21,8 +20,6 @@ import { addPlaceCard } from './card.js';
 
 // popup
 const openedPopupClass = 'popup_opened';
-//form
-const submitInactiveClass = 'form__submit_inactive';
 // enlarge image elements
 const enlargeImagePopupClass = 'popup_type_enlarge-image';
 const enlargeImagePopup = document.querySelector(`.${enlargeImagePopupClass}`);
@@ -52,9 +49,6 @@ function openProfilePopup() {
   // validate input values
   validateInput(profileForm, profileInputName);
   validateInput(profileForm, profileInputText);
-
-  // toggle submit button
-  toggleButtonState([profileInputName, profileInputText], profileSubmitBnt);
 
   // add listeners
   profilePopup.addEventListener('click', clickHandler);
@@ -112,14 +106,15 @@ function submitPlaceForm(event) {
   closePopup(placePopup);
 }
 
-function toggleButtonState(inputList, btn) {
-  const submitBtnInactiveClass = submitInactiveClass;
+function toggleButtonState(form, inputs, params) {
+  const btn = form.querySelector(params.submitButtonSelector);
+  const inactiveBtnClass = params.inactiveBtnClass;
 
-  if (hasInvalidInput(inputList)) {
-    btn.classList.add(submitBtnInactiveClass);
+  if (hasInvalidInput(inputs)) {
+    btn.classList.add(inactiveBtnClass);
     btn.disabled = true;
   } else {
-    btn.classList.remove(submitBtnInactiveClass);
+    btn.classList.remove(inactiveBtnClass);
     btn.disabled = false;
   }
 }
