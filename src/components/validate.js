@@ -1,5 +1,3 @@
-import { toggleButtonState } from './modal.js';
-
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
   inputElement.classList.add('form__input_type_invalid');
@@ -23,6 +21,19 @@ function validateInput(form, input) {
     showInputError(form, input, input.validationMessage);
   } else {
     hideInputError(form, input);
+  }
+}
+
+function toggleButtonState(form, inputs, params) {
+  const btn = form.querySelector(params.submitButtonSelector);
+  const inactiveBtnClass = params.inactiveBtnClass;
+
+  if (hasInvalidInput(inputs)) {
+    btn.classList.add(inactiveBtnClass);
+    btn.disabled = true;
+  } else {
+    btn.classList.remove(inactiveBtnClass);
+    btn.disabled = false;
   }
 }
 

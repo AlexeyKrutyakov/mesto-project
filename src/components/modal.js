@@ -106,19 +106,6 @@ function submitPlaceForm(event) {
   closePopup(placePopup);
 }
 
-function toggleButtonState(form, inputs, params) {
-  const btn = form.querySelector(params.submitButtonSelector);
-  const inactiveBtnClass = params.inactiveBtnClass;
-
-  if (hasInvalidInput(inputs)) {
-    btn.classList.add(inactiveBtnClass);
-    btn.disabled = true;
-  } else {
-    btn.classList.remove(inactiveBtnClass);
-    btn.disabled = false;
-  }
-}
-
 export {
   openPopup,
   closePopup,
@@ -127,5 +114,4 @@ export {
   openEnlargeImagePopup,
   submitProfileForm,
   submitPlaceForm,
-  toggleButtonState,
 };
