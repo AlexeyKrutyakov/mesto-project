@@ -23,3 +23,11 @@ export const placeInputImage = placeForm.elements['place-image-input'];
 // popup 'submit' button
 export const submitBtnClass = 'form__submit';
 export const profileSubmitBnt = profileForm.querySelector(`.${submitBtnClass}`);
+
+export const validationParameters = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveBtnClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_invalid',
+};

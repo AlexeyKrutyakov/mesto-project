@@ -1,16 +1,16 @@
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, params) {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
-  inputElement.classList.add('form__input_type_invalid');
+  inputElement.classList.add(params.inputErrorClass);
   errorElement.textContent = errorMessage;
 }
 
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement, params) {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
-  inputElement.classList.remove('form__input_type_invalid');
+  inputElement.classList.remove(params.inputErrorClass);
   errorElement.textContent = '';
 }
 
-function validateInput(form, input) {
+function validateInput(form, input, params) {
   if (input.validity.patternMismatch) {
     input.setCustomValidity(input.dataset.errorMessage);
   } else {
@@ -18,9 +18,9 @@ function validateInput(form, input) {
   }
 
   if (!input.validity.valid) {
-    showInputError(form, input, input.validationMessage);
+    showInputError(form, input, input.validationMessage, params);
   } else {
-    hideInputError(form, input);
+    hideInputError(form, input, params);
   }
 }
 
@@ -46,7 +46,7 @@ function enableValidation(params) {
 
     inputs.forEach((input) => {
       input.addEventListener('input', () => {
-        validateInput(form, input);
+        validateInput(form, input, params);
         toggleButtonState(form, inputs, params);
       });
     });
@@ -65,4 +65,5 @@ export {
   validateInput,
   enableValidation,
   hasInvalidInput,
+  toggleButtonState,
 };

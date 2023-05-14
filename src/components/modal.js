@@ -7,9 +7,10 @@ import {
   placeForm,
   placeInputName,
   placeInputImage,
+  validationParameters,
 } from './commonElements.js';
 import { profile } from './data.js';
-import { hasInvalidInput, validateInput } from './validate.js';
+import { validateInput, toggleButtonState } from './validate.js';
 import {
   clickHandler,
   saveNewProfile,
@@ -47,8 +48,13 @@ function openProfilePopup() {
   profileInputText.value = profile.text;
 
   // validate input values
-  validateInput(profileForm, profileInputName);
-  validateInput(profileForm, profileInputText);
+  validateInput(profileForm, profileInputName, validationParameters);
+  validateInput(profileForm, profileInputText, validationParameters);
+  toggleButtonState(
+    profileForm,
+    [profileInputName, profileInputText],
+    validationParameters
+  );
 
   // add listeners
   profilePopup.addEventListener('click', clickHandler);
@@ -62,8 +68,13 @@ function openPlacePopup() {
   placeForm.reset();
 
   // validate inputs
-  validateInput(placeForm, placeInputName);
-  validateInput(placeForm, placeInputImage);
+  validateInput(placeForm, placeInputName, validationParameters);
+  validateInput(placeForm, placeInputImage, validationParameters);
+  toggleButtonState(
+    placeForm,
+    [placeInputName, placeInputImage],
+    validationParameters
+  );
 
   // add listeners for popup buttons
   placePopup.addEventListener('click', clickHandler);

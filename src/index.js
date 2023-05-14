@@ -1,6 +1,9 @@
 import './index.css';
 
-import { cardsSection } from './components/commonElements.js';
+import {
+  cardsSection,
+  validationParameters,
+} from './components/commonElements.js';
 
 import { initialCards } from './components/data.js';
 
@@ -23,9 +26,4 @@ profileSection.addEventListener('click', clickHandler);
 cardsSection.addEventListener('click', clickHandler);
 
 // enable forms validation
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit',
-  inactiveBtnClass: 'form__submit_inactive',
-});
+enableValidation(validationParameters);
