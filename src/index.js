@@ -5,20 +5,22 @@ import {
   validationParameters,
 } from './components/commonElements.js';
 
-// import { initialCards } from './components/data.js';
+import { serverUrl, token } from './components/data';
 
 import { enableValidation } from './components/validate.js';
 
-import { getCards, addPlaceCard } from './components/card.js';
+import { getCards } from './components/card.js';
 
-import { clickHandler } from './components/utils.js';
+import { clickHandler, refreshProfile } from './components/utils.js';
 
 const profileSection = document.querySelector('.profile');
 const page = document.querySelector('.page');
 
-getCards('https://nomoreparties.co/v1/plus-cohort-24/cards', {
+refreshProfile();
+
+getCards(serverUrl, {
   headers: {
-    authorization: '9e2d263a-3d5a-40f2-a16e-27e8711676de',
+    authorization: token,
   },
 });
 

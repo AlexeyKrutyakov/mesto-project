@@ -1,7 +1,11 @@
+// data for server authorization
+const serverUrl = 'https://nomoreparties.co/v1/plus-cohort-24/cards';
+const token = '9e2d263a-3d5a-40f2-a16e-27e8711676de';
+
 // profile data
 const profile = {
-  name: 'Жак-Ив Кусто',
-  text: 'Исследователь океана',
+  name: 'Alex Krutyakov',
+  text: 'Web-developer',
 };
 // add links for images
 const chagazUzunImage = new URL(
@@ -54,4 +58,4 @@ const initialCards = [
   },
 ];
 
-export { profile, initialCards };
+export { serverUrl, token, profile, initialCards };
