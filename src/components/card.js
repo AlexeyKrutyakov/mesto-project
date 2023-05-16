@@ -1,4 +1,5 @@
 import { cardsSection } from './commonElements.js';
+import { profile } from './data.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const classActiveLikeBtn = 'card__like-button_active';
@@ -7,27 +8,41 @@ function getCards(url, params) {
   return fetch(url, params)
     .then((res) => res.json())
     .then((result) => {
-      result.forEach((card) => {
-        addPlaceCard(card.name, card.link, card.alt);
+      result.forEach((place) => {
+        let nonRemovable;
+        if (place.owner.name === profile.name) {
+          nonRemovable = false;
+        } else {
+          nonRemovable = true;
+        }
+        addPlaceCard(place.name, place.link, nonRemovable, place.alt);
       });
-      // console.log(result);
     })
     .catch((err) => {
       console.log('Error: ', err);
     });
 }
 
-function addPlaceCard(placeName, placeImage, imageAlt = '') {
-  const newCard = createPlaceCard(placeName, placeImage, imageAlt);
+function addPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
+  const newCard = createPlaceCard(
+    placeName,
+    placeImage,
+    nonRemovable,
+    imageAlt
+  );
   cardsSection.prepend(newCard);
 }
 
-function createPlaceCard(placeName, placeImage, imageAlt = '') {
+function createPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
   // copy of template element
   const placeCard = cardTemplate.querySelector('.card').cloneNode(true);
   // elements of card
   const cardName = placeCard.querySelector('.card__name');
   const cardImage = placeCard.querySelector('.card__image');
+  const cardRemoveButton = placeCard.querySelector('.card__remove-button');
+  if (nonRemovable) {
+    cardRemoveButton.classList.add('card__remove-button_hidden');
+  }
   // initialize data place into place card
   cardName.textContent = placeName;
   cardImage.src = placeImage;
@@ -38,6 +53,10 @@ function createPlaceCard(placeName, placeImage, imageAlt = '') {
   }
 
   return placeCard;
+}
+
+function hideRemoveButton(card) {
+  card.classList.add('card__remove-button_hidden');
 }
 
 function removeCard(event) {
@@ -51,4 +70,11 @@ function toggleLike(event) {
   btnClasses.toggle(classActiveLikeBtn);
 }
 
-export { getCards, addPlaceCard, createPlaceCard, removeCard, toggleLike };
+export {
+  getCards,
+  addPlaceCard,
+  createPlaceCard,
+  hideRemoveButton,
+  removeCard,
+  toggleLike,
+};
