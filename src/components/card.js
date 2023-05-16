@@ -3,6 +3,20 @@ import { cardsSection } from './commonElements.js';
 const cardTemplate = document.querySelector('#card-template').content;
 const classActiveLikeBtn = 'card__like-button_active';
 
+function getCards(url, params) {
+  return fetch(url, params)
+    .then((res) => res.json())
+    .then((result) => {
+      result.forEach((card) => {
+        addPlaceCard(card.name, card.link, card.alt);
+      });
+      // console.log(result);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
+}
+
 function addPlaceCard(placeName, placeImage, imageAlt = '') {
   const newCard = createPlaceCard(placeName, placeImage, imageAlt);
   cardsSection.prepend(newCard);
@@ -37,4 +51,4 @@ function toggleLike(event) {
   btnClasses.toggle(classActiveLikeBtn);
 }
 
-export { addPlaceCard, createPlaceCard, removeCard, toggleLike };
+export { getCards, addPlaceCard, createPlaceCard, removeCard, toggleLike };

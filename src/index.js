@@ -5,20 +5,21 @@ import {
   validationParameters,
 } from './components/commonElements.js';
 
-import { initialCards } from './components/data.js';
+// import { initialCards } from './components/data.js';
 
 import { enableValidation } from './components/validate.js';
 
-import { addPlaceCard } from './components/card.js';
+import { getCards, addPlaceCard } from './components/card.js';
 
 import { clickHandler } from './components/utils.js';
 
 const profileSection = document.querySelector('.profile');
 const page = document.querySelector('.page');
 
-// initialize place cards
-initialCards.forEach((place) => {
-  addPlaceCard(place.name, place.link, place.alt);
+getCards('https://nomoreparties.co/v1/plus-cohort-24/cards', {
+  headers: {
+    authorization: '9e2d263a-3d5a-40f2-a16e-27e8711676de',
+  },
 });
 
 // add listeners
