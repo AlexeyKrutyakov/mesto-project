@@ -28,7 +28,13 @@ function getCards(url, params) {
         } else {
           nonRemovable = true;
         }
-        addPlaceCard(place.name, place.link, nonRemovable, place.alt);
+        addPlaceCard(
+          place._id,
+          place.name,
+          place.link,
+          nonRemovable,
+          place.alt
+        );
       });
     })
     .catch((err) => {

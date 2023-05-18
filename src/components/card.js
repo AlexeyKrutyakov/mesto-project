@@ -3,8 +3,15 @@ import { cardsSection } from './commonElements.js';
 const cardTemplate = document.querySelector('#card-template').content;
 const classActiveLikeBtn = 'card__like-button_active';
 
-function addPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
+function addPlaceCard(
+  placeId,
+  placeName,
+  placeImage,
+  nonRemovable,
+  imageAlt = ''
+) {
   const newCard = createPlaceCard(
+    placeId,
     placeName,
     placeImage,
     nonRemovable,
@@ -13,7 +20,13 @@ function addPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
   cardsSection.prepend(newCard);
 }
 
-function createPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
+function createPlaceCard(
+  placeId,
+  placeName,
+  placeImage,
+  nonRemovable,
+  imageAlt = ''
+) {
   // copy of template element
   const placeCard = cardTemplate.querySelector('.card').cloneNode(true);
   // elements of card
@@ -24,6 +37,7 @@ function createPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
     cardRemoveButton.classList.add('card__remove-button_hidden');
   }
   // initialize data place into place card
+  placeCard.id = placeId;
   cardName.textContent = placeName;
   cardImage.src = placeImage;
   if (imageAlt === '') {
