@@ -46,7 +46,7 @@ function clickHandler(event) {
     toggleLike(event);
   }
   if (targetClassList.contains(removeCardBtnClass)) {
-    deleteCard(event, serverInfo.cardsUrl, serverInfo.token);
+    deleteCard(event, `${serverInfo.baseUrl}/cards`, serverInfo.token);
   }
   if (targetClassList.contains(closePopupBtnClass)) {
     const popup = event.target.closest('.popup');

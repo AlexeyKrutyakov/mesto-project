@@ -17,7 +17,7 @@ const profileSection = document.querySelector('.profile');
 
 getProfileInfo(serverInfo);
 
-getCards(serverInfo.cardsUrl, {
+getCards(`${serverInfo.baseUrl}/cards`, {
   headers: {
     authorization: serverInfo.token,
   },

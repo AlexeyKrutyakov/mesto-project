@@ -3,7 +3,7 @@ import { profileId } from './data';
 import { renderProfile } from './utils';
 
 function updateProfile(profileName, profileAbout, serverInfo) {
-  fetch(serverInfo.profileUrl, {
+  fetch(`${serverInfo.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: {
       authorization: serverInfo.token,
@@ -29,7 +29,7 @@ function updateProfile(profileName, profileAbout, serverInfo) {
 }
 
 function getProfileInfo(serverInfo) {
-  fetch(serverInfo.profileUrl, {
+  fetch(`${serverInfo.baseUrl}/users/me`, {
     method: 'GET',
     headers: {
       authorization: serverInfo.token,

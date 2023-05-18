@@ -1,7 +1,6 @@
 // data for server authorization
 const serverInfo = {
-  cardsUrl: 'https://nomoreparties.co/v1/plus-cohort-24/cards',
-  profileUrl: 'https://nomoreparties.co/v1/plus-cohort-24/users/me',
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
   token: '9e2d263a-3d5a-40f2-a16e-27e8711676de',
 };
 

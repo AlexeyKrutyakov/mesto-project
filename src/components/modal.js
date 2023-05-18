@@ -110,7 +110,7 @@ function submitPlaceForm(event) {
   postCard(
     placeInputName.value,
     placeInputImage.value,
-    serverInfo.cardsUrl,
+    `${serverInfo.baseUrl}/cards`,
     serverInfo.token
   );
   placeForm.reset();
