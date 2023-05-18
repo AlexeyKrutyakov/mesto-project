@@ -4,8 +4,11 @@ const token = '9e2d263a-3d5a-40f2-a16e-27e8711676de';
 
 // profile data
 const profile = {
+  _id: 'd7fd7ac4dab38fe4557cfe28',
   name: 'Alex Krutyakov',
   text: 'Web-developer',
+  avatar: '',
+  cohort: 'plus-cohort-24',
 };
 // add links for images
 const chagazUzunImage = new URL(

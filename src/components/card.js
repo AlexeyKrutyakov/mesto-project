@@ -10,7 +10,7 @@ function getCards(url, params) {
     .then((result) => {
       result.forEach((place) => {
         let nonRemovable;
-        if (place.owner.name === profile.name) {
+        if (place.owner._id === profile._id) {
           nonRemovable = false;
         } else {
           nonRemovable = true;
