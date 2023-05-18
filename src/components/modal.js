@@ -17,7 +17,7 @@ import {
   refreshProfile,
   keydownHandler,
 } from './utils.js';
-import { postCard } from './card.js';
+import { postCard } from './api.js';
 
 // popup
 const openedPopupClass = 'popup_opened';

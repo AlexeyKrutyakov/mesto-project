@@ -9,7 +9,7 @@ import { serverUrl, token } from './components/data';
 
 import { enableValidation } from './components/validate.js';
 
-import { getCards } from './components/card.js';
+import { getCards } from './components/api.js';
 
 import { clickHandler, refreshProfile } from './components/utils.js';
 
