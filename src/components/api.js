@@ -84,6 +84,7 @@ function getCards(url, params) {
           nonRemovable = true;
         }
         addPlaceCard(
+          place.likes.length,
           place._id,
           place.name,
           place.link,

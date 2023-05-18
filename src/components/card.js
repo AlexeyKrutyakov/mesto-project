@@ -4,6 +4,7 @@ const cardTemplate = document.querySelector('#card-template').content;
 const classActiveLikeBtn = 'card__like-button_active';
 
 function addPlaceCard(
+  placeLikes,
   placeId,
   placeName,
   placeImage,
@@ -11,6 +12,7 @@ function addPlaceCard(
   imageAlt = ''
 ) {
   const newCard = createPlaceCard(
+    placeLikes,
     placeId,
     placeName,
     placeImage,
@@ -21,6 +23,7 @@ function addPlaceCard(
 }
 
 function createPlaceCard(
+  placeLikes,
   placeId,
   placeName,
   placeImage,
@@ -32,12 +35,14 @@ function createPlaceCard(
   // elements of card
   const cardName = placeCard.querySelector('.card__name');
   const cardImage = placeCard.querySelector('.card__image');
+  const likeNumber = placeCard.querySelector('.card__likes-number');
   const cardRemoveButton = placeCard.querySelector('.card__remove-button');
   if (nonRemovable) {
     cardRemoveButton.classList.add('card__remove-button_hidden');
   }
   // initialize data place into place card
   placeCard.id = placeId;
+  likeNumber.textContent = placeLikes;
   cardName.textContent = placeName;
   cardImage.src = placeImage;
   if (imageAlt === '') {
