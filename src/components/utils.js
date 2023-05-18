@@ -5,7 +5,7 @@ import {
   placePopup,
   placeForm,
 } from './commonElements.js';
-import { profile } from './data.js';
+import { profile, serverUrl, token } from './data.js';
 import {
   openProfilePopup,
   submitProfileForm,
@@ -14,7 +14,8 @@ import {
   openEnlargeImagePopup,
   closePopup,
 } from './modal.js';
-import { removeCard, toggleLike } from './card.js';
+import { toggleLike } from './card.js';
+import { deleteCard } from './api.js';
 
 const profileNameElement = document.querySelector('.profile__name');
 const profileTextElement = document.querySelector('.profile__text');
@@ -50,7 +51,7 @@ function clickHandler(event) {
     toggleLike(event);
   }
   if (targetClassList.contains(removeCardBtnClass)) {
-    removeCard(event);
+    deleteCard(event, serverUrl, token);
   }
   if (targetClassList.contains(closePopupBtnClass)) {
     const popup = event.target.closest('.popup');

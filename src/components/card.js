@@ -52,21 +52,10 @@ function hideRemoveButton(card) {
   card.classList.add('card__remove-button_hidden');
 }
 
-function removeCard(event) {
-  const currentCard = event.target.closest('.card');
-  currentCard.remove();
-}
-
 function toggleLike(event) {
   const btnLike = event.target;
   const btnClasses = btnLike.classList;
   btnClasses.toggle(classActiveLikeBtn);
 }
 
-export {
-  addPlaceCard,
-  createPlaceCard,
-  hideRemoveButton,
-  removeCard,
-  toggleLike,
-};
+export { addPlaceCard, createPlaceCard, hideRemoveButton, toggleLike };

@@ -13,15 +13,23 @@ function postCard(placeName, placeImage, serverUrl, token) {
       link: placeImage,
     }),
   })
-    .then(() => addPlaceCard(placeName, placeImage, false))
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then((json) => {
+      const cardId = json._id;
+      addPlaceCard(cardId, placeName, placeImage, false);
+    })
     .catch((err) => console.log('Error: ', err));
 }
 
 function getCards(url, params) {
   return fetch(url, params)
-    .then((res) => res.json())
-    .then((result) => {
-      result.forEach((place) => {
+    .then((response) => response.json())
+    .then((json) => {
+      json.forEach((place) => {
         let nonRemovable;
         if (place.owner._id === profile._id) {
           nonRemovable = false;
@@ -42,4 +50,28 @@ function getCards(url, params) {
     });
 }
 
-export { postCard, getCards };
+function deleteCard(event, serverUrl, token) {
+  const currentCard = event.target.closest('.card');
+  const cardId = currentCard.id;
+  fetch(`${serverUrl}/${cardId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: token,
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then((json) => {
+      if (json.message === 'Пост удалён') {
+        currentCard.remove();
+      }
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
+}
+
+export { postCard, getCards, deleteCard };
