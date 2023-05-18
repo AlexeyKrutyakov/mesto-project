@@ -5,22 +5,21 @@ import {
   validationParameters,
 } from './components/commonElements.js';
 
-import { serverUrl, token } from './components/data';
+import { serverInfo, profile } from './components/data';
 
 import { enableValidation } from './components/validate.js';
 
-import { getCards } from './components/api.js';
+import { getCards, getProfileInfo } from './components/api.js';
 
-import { clickHandler, refreshProfile } from './components/utils.js';
+import { clickHandler } from './components/utils.js';
 
 const profileSection = document.querySelector('.profile');
-const page = document.querySelector('.page');
 
-refreshProfile();
+getProfileInfo(serverInfo);
 
-getCards(serverUrl, {
+getCards(serverInfo.cardsUrl, {
   headers: {
-    authorization: token,
+    authorization: serverInfo.token,
   },
 });
 

@@ -1,11 +1,58 @@
 import { addPlaceCard } from './card';
-import { profile } from './data';
+import { profileId } from './data';
+import { renderProfile } from './utils';
 
-function postCard(placeName, placeImage, serverUrl, token) {
-  fetch(serverUrl, {
+function updateProfile(profileName, profileAbout, serverInfo) {
+  fetch(serverInfo.profileUrl, {
+    method: 'PATCH',
+    headers: {
+      authorization: serverInfo.token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: profileName,
+      about: profileAbout,
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log('response: ', response);
+        return response.json();
+      }
+    })
+    .then((json) => {
+      renderProfile(json);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
+}
+
+function getProfileInfo(serverInfo) {
+  fetch(serverInfo.profileUrl, {
+    method: 'GET',
+    headers: {
+      authorization: serverInfo.token,
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then((json) => {
+      renderProfile(json);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
+}
+
+function postCard(placeName, placeImage, serverInfo) {
+  fetch(serverInfo.cardsUrl, {
     method: 'POST',
     headers: {
-      authorization: token,
+      authorization: serverInfo.token,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -31,7 +78,7 @@ function getCards(url, params) {
     .then((json) => {
       json.forEach((place) => {
         let nonRemovable;
-        if (place.owner._id === profile._id) {
+        if (place.owner._id === profileId) {
           nonRemovable = false;
         } else {
           nonRemovable = true;
@@ -50,13 +97,13 @@ function getCards(url, params) {
     });
 }
 
-function deleteCard(event, serverUrl, token) {
+function deleteCard(event, serverInfo) {
   const currentCard = event.target.closest('.card');
   const cardId = currentCard.id;
-  fetch(`${serverUrl}/${cardId}`, {
+  fetch(`${serverInfo.cardsUrl}/${cardId}`, {
     method: 'DELETE',
     headers: {
-      authorization: token,
+      authorization: serverInfo.token,
     },
   })
     .then((response) => {
@@ -74,4 +121,4 @@ function deleteCard(event, serverUrl, token) {
     });
 }
 
-export { postCard, getCards, deleteCard };
+export { updateProfile, getProfileInfo, postCard, getCards, deleteCard };

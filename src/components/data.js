@@ -1,15 +1,12 @@
 // data for server authorization
-const serverUrl = 'https://nomoreparties.co/v1/plus-cohort-24/cards';
-const token = '9e2d263a-3d5a-40f2-a16e-27e8711676de';
+const serverInfo = {
+  cardsUrl: 'https://nomoreparties.co/v1/plus-cohort-24/cards',
+  profileUrl: 'https://nomoreparties.co/v1/plus-cohort-24/users/me',
+  token: '9e2d263a-3d5a-40f2-a16e-27e8711676de',
+};
 
 // profile data
-const profile = {
-  _id: 'd7fd7ac4dab38fe4557cfe28',
-  name: 'Alex Krutyakov',
-  text: 'Web-developer',
-  avatar: '',
-  cohort: 'plus-cohort-24',
-};
+const profileId = 'd7fd7ac4dab38fe4557cfe28';
 // add links for images
 const chagazUzunImage = new URL(
   '../images/mars-mountains.jpg',
@@ -61,4 +58,4 @@ const initialCards = [
   },
 ];
 
-export { serverUrl, token, profile, initialCards };
+export { serverInfo, profileId, initialCards };

@@ -1,3 +1,7 @@
+// PROFILE SECTION
+export const profileSection = document.querySelector('.profile');
+export const profileName = profileSection.querySelector('.profile__name');
+export const profileAbout = profileSection.querySelector('.profile__text');
 // CARDS SECTION
 export const cardsSection = document.querySelector('.cards');
 // POPUPS

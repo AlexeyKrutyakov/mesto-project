@@ -5,7 +5,7 @@ import {
   placePopup,
   placeForm,
 } from './commonElements.js';
-import { profile, serverUrl, token } from './data.js';
+import { serverInfo } from './data.js';
 import {
   openProfilePopup,
   submitProfileForm,
@@ -26,14 +26,9 @@ const likeBtnClass = 'card__like-button';
 const removeCardBtnClass = 'card__remove-button';
 const closePopupBtnClass = 'popup__close-button';
 
-function saveNewProfile(name, text) {
-  profile['name'] = name;
-  profile['text'] = text;
-}
-
-function refreshProfile() {
-  profileNameElement.textContent = profile.name;
-  profileTextElement.textContent = profile.text;
+function renderProfile(json) {
+  profileNameElement.textContent = json.name;
+  profileTextElement.textContent = json.about;
 }
 
 function clickHandler(event) {
@@ -51,7 +46,7 @@ function clickHandler(event) {
     toggleLike(event);
   }
   if (targetClassList.contains(removeCardBtnClass)) {
-    deleteCard(event, serverUrl, token);
+    deleteCard(event, serverInfo.cardsUrl, serverInfo.token);
   }
   if (targetClassList.contains(closePopupBtnClass)) {
     const popup = event.target.closest('.popup');
@@ -91,4 +86,4 @@ function keydownHandler(event) {
   }
 }
 
-export { saveNewProfile, refreshProfile, clickHandler, keydownHandler };
+export { renderProfile, clickHandler, keydownHandler };

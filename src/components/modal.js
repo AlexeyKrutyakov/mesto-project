@@ -1,4 +1,6 @@
 import {
+  profileName,
+  profileAbout,
   profilePopup,
   profileForm,
   profileInputName,
@@ -9,15 +11,10 @@ import {
   placeInputImage,
   validationParameters,
 } from './commonElements.js';
-import { profile, serverUrl, token } from './data.js';
+import { serverInfo } from './data.js';
 import { validateInput, toggleButtonState } from './validate.js';
-import {
-  clickHandler,
-  saveNewProfile,
-  refreshProfile,
-  keydownHandler,
-} from './utils.js';
-import { postCard } from './api.js';
+import { clickHandler, keydownHandler } from './utils.js';
+import { postCard, updateProfile } from './api.js';
 
 // popup
 const openedPopupClass = 'popup_opened';
@@ -44,8 +41,8 @@ function openProfilePopup() {
   openPopup(profilePopup);
 
   // initiate input values with current profile data
-  profileInputName.value = profile.name;
-  profileInputText.value = profile.text;
+  profileInputName.value = profileName.textContent;
+  profileInputText.value = profileAbout.textContent;
 
   // validate input values
   validateInput(profileForm, profileInputName, validationParameters);
@@ -101,8 +98,7 @@ function submitProfileForm(event) {
   event.preventDefault();
 
   // update profile
-  saveNewProfile(profileInputName.value, profileInputText.value);
-  refreshProfile();
+  updateProfile(profileInputName.value, profileInputText.value, serverInfo);
   document.removeEventListener('keydown', keydownHandler);
   closePopup(profilePopup);
 }
@@ -111,7 +107,12 @@ function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  postCard(placeInputName.value, placeInputImage.value, serverUrl, token);
+  postCard(
+    placeInputName.value,
+    placeInputImage.value,
+    serverInfo.cardsUrl,
+    serverInfo.token
+  );
   placeForm.reset();
 
   closePopup(placePopup);
