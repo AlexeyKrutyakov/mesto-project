@@ -11,7 +11,7 @@ import {
   placeInputImage,
   validationParameters,
 } from './commonElements.js';
-import { serverInfo } from './data.js';
+import { config } from './data.js';
 import { validateInput, toggleButtonState } from './validate.js';
 import { clickHandler, keydownHandler } from './utils.js';
 import { postCard, updateProfile } from './api.js';
@@ -98,7 +98,7 @@ function submitProfileForm(event) {
   event.preventDefault();
 
   // update profile
-  updateProfile(profileInputName.value, profileInputText.value, serverInfo);
+  updateProfile(profileInputName.value, profileInputText.value, config);
   document.removeEventListener('keydown', keydownHandler);
   closePopup(profilePopup);
 }
@@ -107,12 +107,7 @@ function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  postCard(
-    placeInputName.value,
-    placeInputImage.value,
-    `${serverInfo.baseUrl}/cards`,
-    serverInfo.token
-  );
+  postCard(placeInputName.value, placeInputImage.value, config);
   placeForm.reset();
 
   closePopup(placePopup);

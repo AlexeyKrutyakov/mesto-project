@@ -2,11 +2,11 @@ import { addPlaceCard } from './card';
 import { profileId } from './data';
 import { renderProfile } from './utils';
 
-function updateProfile(profileName, profileAbout, serverInfo) {
-  fetch(`${serverInfo.baseUrl}/users/me`, {
+function updateProfile(profileName, profileAbout, config) {
+  fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: {
-      authorization: serverInfo.token,
+      authorization: config.token,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -28,11 +28,11 @@ function updateProfile(profileName, profileAbout, serverInfo) {
     });
 }
 
-function getProfileInfo(serverInfo) {
-  fetch(`${serverInfo.baseUrl}/users/me`, {
+function getProfileInfo(config) {
+  fetch(`${config.baseUrl}/users/me`, {
     method: 'GET',
     headers: {
-      authorization: serverInfo.token,
+      authorization: config.token,
     },
   })
     .then((response) => {
@@ -48,11 +48,11 @@ function getProfileInfo(serverInfo) {
     });
 }
 
-function postCard(placeName, placeImage, serverInfo) {
-  fetch(serverInfo.cardsUrl, {
+function postCard(placeName, placeImage, config) {
+  fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: {
-      authorization: serverInfo.token,
+      authorization: config.token,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -98,13 +98,13 @@ function getCards(url, params) {
     });
 }
 
-function deleteCard(event, serverInfo) {
+function deleteCard(event, config) {
   const currentCard = event.target.closest('.card');
   const cardId = currentCard.id;
-  fetch(`${serverInfo.cardsUrl}/${cardId}`, {
+  fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: {
-      authorization: serverInfo.token,
+      authorization: config.token,
     },
   })
     .then((response) => {

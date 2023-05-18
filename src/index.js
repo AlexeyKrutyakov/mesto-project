@@ -5,7 +5,7 @@ import {
   validationParameters,
 } from './components/commonElements.js';
 
-import { serverInfo, profile } from './components/data';
+import { config } from './components/data';
 
 import { enableValidation } from './components/validate.js';
 
@@ -15,11 +15,11 @@ import { clickHandler } from './components/utils.js';
 
 const profileSection = document.querySelector('.profile');
 
-getProfileInfo(serverInfo);
+getProfileInfo(config);
 
-getCards(`${serverInfo.baseUrl}/cards`, {
+getCards(`${config.baseUrl}/cards`, {
   headers: {
-    authorization: serverInfo.token,
+    authorization: config.token,
   },
 });
 

@@ -5,7 +5,7 @@ import {
   placePopup,
   placeForm,
 } from './commonElements.js';
-import { serverInfo } from './data.js';
+import { config } from './data.js';
 import {
   openProfilePopup,
   submitProfileForm,
@@ -46,7 +46,7 @@ function clickHandler(event) {
     toggleLike(event);
   }
   if (targetClassList.contains(removeCardBtnClass)) {
-    deleteCard(event, `${serverInfo.baseUrl}/cards`, serverInfo.token);
+    deleteCard(event, config);
   }
   if (targetClassList.contains(closePopupBtnClass)) {
     const popup = event.target.closest('.popup');

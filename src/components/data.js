@@ -1,5 +1,5 @@
 // data for server authorization
-const serverInfo = {
+const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
   token: '9e2d263a-3d5a-40f2-a16e-27e8711676de',
 };
@@ -57,4 +57,4 @@ const initialCards = [
   },
 ];
 
-export { serverInfo, profileId, initialCards };
+export { config, profileId, initialCards };
