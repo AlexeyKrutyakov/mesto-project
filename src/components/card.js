@@ -23,6 +23,22 @@ function getCards(url, params) {
     });
 }
 
+function postCard(placeName, placeImage, serverUrl, token) {
+  fetch(serverUrl, {
+    method: 'POST',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: placeName,
+      link: placeImage,
+    }),
+  })
+    .then(() => addPlaceCard(placeName, placeImage, false))
+    .catch((e) => console.log('Error: ', e));
+}
+
 function addPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
   const newCard = createPlaceCard(
     placeName,
@@ -51,7 +67,6 @@ function createPlaceCard(placeName, placeImage, nonRemovable, imageAlt = '') {
   } else {
     cardImage.alt = imageAlt;
   }
-
   return placeCard;
 }
 
@@ -71,10 +86,11 @@ function toggleLike(event) {
 }
 
 export {
-  getCards,
   addPlaceCard,
   createPlaceCard,
+  getCards,
   hideRemoveButton,
+  postCard,
   removeCard,
   toggleLike,
 };

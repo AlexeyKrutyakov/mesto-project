@@ -9,7 +9,7 @@ import {
   placeInputImage,
   validationParameters,
 } from './commonElements.js';
-import { profile } from './data.js';
+import { profile, serverUrl, token } from './data.js';
 import { validateInput, toggleButtonState } from './validate.js';
 import {
   clickHandler,
@@ -17,7 +17,7 @@ import {
   refreshProfile,
   keydownHandler,
 } from './utils.js';
-import { addPlaceCard } from './card.js';
+import { postCard } from './card.js';
 
 // popup
 const openedPopupClass = 'popup_opened';
@@ -111,7 +111,7 @@ function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  addPlaceCard(placeInputName.value, placeInputImage.value);
+  postCard(placeInputName.value, placeInputImage.value, serverUrl, token);
   placeForm.reset();
 
   closePopup(placePopup);
