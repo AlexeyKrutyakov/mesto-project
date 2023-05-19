@@ -1,0 +1,14 @@
+.popup__container_type_edit-avatar {
+  align-items: center;
+  background-color: rgba(255, 255, 255);
+  border-radius: 10px;
+  justify-content: center;
+  overflow: hidden;
+  width: 430px;
+}
+
+@media (max-width: 1279px) {
+  .popup__container_type_edit-avatar {
+    width: 282px;
+  }
+}

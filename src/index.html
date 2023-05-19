@@ -78,6 +78,21 @@
         </figure>
       </div>
     </div>
+    <div class="popup popup_type_edit-avatar popup_opened">
+      <div class="popup__container popup__container_type_edit-avatar">
+        <button type="button" class="button popup__close-button popup__close-button_type_edit-avatar"
+          aria-label="Закрыть модальное окно"></button>
+        <form class="form" name="edit-avatar">
+          <fieldset class="form__set">
+            <h2 class="form__title">Обновить аватар</h2>
+            <input type="text" class="form__input" name="avatar-image-input" placeholder="Ссылка на картинку"
+              pattern="https?://[\S]{4,}" data-error-message="В поле «Ссылка на картинку» должен быть URL" required>
+            <span class="form__input-error avatar-image-input-error"></span>
+            <button type="submit" class="form__submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
     <section class="cards" aria-label="Галлерея карточек мест">
     </section>
   </main>
