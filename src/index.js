@@ -17,11 +17,7 @@ const profileSection = document.querySelector('.profile');
 
 getProfileInfo(config);
 
-getCards(`${config.baseUrl}/cards`, {
-  headers: {
-    authorization: config.token,
-  },
-});
+getCards(config);
 
 // add listeners
 profileSection.addEventListener('click', clickHandler);

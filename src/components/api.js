@@ -3,21 +3,21 @@ import { profileId } from './data';
 import { renderProfile } from './utils';
 
 function updateProfile(profileName, profileAbout, config) {
-  fetch(`${config.baseUrl}/users/me`, {
+  const url = `${config.baseUrl}/users/me`;
+  const requestOptions = {
     method: 'PATCH',
-    headers: {
-      authorization: config.token,
-      'Content-Type': 'application/json',
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: profileName,
       about: profileAbout,
     }),
-  })
+  };
+  fetch(url, requestOptions)
     .then((response) => {
       if (response.ok) {
-        console.log('response: ', response);
         return response.json();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
       }
     })
     .then((json) => {
@@ -29,15 +29,17 @@ function updateProfile(profileName, profileAbout, config) {
 }
 
 function getProfileInfo(config) {
-  fetch(`${config.baseUrl}/users/me`, {
+  const url = `${config.baseUrl}/users/me`;
+  const requestOptions = {
     method: 'GET',
-    headers: {
-      authorization: config.token,
-    },
-  })
+    headers: config.headers,
+  };
+  fetch(url, requestOptions)
     .then((response) => {
       if (response.ok) {
         return response.json();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
       }
     })
     .then((json) => {
@@ -49,20 +51,21 @@ function getProfileInfo(config) {
 }
 
 function postCard(placeName, placeImage, config) {
-  fetch(`${config.baseUrl}/cards`, {
+  const url = `${config.baseUrl}/cards`;
+  const requestOptions = {
     method: 'POST',
-    headers: {
-      authorization: config.token,
-      'Content-Type': 'application/json',
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: placeName,
       link: placeImage,
     }),
-  })
+  };
+  fetch(url, requestOptions)
     .then((response) => {
       if (response.ok) {
         return response.json();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
       }
     })
     .then((json) => {
@@ -72,9 +75,20 @@ function postCard(placeName, placeImage, config) {
     .catch((err) => console.log('Error: ', err));
 }
 
-function getCards(url, params) {
-  return fetch(url, params)
-    .then((response) => response.json())
+function getCards(config) {
+  const url = `${config.baseUrl}/cards`;
+  const requestOptions = {
+    method: 'GET',
+    headers: config.headers,
+  };
+  return fetch(url, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
+      }
+    })
     .then((json) => {
       json.forEach((place) => {
         let nonRemovable;
@@ -101,12 +115,12 @@ function getCards(url, params) {
 function deleteCard(event, config) {
   const currentCard = event.target.closest('.card');
   const cardId = currentCard.id;
-  fetch(`${config.baseUrl}/cards/${cardId}`, {
+  const url = `${config.baseUrl}/cards/${cardId}`;
+  const requestOptions = {
     method: 'DELETE',
-    headers: {
-      authorization: config.token,
-    },
-  })
+    headers: config.headers,
+  };
+  fetch(url, requestOptions)
     .then((response) => {
       if (response.ok) {
         return response.json();
