@@ -98,7 +98,7 @@ function postCard(placeName, placeImage, config) {
     .catch((err) => console.log('Error: ', err));
 }
 
-function getCards(config) {
+function getInitialCards(config) {
   const url = `${config.baseUrl}/cards`;
   const requestOptions = {
     method: 'GET',
@@ -209,7 +209,7 @@ export {
   updateProfile,
   getProfileInfo,
   postCard,
-  getCards,
+  getInitialCards,
   deleteCard,
   putLike,
   deleteLike,

@@ -9,7 +9,7 @@ import { config } from './components/api.js';
 
 import { enableValidation } from './components/validate.js';
 
-import { getCards, getProfileInfo } from './components/api.js';
+import { getInitialCards, getProfileInfo } from './components/api.js';
 
 import { clickHandler } from './components/utils.js';
 
@@ -17,7 +17,7 @@ const profileSection = document.querySelector('.profile');
 
 getProfileInfo(config);
 
-getCards(config);
+getInitialCards(config);
 
 // add listeners
 profileSection.addEventListener('click', clickHandler);
