@@ -1,4 +1,7 @@
+import { putLike, deleteLike } from './api.js';
 import { cardsSection } from './commonElements.js';
+import { config } from './api.js';
+import { profileId } from './data.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const classActiveLikeBtn = 'card__like-button_active';
@@ -9,6 +12,7 @@ function addPlaceCard(
   placeName,
   placeImage,
   nonRemovable,
+  hasMyLike,
   imageAlt = ''
 ) {
   const newCard = createPlaceCard(
@@ -17,6 +21,7 @@ function addPlaceCard(
     placeName,
     placeImage,
     nonRemovable,
+    hasMyLike,
     imageAlt
   );
   cardsSection.prepend(newCard);
@@ -28,6 +33,7 @@ function createPlaceCard(
   placeName,
   placeImage,
   nonRemovable,
+  hasMyLike,
   imageAlt = ''
 ) {
   // copy of template element
@@ -35,6 +41,7 @@ function createPlaceCard(
   // elements of card
   const cardName = placeCard.querySelector('.card__name');
   const cardImage = placeCard.querySelector('.card__image');
+  const cardLikeButton = placeCard.querySelector('.card__like-button');
   const likeNumber = placeCard.querySelector('.card__likes-number');
   const cardRemoveButton = placeCard.querySelector('.card__remove-button');
   if (nonRemovable) {
@@ -50,6 +57,9 @@ function createPlaceCard(
   } else {
     cardImage.alt = imageAlt;
   }
+  if (hasMyLike) {
+    cardLikeButton.classList.add('card__like-button_active');
+  }
   return placeCard;
 }
 
@@ -60,7 +70,34 @@ function hideRemoveButton(card) {
 function toggleLike(event) {
   const btnLike = event.target;
   const btnClasses = btnLike.classList;
+  const card = btnLike.parentElement;
+  if (Array.from(btnLike.classList).includes(classActiveLikeBtn)) {
+    deleteLike(config, card);
+  } else {
+    putLike(config, card);
+  }
+
   btnClasses.toggle(classActiveLikeBtn);
 }
 
-export { addPlaceCard, createPlaceCard, hideRemoveButton, toggleLike };
+function renderLikesNumber(card, likes) {
+  const likesNumber = card.querySelector('.card__likes-number');
+  likesNumber.textContent = likes;
+}
+
+function hasMyLike(request, myId) {
+  let result = false;
+  request.likes.forEach((like) => {
+    if (like._id === myId) result = true;
+  });
+  return result;
+}
+
+export {
+  addPlaceCard,
+  createPlaceCard,
+  hideRemoveButton,
+  toggleLike,
+  renderLikesNumber,
+  hasMyLike,
+};

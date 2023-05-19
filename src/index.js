@@ -19,8 +19,7 @@ getProfileInfo(config);
 
 getCards(config);
 
-putLike(config, '64673f1b9e6b3f06367c6628');
-// deleteLike(config, '64673f1b9e6b3f06367c6628');
+const id = '64673f1b9e6b3f06367c6628';
 
 // add listeners
 profileSection.addEventListener('click', clickHandler);

@@ -1,4 +1,4 @@
-import { addPlaceCard } from './card';
+import { addPlaceCard, hasMyLike, renderLikesNumber } from './card';
 import { profileId } from './data';
 import { renderProfile } from './utils';
 
@@ -112,6 +112,7 @@ function getCards(config) {
           place.name,
           place.link,
           nonRemovable,
+          hasMyLike(place, profileId),
           place.alt
         );
       });
@@ -145,8 +146,8 @@ function deleteCard(event, config) {
     });
 }
 
-function putLike(config, cardId) {
-  const url = `${config.baseUrl}/cards/likes/${cardId}`;
+function putLike(config, card) {
+  const url = `${config.baseUrl}/cards/likes/${card.id}`;
   const requestOptions = {
     method: 'PUT',
     headers: config.headers,
@@ -160,15 +161,15 @@ function putLike(config, cardId) {
       }
     })
     .then((json) => {
-      console.log(json);
+      renderLikesNumber(card, json.likes.length);
     })
     .catch((err) => {
       console.log('Error: ', err);
     });
 }
 
-function deleteLike(config, cardId) {
-  const url = `${config.baseUrl}/cards/likes/${cardId}`;
+function deleteLike(config, card) {
+  const url = `${config.baseUrl}/cards/likes/${card.id}`;
   const requestOptions = {
     method: 'DELETE',
     headers: config.headers,
@@ -182,7 +183,7 @@ function deleteLike(config, cardId) {
       }
     })
     .then((json) => {
-      console.log(json);
+      renderLikesNumber(card, json.likes.length);
     })
     .catch((err) => {
       console.log('Error: ', err);
