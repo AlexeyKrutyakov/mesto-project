@@ -78,8 +78,20 @@ function postCard(placeName, placeImage, config) {
       }
     })
     .then((json) => {
+      console.log(json);
+      const placeLikes = json.likes.length;
       const cardId = json._id;
-      addPlaceCard(cardId, placeName, placeImage, false);
+      const hasMyLike = false;
+      const nonRemovable = false;
+      console.log('now addPlaceCard()');
+      addPlaceCard(
+        placeLikes,
+        cardId,
+        placeName,
+        placeImage,
+        nonRemovable,
+        hasMyLike
+      );
     })
     .catch((err) => console.log('Error: ', err));
 }
