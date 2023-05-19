@@ -2,6 +2,15 @@ import { addPlaceCard } from './card';
 import { profileId } from './data';
 import { renderProfile } from './utils';
 
+// data for server authorization
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
+  headers: {
+    authorization: '9e2d263a-3d5a-40f2-a16e-27e8711676de',
+    'Content-Type': 'application/json',
+  },
+};
+
 function updateProfile(profileName, profileAbout, config) {
   const url = `${config.baseUrl}/users/me`;
   const requestOptions = {
@@ -136,4 +145,11 @@ function deleteCard(event, config) {
     });
 }
 
-export { updateProfile, getProfileInfo, postCard, getCards, deleteCard };
+export {
+  config,
+  updateProfile,
+  getProfileInfo,
+  postCard,
+  getCards,
+  deleteCard,
+};

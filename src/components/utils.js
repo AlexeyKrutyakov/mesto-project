@@ -5,7 +5,7 @@ import {
   placePopup,
   placeForm,
 } from './commonElements.js';
-import { config } from './data.js';
+import { config } from './api.js';
 import {
   openProfilePopup,
   submitProfileForm,

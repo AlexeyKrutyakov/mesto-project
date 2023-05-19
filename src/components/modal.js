@@ -11,10 +11,9 @@ import {
   placeInputImage,
   validationParameters,
 } from './commonElements.js';
-import { config } from './data.js';
 import { validateInput, toggleButtonState } from './validate.js';
 import { clickHandler, keydownHandler } from './utils.js';
-import { postCard, updateProfile } from './api.js';
+import { config, postCard, updateProfile } from './api.js';
 
 // popup
 const openedPopupClass = 'popup_opened';

@@ -5,7 +5,7 @@ import {
   validationParameters,
 } from './components/commonElements.js';
 
-import { config } from './components/data';
+import { config } from './components/api.js';
 
 import { enableValidation } from './components/validate.js';
 
