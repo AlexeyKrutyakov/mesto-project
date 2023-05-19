@@ -1,5 +1,10 @@
 import { addPlaceCard, hasMyLike, renderLikesNumber } from './card';
-import { renderProfile } from './utils';
+import { changeAvatar, toggleSubmitStatus, renderProfile } from './utils';
+import {
+  profileSubmitBnt,
+  placeSubmitBtn,
+  avatarSubmitBtn,
+} from './commonElements';
 
 let profileId = 'd7fd7ac4dab38fe4557cfe28';
 
@@ -11,6 +16,33 @@ const config = {
     'Content-Type': 'application/json',
   },
 };
+
+function patchAvatar(link, config) {
+  const url = `${config.baseUrl}/users/me/avatar`;
+  const requestOptions = {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: link,
+    }),
+  };
+  fetch(url, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        toggleSubmitStatus(avatarSubmitBtn);
+        return response.json();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
+      }
+    })
+    .then((json) => {
+      toggleSubmitStatus(avatarSubmitBtn);
+      changeAvatar(json);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
+}
 
 function updateProfile(profileName, profileAbout, config) {
   const url = `${config.baseUrl}/users/me`;
@@ -25,12 +57,14 @@ function updateProfile(profileName, profileAbout, config) {
   fetch(url, requestOptions)
     .then((response) => {
       if (response.ok) {
+        toggleSubmitStatus(profileSubmitBnt);
         return response.json();
       } else {
         return Promise.reject(`Error: ${response.status}`);
       }
     })
     .then((json) => {
+      toggleSubmitStatus(profileSubmitBnt);
       renderProfile(json);
     })
     .catch((err) => {
@@ -74,18 +108,18 @@ function postCard(placeName, placeImage, config) {
   fetch(url, requestOptions)
     .then((response) => {
       if (response.ok) {
+        toggleSubmitStatus(placeSubmitBtn);
         return response.json();
       } else {
         return Promise.reject(`Error: ${response.status}`);
       }
     })
     .then((json) => {
-      console.log(json);
+      toggleSubmitStatus(placeSubmitBtn);
       const placeLikes = json.likes.length;
       const cardId = json._id;
       const hasMyLike = false;
       const nonRemovable = false;
-      console.log('now addPlaceCard()');
       addPlaceCard(
         placeLikes,
         cardId,
@@ -206,6 +240,7 @@ function deleteLike(config, card) {
 
 export {
   config,
+  patchAvatar,
   updateProfile,
   getProfileInfo,
   postCard,

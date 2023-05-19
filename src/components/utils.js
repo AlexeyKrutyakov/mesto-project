@@ -4,9 +4,13 @@ import {
   profileForm,
   placePopup,
   placeForm,
+  avatarPopup,
+  avatarForm,
 } from './commonElements.js';
 import { config } from './api.js';
 import {
+  openAvatarPopup,
+  submitAvatarForm,
   openProfilePopup,
   submitProfileForm,
   openPlacePopup,
@@ -17,22 +21,41 @@ import {
 import { toggleLike } from './card.js';
 import { deleteCard } from './api.js';
 
+const profileAvatarImage = document.querySelector('.profile__avatar-image');
 const profileNameElement = document.querySelector('.profile__name');
 const profileTextElement = document.querySelector('.profile__text');
 const editProfileBtnClass = 'profile__edit-button';
+const editAvatarBtnClass = 'profile__edit-avatar-button';
 const addPlaceBtnClass = 'profile__add-button';
 const cardImageClass = 'card__image';
 const likeBtnClass = 'card__like-button';
 const removeCardBtnClass = 'card__remove-button';
 const closePopupBtnClass = 'popup__close-button';
 
+function toggleSubmitStatus(btn) {
+  const status = btn.textContent;
+  if (status === 'Сохранить') {
+    btn.textContent = 'Сохранение...';
+  } else {
+    btn.textContent = 'Сохранить';
+  }
+}
+
+function changeAvatar(json) {
+  profileAvatarImage.src = json.avatar;
+}
+
 function renderProfile(json) {
   profileNameElement.textContent = json.name;
   profileTextElement.textContent = json.about;
+  changeAvatar(json);
 }
 
 function clickHandler(event) {
   const targetClassList = event.target.classList;
+  if (targetClassList.contains(editAvatarBtnClass)) {
+    openAvatarPopup();
+  }
   if (targetClassList.contains(editProfileBtnClass)) {
     openProfilePopup();
   }
@@ -56,6 +79,11 @@ function clickHandler(event) {
   if (targetClassList.contains(submitBtnClass)) {
     const form = event.target.closest('.form');
     switch (form.name) {
+      case 'edit-avatar':
+        avatarPopup.removeEventListener('click', clickHandler);
+        avatarForm.removeEventListener('submit', submitAvatarForm);
+        submitAvatarForm(event);
+        break;
       case 'profile-info':
         profilePopup.removeEventListener('click', clickHandler);
         profileForm.removeEventListener('submit', submitProfileForm);
@@ -86,4 +114,10 @@ function keydownHandler(event) {
   }
 }
 
-export { renderProfile, clickHandler, keydownHandler };
+export {
+  toggleSubmitStatus,
+  changeAvatar,
+  renderProfile,
+  clickHandler,
+  keydownHandler,
+};

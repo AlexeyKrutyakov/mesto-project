@@ -1,4 +1,7 @@
 import {
+  avatarPopup,
+  avatarForm,
+  avatarImageInput,
   profileName,
   profileAbout,
   profilePopup,
@@ -13,7 +16,7 @@ import {
 } from './commonElements.js';
 import { validateInput, toggleButtonState } from './validate.js';
 import { clickHandler, keydownHandler } from './utils.js';
-import { config, postCard, updateProfile } from './api.js';
+import { config, postCard, updateProfile, patchAvatar } from './api.js';
 
 // popup
 const openedPopupClass = 'popup_opened';
@@ -55,6 +58,13 @@ function openProfilePopup() {
   // add listeners
   profilePopup.addEventListener('click', clickHandler);
   profileForm.addEventListener('submit', submitProfileForm);
+}
+
+function openAvatarPopup() {
+  openPopup(avatarPopup);
+
+  avatarPopup.addEventListener('click', clickHandler);
+  avatarForm.addEventListener('submit', submitAvatarForm);
 }
 
 function openPlacePopup() {
@@ -102,6 +112,16 @@ function submitProfileForm(event) {
   closePopup(profilePopup);
 }
 
+function submitAvatarForm(event) {
+  // undo standard sumbit behavior
+  event.preventDefault();
+
+  patchAvatar(avatarImageInput.value, config);
+  avatarForm.reset();
+
+  closePopup(avatarPopup);
+}
+
 function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
@@ -115,9 +135,11 @@ function submitPlaceForm(event) {
 export {
   openPopup,
   closePopup,
+  openAvatarPopup,
   openProfilePopup,
   openPlacePopup,
   openEnlargeImagePopup,
   submitProfileForm,
   submitPlaceForm,
+  submitAvatarForm,
 };
