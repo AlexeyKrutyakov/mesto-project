@@ -1,0 +1,29 @@
+.profile__edit-avatar-button {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.profile__edit-avatar-button::before {
+  height: 100%;
+  width: 100%;
+  content: '';
+  background: rgba(0, 0, 0, 0.8) url('../../../images/edit-avatar-icon.svg')
+    center no-repeat;
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  border: none;
+  transition: opacity 0.3s ease;
+}
+
+.profile__edit-avatar-button:hover::before {
+  opacity: 1;
+}

@@ -14,7 +14,11 @@
   </header>
   <main class="container">
     <section class="profile">
-      <img src="<%=require('./images/profile__image.jpg')%>" alt="Фотография профиля" class="profile__avatar">
+      <div class="profile__avatar">
+        <button class="profile__edit-avatar-button" aria-label="Изменить аватар профиля">
+          <img src="<%=require('./images/profile__image.jpg')%>" alt="Аватар профиля" class="profile__avatar-image">
+        </button>
+      </div>
       <div class="profile__info">
         <h1 class="profile__name">Имя</h1>
         <p class="profile__text">Описание</p>
