@@ -1,5 +1,3 @@
-// profile data
-const profileId = 'd7fd7ac4dab38fe4557cfe28';
 // add links for images
 const chagazUzunImage = new URL(
   '../images/mars-mountains.jpg',

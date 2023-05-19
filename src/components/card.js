@@ -1,7 +1,6 @@
 import { putLike, deleteLike } from './api.js';
 import { cardsSection } from './commonElements.js';
 import { config } from './api.js';
-import { profileId } from './data.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const classActiveLikeBtn = 'card__like-button_active';

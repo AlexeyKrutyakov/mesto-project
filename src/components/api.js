@@ -1,6 +1,7 @@
 import { addPlaceCard, hasMyLike, renderLikesNumber } from './card';
-import { profileId } from './data';
 import { renderProfile } from './utils';
+
+let profileId = 'd7fd7ac4dab38fe4557cfe28';
 
 // data for server authorization
 const config = {
@@ -52,6 +53,7 @@ function getProfileInfo(config) {
       }
     })
     .then((json) => {
+      profileId = json._id;
       renderProfile(json);
     })
     .catch((err) => {
