@@ -145,6 +145,50 @@ function deleteCard(event, config) {
     });
 }
 
+function putLike(config, cardId) {
+  const url = `${config.baseUrl}/cards/likes/${cardId}`;
+  const requestOptions = {
+    method: 'PUT',
+    headers: config.headers,
+  };
+  fetch(url, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
+      }
+    })
+    .then((json) => {
+      console.log(json);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
+}
+
+function deleteLike(config, cardId) {
+  const url = `${config.baseUrl}/cards/likes/${cardId}`;
+  const requestOptions = {
+    method: 'DELETE',
+    headers: config.headers,
+  };
+  fetch(url, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
+      }
+    })
+    .then((json) => {
+      console.log(json);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
+}
+
 export {
   config,
   updateProfile,
@@ -152,4 +196,6 @@ export {
   postCard,
   getCards,
   deleteCard,
+  putLike,
+  deleteLike,
 };
