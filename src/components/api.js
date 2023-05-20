@@ -112,16 +112,9 @@ function deleteLike(config, card) {
     method: 'DELETE',
     headers: config.headers,
   };
-  fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .then((json) => {
-      renderLikesNumber(card, json.likes.length);
-    })
-    .catch((err) => {
-      console.log('Error: ', err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function getResponseData(res) {
