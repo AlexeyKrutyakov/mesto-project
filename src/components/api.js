@@ -1,12 +1,3 @@
-import { profileId } from '../index.js';
-import { addPlaceCard, hasMyLike, renderLikesNumber } from './card';
-import { changeAvatar, toggleSubmitStatus, renderProfile } from './utils';
-import {
-  profileSubmitBnt,
-  placeSubmitBtn,
-  avatarSubmitBtn,
-} from './commonElements';
-
 // data for server authorization
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
