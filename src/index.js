@@ -71,9 +71,9 @@ Promise.all([getProfile(), getInitialCards()])
 
 // add listeners
 
-avatarForm.addEventListener('submit', avatarSubmitBtn);
-profileForm.addEventListener('submit', profileSubmitBnt);
-placeForm.addEventListener('submit', placeSubmitBtn);
+avatarForm.addEventListener('submit', submitAvatarForm);
+profileForm.addEventListener('submit', submitProfileForm);
+placeForm.addEventListener('submit', submitPlaceForm);
 // profilePopup.addEventListener('click', clickHandler);
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
@@ -130,7 +130,6 @@ function openAvatarPopup() {
   openPopup(avatarPopup);
 
   avatarPopup.addEventListener('click', clickHandler);
-  avatarForm.addEventListener('submit', submitAvatarForm);
 }
 function openPlacePopup() {
   openPopup(placePopup);
@@ -149,7 +148,6 @@ function openPlacePopup() {
 
   // add listeners for popup buttons
   placePopup.addEventListener('click', clickHandler);
-  placeForm.addEventListener('submit', submitPlaceForm);
 }
 
 function openEnlargeImagePopup(event) {
