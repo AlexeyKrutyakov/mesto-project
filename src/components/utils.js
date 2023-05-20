@@ -12,12 +12,16 @@ import {
   submitAvatarForm,
   submitProfileForm,
   submitPlaceForm,
-  openEnlargeImagePopup,
   closePopup,
 } from './modal.js';
 import { toggleLike } from './card.js';
 import { deleteCard } from './api.js';
-import { openProfilePopup, openAvatarPopup, openPlacePopup } from '../index.js';
+import {
+  openProfilePopup,
+  openAvatarPopup,
+  openPlacePopup,
+  openEnlargeImagePopup,
+} from '../index.js';
 
 const profileAvatarImage = document.querySelector('.profile__avatar-image');
 const profileNameElement = document.querySelector('.profile__name');

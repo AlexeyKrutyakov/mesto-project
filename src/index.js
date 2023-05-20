@@ -143,6 +143,21 @@ function openPlacePopup() {
   placeForm.addEventListener('submit', submitPlaceForm);
 }
 
+function openEnlargeImagePopup(event) {
+  const imageLink = event.target.src;
+  const placeName = event.target
+    .closest(`.${cardElementClass}`)
+    .querySelector(`.${cardNameClass}`).textContent;
+
+  enlargeImage.src = imageLink;
+  enlargeImage.alt = 'Увеличенное изображение места ' + placeName;
+  figcaption.textContent = placeName;
+
+  enlargeImagePopup.addEventListener('click', clickHandler);
+
+  openPopup(enlargeImagePopup);
+}
+
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
@@ -153,4 +168,5 @@ export {
   openProfilePopup,
   openAvatarPopup,
   openPlacePopup,
+  openEnlargeImagePopup,
 };

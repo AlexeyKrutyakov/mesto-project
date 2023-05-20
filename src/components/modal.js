@@ -37,21 +37,6 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function openEnlargeImagePopup(event) {
-  const imageLink = event.target.src;
-  const placeName = event.target
-    .closest(`.${cardElementClass}`)
-    .querySelector(`.${cardNameClass}`).textContent;
-
-  enlargeImage.src = imageLink;
-  enlargeImage.alt = 'Увеличенное изображение места ' + placeName;
-  figcaption.textContent = placeName;
-
-  enlargeImagePopup.addEventListener('click', clickHandler);
-
-  openPopup(enlargeImagePopup);
-}
-
 function submitProfileForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
@@ -94,7 +79,6 @@ function keydownHandler(event) {
 export {
   openPopup,
   closePopup,
-  openEnlargeImagePopup,
   submitProfileForm,
   submitPlaceForm,
   submitAvatarForm,
