@@ -10,15 +10,22 @@ import { config } from './components/api.js';
 
 import { enableValidation } from './components/validate.js';
 
-import { getInitialCards, getProfileInfo } from './components/api.js';
+import { getInitialCards, getProfile } from './components/api.js';
 
-import { clickHandler } from './components/utils.js';
+import { clickHandler, renderProfile } from './components/utils.js';
 
 let profileId = '';
 
-getProfileInfo(config);
+Promise.all([getProfile()])
+  .then(([json]) => {
+    profileId = json._id;
+    renderProfile(json);
+  })
+  .catch(([getProfileErr]) => {
+    console.log('Error: ', getProfileErr);
+  });
 
-getInitialCards(config);
+// getInitialCards(config);
 
 // add listeners
 profileSection.addEventListener('click', clickHandler);

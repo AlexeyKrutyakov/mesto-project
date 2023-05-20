@@ -61,23 +61,15 @@ function updateProfile(profileName, profileAbout, config) {
     });
 }
 
-function getProfileInfo(config) {
+function getProfile() {
   const url = `${config.baseUrl}/users/me`;
   const requestOptions = {
     method: 'GET',
     headers: config.headers,
   };
-  fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .then((json) => {
-      profileId = json._id;
-      renderProfile(json);
-    })
-    .catch((err) => {
-      console.log('Error: ', err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function postCard(placeName, placeImage, config) {
@@ -215,7 +207,7 @@ export {
   config,
   patchAvatar,
   updateProfile,
-  getProfileInfo,
+  getProfile,
   postCard,
   getInitialCards,
   deleteCard,
