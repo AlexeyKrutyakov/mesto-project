@@ -6,12 +6,12 @@ import {
   profileAbout,
   profilePopup,
   profileForm,
-  profileInputName,
-  profileInputText,
+  profileNameInput,
+  profileTextInput,
   placePopup,
   placeForm,
-  placeInputName,
-  placeInputImage,
+  placeNameInput,
+  placeImageInput,
   validationParameters,
 } from './commonElements.js';
 import { validateInput, toggleButtonState } from './validate.js';
@@ -43,15 +43,15 @@ function openProfilePopup() {
   openPopup(profilePopup);
 
   // initiate input values with current profile data
-  profileInputName.value = profileName.textContent;
-  profileInputText.value = profileAbout.textContent;
+  profileNameInput.value = profileName.textContent;
+  profileTextInput.value = profileAbout.textContent;
 
   // validate input values
-  validateInput(profileForm, profileInputName, validationParameters);
-  validateInput(profileForm, profileInputText, validationParameters);
+  validateInput(profileForm, profileNameInput, validationParameters);
+  validateInput(profileForm, profileTextInput, validationParameters);
   toggleButtonState(
     profileForm,
-    [profileInputName, profileInputText],
+    [profileNameInput, profileTextInput],
     validationParameters
   );
 
@@ -74,11 +74,11 @@ function openPlacePopup() {
   placeForm.reset();
 
   // validate inputs
-  validateInput(placeForm, placeInputName, validationParameters);
-  validateInput(placeForm, placeInputImage, validationParameters);
+  validateInput(placeForm, placeNameInput, validationParameters);
+  validateInput(placeForm, placeImageInput, validationParameters);
   toggleButtonState(
     placeForm,
-    [placeInputName, placeInputImage],
+    [placeNameInput, placeImageInput],
     validationParameters
   );
 
@@ -107,7 +107,7 @@ function submitProfileForm(event) {
   event.preventDefault();
 
   // update profile
-  patchProfile(profileInputName.value, profileInputText.value, config);
+  patchProfile(profileNameInput.value, profileTextInput.value, config);
   document.removeEventListener('keydown', keydownHandler);
   closePopup(profilePopup);
 }
@@ -126,7 +126,7 @@ function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  postCard(placeInputName.value, placeInputImage.value, config);
+  postCard(placeNameInput.value, placeImageInput.value, config);
   placeForm.reset();
 
   closePopup(placePopup);
