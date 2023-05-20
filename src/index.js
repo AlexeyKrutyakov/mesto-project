@@ -123,9 +123,34 @@ function openAvatarPopup() {
   avatarPopup.addEventListener('click', clickHandler);
   avatarForm.addEventListener('submit', submitAvatarForm);
 }
+function openPlacePopup() {
+  openPopup(placePopup);
+
+  // clear old name and text in input fields
+  placeForm.reset();
+
+  // validate inputs
+  validateInput(placeForm, placeNameInput, validationParameters);
+  validateInput(placeForm, placeImageInput, validationParameters);
+  toggleButtonState(
+    placeForm,
+    [placeNameInput, placeImageInput],
+    validationParameters
+  );
+
+  // add listeners for popup buttons
+  placePopup.addEventListener('click', clickHandler);
+  placeForm.addEventListener('submit', submitPlaceForm);
+}
 
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
 
-export { profileId, changeAvatar, openProfilePopup, openAvatarPopup };
+export {
+  profileId,
+  changeAvatar,
+  openProfilePopup,
+  openAvatarPopup,
+  openPlacePopup,
+};

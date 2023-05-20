@@ -37,26 +37,6 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function openPlacePopup() {
-  openPopup(placePopup);
-
-  // clear old name and text in input fields
-  placeForm.reset();
-
-  // validate inputs
-  validateInput(placeForm, placeNameInput, validationParameters);
-  validateInput(placeForm, placeImageInput, validationParameters);
-  toggleButtonState(
-    placeForm,
-    [placeNameInput, placeImageInput],
-    validationParameters
-  );
-
-  // add listeners for popup buttons
-  placePopup.addEventListener('click', clickHandler);
-  placeForm.addEventListener('submit', submitPlaceForm);
-}
-
 function openEnlargeImagePopup(event) {
   const imageLink = event.target.src;
   const placeName = event.target
@@ -114,7 +94,6 @@ function keydownHandler(event) {
 export {
   openPopup,
   closePopup,
-  openPlacePopup,
   openEnlargeImagePopup,
   submitProfileForm,
   submitPlaceForm,

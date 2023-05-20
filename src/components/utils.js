@@ -11,14 +11,13 @@ import { config } from './api.js';
 import {
   submitAvatarForm,
   submitProfileForm,
-  openPlacePopup,
   submitPlaceForm,
   openEnlargeImagePopup,
   closePopup,
 } from './modal.js';
 import { toggleLike } from './card.js';
 import { deleteCard } from './api.js';
-import { openProfilePopup, openAvatarPopup } from '../index.js';
+import { openProfilePopup, openAvatarPopup, openPlacePopup } from '../index.js';
 
 const profileAvatarImage = document.querySelector('.profile__avatar-image');
 const profileNameElement = document.querySelector('.profile__name');
