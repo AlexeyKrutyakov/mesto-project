@@ -1,6 +1,7 @@
 import { putLike, deleteLike } from './api.js';
 import { cardsSection } from './commonElements.js';
 import { config } from './api.js';
+import { openEnlargeImagePopup } from '../index.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const likeBtnActiveClass = 'card__like-button_active';
@@ -19,18 +20,20 @@ function createCard(
   imageAlt = ''
 ) {
   // copy of template element
-  const placeCard = cardTemplate.querySelector('.card').cloneNode(true);
+  const newCard = cardTemplate.querySelector('.card').cloneNode(true);
+
   // elements of card
-  const cardName = placeCard.querySelector('.card__name');
-  const cardImage = placeCard.querySelector('.card__image');
-  const cardLikeButton = placeCard.querySelector('.card__like-button');
-  const likeNumber = placeCard.querySelector('.card__likes-number');
-  const cardRemoveButton = placeCard.querySelector('.card__remove-button');
+  const cardName = newCard.querySelector('.card__name');
+  const cardImage = newCard.querySelector('.card__image');
+  const cardLikeButton = newCard.querySelector('.card__like-button');
+  const likeNumber = newCard.querySelector('.card__likes-number');
+  const cardRemoveButton = newCard.querySelector('.card__remove-button');
   if (nonRemovable) {
     cardRemoveButton.classList.add('card__remove-button_hidden');
   }
+
   // initialize data place into place card
-  placeCard.setAttribute('data-id', `${placeId}`);
+  newCard.setAttribute('data-id', `${placeId}`);
   likeNumber.textContent = placeLikes;
   cardName.textContent = placeName;
   cardImage.src = placeImage;
@@ -42,12 +45,20 @@ function createCard(
   if (hasMyLike) {
     cardLikeButton.classList.add('card__like-button_active');
   }
-  return placeCard;
+
+  // add listeners
+  cardLikeButton.addEventListener('click', toggleLike);
+  cardRemoveButton.addEventListener('click', deleteCard);
+  cardImage.addEventListener('click', openEnlargeImagePopup);
+
+  return newCard;
 }
 
 function addCard(card) {
   cardsSection.prepend(card);
 }
+
+function deleteCard(card) {}
 
 function hideRemoveButton(card) {
   card.classList.add('card__remove-button_hidden');
