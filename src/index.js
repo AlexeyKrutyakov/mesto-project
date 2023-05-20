@@ -15,6 +15,8 @@ import { clickHandler } from './components/utils.js';
 
 const profileSection = document.querySelector('.profile');
 
+let profileId = '';
+
 getProfileInfo(config);
 
 getInitialCards(config);
@@ -25,3 +27,5 @@ cardsSection.addEventListener('click', clickHandler);
 
 // enable forms validation
 enableValidation(validationParameters);
+
+export { profileId };

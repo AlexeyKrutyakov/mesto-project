@@ -1,3 +1,4 @@
+import { profileId } from '../index.js';
 import { addPlaceCard, hasMyLike, renderLikesNumber } from './card';
 import { changeAvatar, toggleSubmitStatus, renderProfile } from './utils';
 import {
@@ -5,8 +6,6 @@ import {
   placeSubmitBtn,
   avatarSubmitBtn,
 } from './commonElements';
-
-let profileId = 'd7fd7ac4dab38fe4557cfe28';
 
 // data for server authorization
 const config = {
