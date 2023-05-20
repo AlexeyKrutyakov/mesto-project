@@ -2,8 +2,6 @@ import {
   avatarPopup,
   avatarForm,
   avatarImageInput,
-  profileName,
-  profileAbout,
   profilePopup,
   profileForm,
   profileNameInput,
@@ -39,26 +37,9 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function openProfilePopup() {
-  openPopup(profilePopup);
-
-  // initiate input values with current profile data
-  profileNameInput.value = profileName.textContent;
-  profileTextInput.value = profileAbout.textContent;
-
-  // validate input values
-  validateInput(profileForm, profileNameInput, validationParameters);
-  validateInput(profileForm, profileTextInput, validationParameters);
-  toggleButtonState(
-    profileForm,
-    [profileNameInput, profileTextInput],
-    validationParameters
-  );
-
-  // add listeners
-  profilePopup.addEventListener('click', clickHandler);
-  profileForm.addEventListener('submit', submitProfileForm);
-}
+// add listeners
+profilePopup.addEventListener('click', clickHandler);
+profileForm.addEventListener('submit', submitProfileForm);
 
 function openAvatarPopup() {
   openPopup(avatarPopup);
@@ -145,7 +126,6 @@ export {
   openPopup,
   closePopup,
   openAvatarPopup,
-  openProfilePopup,
   openPlacePopup,
   openEnlargeImagePopup,
   submitProfileForm,

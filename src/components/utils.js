@@ -11,7 +11,6 @@ import { config } from './api.js';
 import {
   openAvatarPopup,
   submitAvatarForm,
-  openProfilePopup,
   submitProfileForm,
   openPlacePopup,
   submitPlaceForm,
@@ -20,7 +19,7 @@ import {
 } from './modal.js';
 import { toggleLike } from './card.js';
 import { deleteCard } from './api.js';
-import { changeAvatar } from '../index.js';
+import { openProfilePopup } from '../index.js';
 
 const profileAvatarImage = document.querySelector('.profile__avatar-image');
 const profileNameElement = document.querySelector('.profile__name');

@@ -4,6 +4,9 @@ export const submitBtnClass = 'form__submit';
 
 // profile DOM elements
 export const profileSection = document.querySelector('.profile');
+// avatar
+export const avatarImageClass = 'profile__avatar-image';
+export const avatarImage = document.querySelector(`.${avatarImageClass}`);
 // avatar popup
 export const avatarPopupClass = 'popup_type_edit-avatar';
 export const avatarPopup = document.querySelector(`.${avatarPopupClass}`);

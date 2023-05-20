@@ -1,22 +1,39 @@
 import './index.css';
 
 import {
-  profileSection,
-  cardsSection,
+  avatarImage,
+  profilePopup,
+  profileName,
+  profileAbout,
+  profileForm,
+  profileNameInput,
+  profileTextInput,
   validationParameters,
 } from './components/commonElements.js';
 
-import { config } from './components/api.js';
-
-import { enableValidation } from './components/validate.js';
+import { enableValidation, toggleButtonState } from './components/validate.js';
 
 import { getInitialCards, getProfile } from './components/api.js';
-
-import { clickHandler } from './components/utils.js';
 
 import { addPlaceCard, hasMyLike } from './components/card';
 
 let profileId = '';
+
+// functions works with avatar
+
+function changeAvatar(json) {
+  avatarImage.src = json.avatar;
+}
+
+// functions works with profile
+
+function renderProfile(json) {
+  profileName.textContent = json.name;
+  profileAbout.textContent = json.about;
+  changeAvatar(json);
+}
+
+// initial page
 
 Promise.all([getProfile(), getInitialCards()])
   .then(([profileJson, cardsJson]) => {
@@ -52,6 +69,24 @@ function editProfileInfo(json) {
   renderProfile(json);
 }
 
+// functions works with profile
+function openProfilePopup() {
+  openPopup(profilePopup);
+
+  // initiate input values with current profile data
+  profileNameInput.value = profileName.textContent;
+  profileTextInput.value = profileAbout.textContent;
+
+  // validate input values
+  validateInput(profileForm, profileNameInput, validationParameters);
+  validateInput(profileForm, profileTextInput, validationParameters);
+  toggleButtonState(
+    profileForm,
+    [profileNameInput, profileTextInput],
+    validationParameters
+  );
+}
+
 // post card
 function addNewPlace(json) {
   toggleSubmitStatus(placeSubmitBtn);
@@ -83,16 +118,6 @@ function removeLike(json) {
   renderLikesNumber(card, json.likes.length);
 }
 
-function changeAvatar(json) {
-  // profileAvatarImage.src = json.avatar;
-}
-
-function renderProfile(json) {
-  // profileNameElement.textContent = json.name;
-  // profileTextElement.textContent = json.about;
-  // changeAvatar(json);
-}
-
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
@@ -100,4 +125,4 @@ function renderProfile(json) {
 // enable forms validation
 enableValidation(validationParameters);
 
-export { profileId, changeAvatar };
+export { profileId, changeAvatar, openProfilePopup };
