@@ -31,6 +31,9 @@ export const profileSubmitBnt = profileForm.querySelector(`.${submitBtnClass}`);
 
 // cards DOM elements
 export const cardsSection = document.querySelector('.cards');
+// card elements
+export const cardElementClass = 'card';
+export const cardNameClass = 'card__name';
 
 // place popup
 export const placePopupClass = 'popup_type_add-place';
@@ -42,6 +45,14 @@ export const placeNameInput = placeForm.elements['place-name-input'];
 // input 'place text'
 export const placeImageInput = placeForm.elements['place-image-input'];
 export const placeSubmitBtn = placeForm.querySelector(`.${submitBtnClass}`);
+
+// enlarge image popup elements
+export const enlargeImagePopupClass = 'popup_type_enlarge-image';
+export const enlargeImagePopup = document.querySelector(
+  `.${enlargeImagePopupClass}`
+);
+export const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
+export const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
 
 // parameters for validation
 export const validationParameters = {
