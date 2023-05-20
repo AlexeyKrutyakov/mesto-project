@@ -18,7 +18,7 @@ import { getInitialCards, getProfile } from './components/api.js';
 
 import { createCard, addCard, isMyCard } from './components/card';
 
-import { clickHandler } from './components/utils';
+import { clickHandler, keydownHandler } from './components/utils';
 
 let profileId = '';
 

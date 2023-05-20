@@ -13,7 +13,7 @@ import {
   validationParameters,
 } from './commonElements.js';
 import { validateInput, toggleButtonState } from './validate.js';
-import { clickHandler } from './utils.js';
+import { keydownHandler } from './utils.js';
 import { config, postCard, patchProfile, patchAvatar } from './api.js';
 
 // popup
@@ -37,13 +37,4 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function keydownHandler(event) {
-  if (event.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    if (openedPopup) {
-      closePopup(openedPopup);
-    }
-  }
-}
-
-export { openPopup, closePopup, keydownHandler };
+export { openPopup, closePopup };
