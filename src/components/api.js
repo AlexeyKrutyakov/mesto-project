@@ -38,7 +38,7 @@ function getInitialCards() {
   });
 }
 
-function patchAvatar(link, config) {
+function patchAvatar(link) {
   const url = `${config.baseUrl}/users/me/avatar`;
   const requestOptions = {
     method: 'PATCH',
@@ -52,7 +52,7 @@ function patchAvatar(link, config) {
   });
 }
 
-function patchProfile(profileName, profileAbout, config) {
+function patchProfile(profileName, profileAbout) {
   const url = `${config.baseUrl}/users/me`;
   const requestOptions = {
     method: 'PATCH',
@@ -67,7 +67,7 @@ function patchProfile(profileName, profileAbout, config) {
   });
 }
 
-function postCard(placeName, placeImage, config) {
+function postCard(placeName, placeImage) {
   const url = `${config.baseUrl}/cards`;
   const requestOptions = {
     method: 'POST',
@@ -82,7 +82,7 @@ function postCard(placeName, placeImage, config) {
   });
 }
 
-function deleteCard(event, config) {
+function deleteCard(event) {
   const currentCard = event.target.closest('.card');
   const cardId = currentCard.id;
   const url = `${config.baseUrl}/cards/${cardId}`;
@@ -90,18 +90,9 @@ function deleteCard(event, config) {
     method: 'DELETE',
     headers: config.headers,
   };
-  fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .then((json) => {
-      if (json.message === 'Пост удалён') {
-        currentCard.remove();
-      }
-    })
-    .catch((err) => {
-      console.log('Error: ', err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function putLike(config, card) {

@@ -69,6 +69,12 @@ function addNewPlace(json) {
   );
 }
 
+function deletePlace(json) {
+  if (json.message === 'Пост удалён') {
+    currentCard.remove();
+  }
+}
+
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
