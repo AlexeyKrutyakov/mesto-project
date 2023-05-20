@@ -3,22 +3,22 @@
 export const submitBtnClass = 'form__submit';
 
 // profile DOM elements
-export const profileSection = document.querySelector('.profile');
+const profileSection = document.querySelector('.profile');
 // avatar
-export const avatarImageClass = 'profile__avatar-image';
+const avatarImageClass = 'profile__avatar-image';
 export const avatarImage = document.querySelector(`.${avatarImageClass}`);
 // avatar popup
-export const avatarPopupClass = 'popup_type_edit-avatar';
+const avatarPopupClass = 'popup_type_edit-avatar';
 export const avatarPopup = document.querySelector(`.${avatarPopupClass}`);
 // avatar form
 export const avatarForm = document.forms['edit-avatar'];
-export const avatarImageInput = avatarForm.elements['avatar-image-input'];
+const avatarImageInput = avatarForm.elements['avatar-image-input'];
 export const avatarSubmitBtn = avatarForm.querySelector(`.${submitBtnClass}`);
 // profile info
 export const profileName = profileSection.querySelector('.profile__name');
 export const profileAbout = profileSection.querySelector('.profile__text');
 // profile popup
-export const profilePopupClass = 'popup_type_edit-profile';
+const profilePopupClass = 'popup_type_edit-profile';
 export const profilePopup = document.querySelector(`.${profilePopupClass}`);
 // profile form
 export const profileForm = document.forms['profile-info'];
@@ -32,27 +32,27 @@ export const profileSubmitBnt = profileForm.querySelector(`.${submitBtnClass}`);
 // cards DOM elements
 export const cardsSection = document.querySelector('.cards');
 // card elements
-export const cardElementClass = 'card';
-export const cardNameClass = 'card__name';
+const cardElementClass = 'card';
+const cardNameClass = 'card__name';
 
 // place popup
-export const placePopupClass = 'popup_type_add-place';
+const placePopupClass = 'popup_type_add-place';
 export const placePopup = document.querySelector(`.${placePopupClass}`);
 // place form
 export const placeForm = document.forms['place-info'];
 // input 'place name'
-export const placeNameInput = placeForm.elements['place-name-input'];
+const placeNameInput = placeForm.elements['place-name-input'];
 // input 'place text'
-export const placeImageInput = placeForm.elements['place-image-input'];
+const placeImageInput = placeForm.elements['place-image-input'];
 export const placeSubmitBtn = placeForm.querySelector(`.${submitBtnClass}`);
 
 // enlarge image popup elements
-export const enlargeImagePopupClass = 'popup_type_enlarge-image';
+const enlargeImagePopupClass = 'popup_type_enlarge-image';
 export const enlargeImagePopup = document.querySelector(
   `.${enlargeImagePopupClass}`
 );
-export const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
-export const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
+const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
+const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
 
 // parameters for validation
 export const validationParameters = {
