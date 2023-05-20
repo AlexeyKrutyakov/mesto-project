@@ -16,6 +16,28 @@ const config = {
   },
 };
 
+function getProfile() {
+  const url = `${config.baseUrl}/users/me`;
+  const requestOptions = {
+    method: 'GET',
+    headers: config.headers,
+  };
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
+}
+
+function getInitialCards() {
+  const url = `${config.baseUrl}/cards`;
+  const requestOptions = {
+    method: 'GET',
+    headers: config.headers,
+  };
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
+}
+
 function patchAvatar(link, config) {
   const url = `${config.baseUrl}/users/me/avatar`;
   const requestOptions = {
@@ -25,17 +47,9 @@ function patchAvatar(link, config) {
       avatar: link,
     }),
   };
-  fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .then((json) => {
-      toggleSubmitStatus(avatarSubmitBtn);
-      changeAvatar(json);
-    })
-    .catch((err) => {
-      console.log('Error: ', err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function updateProfile(profileName, profileAbout, config) {
@@ -59,17 +73,6 @@ function updateProfile(profileName, profileAbout, config) {
     .catch((err) => {
       console.log('Error: ', err);
     });
-}
-
-function getProfile() {
-  const url = `${config.baseUrl}/users/me`;
-  const requestOptions = {
-    method: 'GET',
-    headers: config.headers,
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
 }
 
 function postCard(placeName, placeImage, config) {
@@ -102,17 +105,6 @@ function postCard(placeName, placeImage, config) {
       );
     })
     .catch((err) => console.log('Error: ', err));
-}
-
-function getInitialCards() {
-  const url = `${config.baseUrl}/cards`;
-  const requestOptions = {
-    method: 'GET',
-    headers: config.headers,
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
 }
 
 function deleteCard(event, config) {

@@ -47,8 +47,9 @@ Promise.all([getProfile(), getInitialCards()])
   });
 
 // add listeners
-profileSection.addEventListener('click', clickHandler);
-cardsSection.addEventListener('click', clickHandler);
+
+// profileSection.addEventListener('click', clickHandler);
+// cardsSection.addEventListener('click', clickHandler);
 
 // enable forms validation
 enableValidation(validationParameters);
