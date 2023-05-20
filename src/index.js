@@ -2,14 +2,18 @@ import './index.css';
 
 import {
   avatarImage,
+  avatarForm,
+  avatarSubmitBtn,
   profilePopup,
   profileName,
   profileAbout,
   profileForm,
   profileNameInput,
   profileTextInput,
-  validationParameters,
   profileSubmitBnt,
+  validationParameters,
+  placeForm,
+  placeSubmitBtn,
 } from './components/commonElements.js';
 
 import { enableValidation, toggleButtonState } from './components/validate.js';
@@ -66,8 +70,13 @@ Promise.all([getProfile(), getInitialCards()])
   });
 
 // add listeners
-profilePopup.addEventListener('click', clickHandler);
+
+avatarForm.addEventListener('submit', avatarSubmitBtn);
 profileForm.addEventListener('submit', profileSubmitBnt);
+placeForm.addEventListener('submit', placeSubmitBtn);
+// profilePopup.addEventListener('click', clickHandler);
+// profileSection.addEventListener('click', clickHandler);
+// cardsSection.addEventListener('click', clickHandler);
 
 // change profile info
 function editProfileInfo(json) {
@@ -187,10 +196,6 @@ function submitPlaceForm(event) {
 
   closePopup(placePopup);
 }
-
-// add listeners
-// profileSection.addEventListener('click', clickHandler);
-// cardsSection.addEventListener('click', clickHandler);
 
 export {
   profileId,
