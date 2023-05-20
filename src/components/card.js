@@ -30,7 +30,7 @@ function createCard(
     cardRemoveButton.classList.add('card__remove-button_hidden');
   }
   // initialize data place into place card
-  placeCard.id = placeId;
+  placeCard.setAttribute('data-id', `${placeId}`);
   likeNumber.textContent = placeLikes;
   cardName.textContent = placeName;
   cardImage.src = placeImage;
