@@ -51,8 +51,25 @@ function editProfileInfo(json) {
   toggleSubmitStatus(profileSubmitBnt);
   renderProfile(json);
 }
-// add listeners
 
+// post card
+function addNewPlace(json) {
+  toggleSubmitStatus(placeSubmitBtn);
+  const placeLikes = json.likes.length;
+  const cardId = json._id;
+  const hasMyLike = false;
+  const nonRemovable = false;
+  addPlaceCard(
+    placeLikes,
+    cardId,
+    placeName,
+    placeImage,
+    nonRemovable,
+    hasMyLike
+  );
+}
+
+// add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
 

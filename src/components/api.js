@@ -77,26 +77,9 @@ function postCard(placeName, placeImage, config) {
       link: placeImage,
     }),
   };
-  fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .then((json) => {
-      toggleSubmitStatus(placeSubmitBtn);
-      const placeLikes = json.likes.length;
-      const cardId = json._id;
-      const hasMyLike = false;
-      const nonRemovable = false;
-      addPlaceCard(
-        placeLikes,
-        cardId,
-        placeName,
-        placeImage,
-        nonRemovable,
-        hasMyLike
-      );
-    })
-    .catch((err) => console.log('Error: ', err));
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function deleteCard(event, config) {
