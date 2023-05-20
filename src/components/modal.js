@@ -37,16 +37,6 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function submitProfileForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  // update profile
-  patchProfile(profileNameInput.value, profileTextInput.value, config);
-  document.removeEventListener('keydown', keydownHandler);
-  closePopup(profilePopup);
-}
-
 function submitAvatarForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
@@ -79,7 +69,6 @@ function keydownHandler(event) {
 export {
   openPopup,
   closePopup,
-  submitProfileForm,
   submitPlaceForm,
   submitAvatarForm,
   keydownHandler,

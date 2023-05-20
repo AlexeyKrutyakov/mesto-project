@@ -8,12 +8,7 @@ import {
   avatarForm,
 } from './commonElements.js';
 import { config } from './api.js';
-import {
-  submitAvatarForm,
-  submitProfileForm,
-  submitPlaceForm,
-  closePopup,
-} from './modal.js';
+import { submitAvatarForm, submitPlaceForm, closePopup } from './modal.js';
 import { toggleLike } from './card.js';
 import { deleteCard } from './api.js';
 import {
@@ -21,6 +16,7 @@ import {
   openAvatarPopup,
   openPlacePopup,
   openEnlargeImagePopup,
+  submitProfileForm,
 } from '../index.js';
 
 const profileAvatarImage = document.querySelector('.profile__avatar-image');

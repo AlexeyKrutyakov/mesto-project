@@ -158,6 +158,16 @@ function openEnlargeImagePopup(event) {
   openPopup(enlargeImagePopup);
 }
 
+function submitProfileForm(event) {
+  // undo standard sumbit behavior
+  event.preventDefault();
+
+  // update profile
+  patchProfile(profileNameInput.value, profileTextInput.value, config);
+  document.removeEventListener('keydown', keydownHandler);
+  closePopup(profilePopup);
+}
+
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
@@ -169,4 +179,5 @@ export {
   openAvatarPopup,
   openPlacePopup,
   openEnlargeImagePopup,
+  submitProfileForm,
 };
