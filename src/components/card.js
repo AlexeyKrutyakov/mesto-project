@@ -3,7 +3,7 @@ import { cardsSection } from './commonElements.js';
 import { config } from './api.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
-const classActiveLikeBtn = 'card__like-button_active';
+const likeBtnActiveClass = 'card__like-button_active';
 
 function addPlaceCard(
   placeLikes,
@@ -70,13 +70,13 @@ function toggleLike(event) {
   const btnLike = event.target;
   const btnClasses = btnLike.classList;
   const card = btnLike.parentElement;
-  if (Array.from(btnLike.classList).includes(classActiveLikeBtn)) {
+  if (btnLike.classList.contains(likeBtnActiveClass)) {
     deleteLike(config, card);
   } else {
     putLike(config, card);
   }
 
-  btnClasses.toggle(classActiveLikeBtn);
+  btnClasses.toggle(likeBtnActiveClass);
 }
 
 function renderLikesNumber(card, likes) {
