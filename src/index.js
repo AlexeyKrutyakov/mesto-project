@@ -83,6 +83,10 @@ function removeLike(json) {
   renderLikesNumber(card, json.likes.length);
 }
 
+function changeAvatar(json) {
+  profileAvatarImage.src = json.avatar;
+}
+
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
@@ -90,4 +94,4 @@ function removeLike(json) {
 // enable forms validation
 enableValidation(validationParameters);
 
-export { profileId };
+export { profileId, changeAvatar };

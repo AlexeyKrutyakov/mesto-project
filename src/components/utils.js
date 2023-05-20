@@ -20,6 +20,7 @@ import {
 } from './modal.js';
 import { toggleLike } from './card.js';
 import { deleteCard } from './api.js';
+import { changeAvatar } from '../index.js';
 
 const profileAvatarImage = document.querySelector('.profile__avatar-image');
 const profileNameElement = document.querySelector('.profile__name');
@@ -39,10 +40,6 @@ function toggleSubmitStatus(btn) {
   } else {
     btn.textContent = 'Сохранить';
   }
-}
-
-function changeAvatar(json) {
-  profileAvatarImage.src = json.avatar;
 }
 
 function renderProfile(json) {
@@ -114,10 +111,4 @@ function keydownHandler(event) {
   }
 }
 
-export {
-  toggleSubmitStatus,
-  changeAvatar,
-  renderProfile,
-  clickHandler,
-  keydownHandler,
-};
+export { toggleSubmitStatus, renderProfile, clickHandler, keydownHandler };
