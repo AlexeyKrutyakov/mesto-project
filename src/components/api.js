@@ -26,13 +26,8 @@ function patchAvatar(link, config) {
     }),
   };
   fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        toggleSubmitStatus(avatarSubmitBtn);
-        return response.json();
-      } else {
-        return Promise.reject(`Error: ${response.status}`);
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       toggleSubmitStatus(avatarSubmitBtn);
@@ -54,13 +49,8 @@ function updateProfile(profileName, profileAbout, config) {
     }),
   };
   fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        toggleSubmitStatus(profileSubmitBnt);
-        return response.json();
-      } else {
-        return Promise.reject(`Error: ${response.status}`);
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       toggleSubmitStatus(profileSubmitBnt);
@@ -78,12 +68,8 @@ function getProfileInfo(config) {
     headers: config.headers,
   };
   fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Error: ${response.status}`);
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       profileId = json._id;
@@ -105,13 +91,8 @@ function postCard(placeName, placeImage, config) {
     }),
   };
   fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        toggleSubmitStatus(placeSubmitBtn);
-        return response.json();
-      } else {
-        return Promise.reject(`Error: ${response.status}`);
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       toggleSubmitStatus(placeSubmitBtn);
@@ -138,12 +119,8 @@ function getInitialCards(config) {
     headers: config.headers,
   };
   return fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Error: ${response.status}`);
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       json.forEach((place) => {
@@ -178,10 +155,8 @@ function deleteCard(event, config) {
     headers: config.headers,
   };
   fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       if (json.message === 'Пост удалён') {
@@ -200,12 +175,8 @@ function putLike(config, card) {
     headers: config.headers,
   };
   fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Error: ${response.status}`);
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       renderLikesNumber(card, json.likes.length);
@@ -222,12 +193,8 @@ function deleteLike(config, card) {
     headers: config.headers,
   };
   fetch(url, requestOptions)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Error: ${response.status}`);
-      }
+    .then((res) => {
+      return getResponseData(res);
     })
     .then((json) => {
       renderLikesNumber(card, json.likes.length);
@@ -235,6 +202,13 @@ function deleteLike(config, card) {
     .catch((err) => {
       console.log('Error: ', err);
     });
+}
+
+function getResponseData(res) {
+  if (!res.ok) {
+    return Promise.reject(`Error: ${res.status}`);
+  }
+  return res.json();
 }
 
 export {
