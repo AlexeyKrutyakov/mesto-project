@@ -14,18 +14,37 @@ import { getInitialCards, getProfile } from './components/api.js';
 
 import { clickHandler, renderProfile } from './components/utils.js';
 
+import { addPlaceCard, hasMyLike } from './components/card';
+
 let profileId = '';
 
-Promise.all([getProfile()])
-  .then(([json]) => {
-    profileId = json._id;
-    renderProfile(json);
-  })
-  .catch(([getProfileErr]) => {
-    console.log('Error: ', getProfileErr);
-  });
+Promise.all([getProfile(), getInitialCards()])
+  .then(([profileJson, cardsJson]) => {
+    profileId = profileJson._id;
+    renderProfile(profileJson);
 
-// getInitialCards(config);
+    cardsJson.forEach((card) => {
+      let nonRemovable;
+      if (card.owner._id === profileId) {
+        nonRemovable = false;
+      } else {
+        nonRemovable = true;
+      }
+      addPlaceCard(
+        card.likes.length,
+        card._id,
+        card.name,
+        card.link,
+        nonRemovable,
+        hasMyLike(card, profileId),
+        card.alt
+      );
+    });
+  })
+  .catch(([getProfileErr, getInitialCardsErr]) => {
+    console.log('Error: ', getProfileErr);
+    console.log('Error: ', getInitialCardsErr);
+  });
 
 // add listeners
 profileSection.addEventListener('click', clickHandler);

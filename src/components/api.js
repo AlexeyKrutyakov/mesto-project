@@ -104,38 +104,15 @@ function postCard(placeName, placeImage, config) {
     .catch((err) => console.log('Error: ', err));
 }
 
-function getInitialCards(config) {
+function getInitialCards() {
   const url = `${config.baseUrl}/cards`;
   const requestOptions = {
     method: 'GET',
     headers: config.headers,
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .then((json) => {
-      json.forEach((place) => {
-        let nonRemovable;
-        if (place.owner._id === profileId) {
-          nonRemovable = false;
-        } else {
-          nonRemovable = true;
-        }
-        addPlaceCard(
-          place.likes.length,
-          place._id,
-          place.name,
-          place.link,
-          nonRemovable,
-          hasMyLike(place, profileId),
-          place.alt
-        );
-      });
-    })
-    .catch((err) => {
-      console.log('Error: ', err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function deleteCard(event, config) {
