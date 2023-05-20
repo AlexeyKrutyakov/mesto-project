@@ -117,8 +117,15 @@ function removeLike(json) {
   renderLikesNumber(card, json.likes.length);
 }
 
+function openAvatarPopup() {
+  openPopup(avatarPopup);
+
+  avatarPopup.addEventListener('click', clickHandler);
+  avatarForm.addEventListener('submit', submitAvatarForm);
+}
+
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
 
-export { profileId, changeAvatar, openProfilePopup };
+export { profileId, changeAvatar, openProfilePopup, openAvatarPopup };

@@ -37,13 +37,6 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function openAvatarPopup() {
-  openPopup(avatarPopup);
-
-  avatarPopup.addEventListener('click', clickHandler);
-  avatarForm.addEventListener('submit', submitAvatarForm);
-}
-
 function openPlacePopup() {
   openPopup(placePopup);
 
@@ -121,7 +114,6 @@ function keydownHandler(event) {
 export {
   openPopup,
   closePopup,
-  openAvatarPopup,
   openPlacePopup,
   openEnlargeImagePopup,
   submitProfileForm,

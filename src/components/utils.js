@@ -9,7 +9,6 @@ import {
 } from './commonElements.js';
 import { config } from './api.js';
 import {
-  openAvatarPopup,
   submitAvatarForm,
   submitProfileForm,
   openPlacePopup,
@@ -19,7 +18,7 @@ import {
 } from './modal.js';
 import { toggleLike } from './card.js';
 import { deleteCard } from './api.js';
-import { openProfilePopup } from '../index.js';
+import { openProfilePopup, openAvatarPopup } from '../index.js';
 
 const profileAvatarImage = document.querySelector('.profile__avatar-image');
 const profileNameElement = document.querySelector('.profile__name');
