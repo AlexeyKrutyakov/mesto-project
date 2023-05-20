@@ -15,7 +15,7 @@ import { enableValidation, toggleButtonState } from './components/validate.js';
 
 import { getInitialCards, getProfile } from './components/api.js';
 
-import { addPlaceCard, hasMyLike } from './components/card';
+import { createCard, addCard, hasMyLike, isMyCard } from './components/card';
 
 let profileId = '';
 
@@ -33,6 +33,10 @@ function renderProfile(json) {
   changeAvatar(json);
 }
 
+// enable forms validation
+
+enableValidation(validationParameters);
+
 // initial page
 
 Promise.all([getProfile(), getInitialCards()])
@@ -41,21 +45,16 @@ Promise.all([getProfile(), getInitialCards()])
     renderProfile(profileJson);
 
     cardsJson.forEach((card) => {
-      let nonRemovable;
-      if (card.owner._id === profileId) {
-        nonRemovable = false;
-      } else {
-        nonRemovable = true;
-      }
-      addPlaceCard(
+      const nonRemovable = !isMyCard(card, profileId);
+      const newCard = createCard(
         card.likes.length,
         card._id,
         card.name,
         card.link,
         nonRemovable,
-        hasMyLike(card, profileId),
         card.alt
       );
+      addCard(newCard);
     });
   })
   .catch(([getProfileErr, getInitialCardsErr]) => {
@@ -94,14 +93,7 @@ function addNewPlace(json) {
   const cardId = json._id;
   const hasMyLike = false;
   const nonRemovable = false;
-  addPlaceCard(
-    placeLikes,
-    cardId,
-    placeName,
-    placeImage,
-    nonRemovable,
-    hasMyLike
-  );
+  addCard(placeLikes, cardId, placeName, placeImage, nonRemovable, hasMyLike);
 }
 
 function deletePlace(json) {
@@ -121,8 +113,5 @@ function removeLike(json) {
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
-
-// enable forms validation
-enableValidation(validationParameters);
 
 export { profileId, changeAvatar, openProfilePopup };

@@ -5,28 +5,11 @@ import { config } from './api.js';
 const cardTemplate = document.querySelector('#card-template').content;
 const likeBtnActiveClass = 'card__like-button_active';
 
-function addPlaceCard(
-  placeLikes,
-  placeId,
-  placeName,
-  placeImage,
-  nonRemovable,
-  hasMyLike,
-  imageAlt = ''
-) {
-  const newCard = createPlaceCard(
-    placeLikes,
-    placeId,
-    placeName,
-    placeImage,
-    nonRemovable,
-    hasMyLike,
-    imageAlt
-  );
-  cardsSection.prepend(newCard);
+function isMyCard(card, myId) {
+  return card.owner._id === myId;
 }
 
-function createPlaceCard(
+function createCard(
   placeLikes,
   placeId,
   placeName,
@@ -62,6 +45,10 @@ function createPlaceCard(
   return placeCard;
 }
 
+function addCard(card) {
+  cardsSection.prepend(card);
+}
+
 function hideRemoveButton(card) {
   card.classList.add('card__remove-button_hidden');
 }
@@ -89,8 +76,9 @@ function hasMyLike(card, myId) {
 }
 
 export {
-  addPlaceCard,
-  createPlaceCard,
+  isMyCard,
+  createCard,
+  addCard,
   hideRemoveButton,
   toggleLike,
   renderLikesNumber,
