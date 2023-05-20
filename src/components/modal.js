@@ -1,20 +1,4 @@
-import {
-  avatarPopup,
-  avatarForm,
-  avatarImageInput,
-  profilePopup,
-  profileForm,
-  profileNameInput,
-  profileTextInput,
-  placePopup,
-  placeForm,
-  placeNameInput,
-  placeImageInput,
-  validationParameters,
-} from './commonElements.js';
-import { validateInput, toggleButtonState } from './validate.js';
 import { keydownHandler } from './utils.js';
-import { config, postCard, patchProfile, patchAvatar } from './api.js';
 
 // popup
 const openedPopupClass = 'popup_opened';
