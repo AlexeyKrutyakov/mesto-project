@@ -84,12 +84,8 @@ function renderLikesNumber(card, likes) {
   likesNumber.textContent = likes;
 }
 
-function hasMyLike(request, myId) {
-  let result = false;
-  request.likes.forEach((like) => {
-    if (like._id === myId) result = true;
-  });
-  return result;
+function hasMyLike(card, myId) {
+  return card.likes.some((like) => like._id === myId);
 }
 
 export {
