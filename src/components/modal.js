@@ -37,16 +37,6 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function submitAvatarForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  patchAvatar(avatarImageInput.value, config);
-  avatarForm.reset();
-
-  closePopup(avatarPopup);
-}
-
 function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
@@ -66,10 +56,4 @@ function keydownHandler(event) {
   }
 }
 
-export {
-  openPopup,
-  closePopup,
-  submitPlaceForm,
-  submitAvatarForm,
-  keydownHandler,
-};
+export { openPopup, closePopup, submitPlaceForm, keydownHandler };
