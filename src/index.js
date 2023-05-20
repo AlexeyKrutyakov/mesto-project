@@ -46,6 +46,11 @@ Promise.all([getProfile(), getInitialCards()])
     console.log('Error: ', getInitialCardsErr);
   });
 
+// change profile info
+function editProfileInfo(json) {
+  toggleSubmitStatus(profileSubmitBnt);
+  renderProfile(json);
+}
 // add listeners
 
 // profileSection.addEventListener('click', clickHandler);

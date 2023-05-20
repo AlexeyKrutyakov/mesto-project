@@ -16,7 +16,7 @@ import {
 } from './commonElements.js';
 import { validateInput, toggleButtonState } from './validate.js';
 import { clickHandler, keydownHandler } from './utils.js';
-import { config, postCard, updateProfile, patchAvatar } from './api.js';
+import { config, postCard, patchProfile, patchAvatar } from './api.js';
 
 // popup
 const openedPopupClass = 'popup_opened';
@@ -107,7 +107,7 @@ function submitProfileForm(event) {
   event.preventDefault();
 
   // update profile
-  updateProfile(profileInputName.value, profileInputText.value, config);
+  patchProfile(profileInputName.value, profileInputText.value, config);
   document.removeEventListener('keydown', keydownHandler);
   closePopup(profilePopup);
 }

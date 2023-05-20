@@ -52,7 +52,7 @@ function patchAvatar(link, config) {
   });
 }
 
-function updateProfile(profileName, profileAbout, config) {
+function patchProfile(profileName, profileAbout, config) {
   const url = `${config.baseUrl}/users/me`;
   const requestOptions = {
     method: 'PATCH',
@@ -62,17 +62,9 @@ function updateProfile(profileName, profileAbout, config) {
       about: profileAbout,
     }),
   };
-  fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .then((json) => {
-      toggleSubmitStatus(profileSubmitBnt);
-      renderProfile(json);
-    })
-    .catch((err) => {
-      console.log('Error: ', err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function postCard(placeName, placeImage, config) {
@@ -175,7 +167,7 @@ function getResponseData(res) {
 export {
   config,
   patchAvatar,
-  updateProfile,
+  patchProfile,
   getProfile,
   postCard,
   getInitialCards,
