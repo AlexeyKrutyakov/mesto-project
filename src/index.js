@@ -171,7 +171,7 @@ function submitProfileForm(event) {
 
   // update profile
   patchProfile(profileNameInput.value, profileTextInput.value, config);
-  document.removeEventListener('keydown', keydownHandler);
+  // document.removeEventListener('keydown', keydownHandler);
   closePopup(profilePopup);
 }
 
