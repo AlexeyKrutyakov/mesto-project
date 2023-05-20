@@ -37,16 +37,6 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-function submitPlaceForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  postCard(placeNameInput.value, placeImageInput.value, config);
-  placeForm.reset();
-
-  closePopup(placePopup);
-}
-
 function keydownHandler(event) {
   if (event.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
@@ -56,4 +46,4 @@ function keydownHandler(event) {
   }
 }
 
-export { openPopup, closePopup, submitPlaceForm, keydownHandler };
+export { openPopup, closePopup, keydownHandler };
