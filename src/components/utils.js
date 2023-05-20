@@ -21,9 +21,6 @@ import {
   submitPlaceForm,
 } from '../index.js';
 
-const profileAvatarImage = document.querySelector('.profile__avatar-image');
-const profileNameElement = document.querySelector('.profile__name');
-const profileTextElement = document.querySelector('.profile__text');
 const editProfileBtnClass = 'profile__edit-button';
 const editAvatarBtnClass = 'profile__edit-avatar-button';
 const addPlaceBtnClass = 'profile__add-button';
