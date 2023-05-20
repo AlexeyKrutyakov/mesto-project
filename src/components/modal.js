@@ -15,7 +15,7 @@ import {
   validationParameters,
 } from './commonElements.js';
 import { validateInput, toggleButtonState } from './validate.js';
-import { clickHandler, keydownHandler } from './utils.js';
+import { clickHandler } from './utils.js';
 import { config, postCard, patchProfile, patchAvatar } from './api.js';
 
 // popup
@@ -132,6 +132,15 @@ function submitPlaceForm(event) {
   closePopup(placePopup);
 }
 
+function keydownHandler(event) {
+  if (event.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
+  }
+}
+
 export {
   openPopup,
   closePopup,
@@ -142,4 +151,5 @@ export {
   submitProfileForm,
   submitPlaceForm,
   submitAvatarForm,
+  keydownHandler,
 };
