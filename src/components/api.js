@@ -13,9 +13,13 @@ function getProfile() {
     method: 'GET',
     headers: config.headers,
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function getInitialCards() {
@@ -24,9 +28,13 @@ function getInitialCards() {
     method: 'GET',
     headers: config.headers,
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function patchAvatar(link) {
@@ -38,9 +46,13 @@ function patchAvatar(link) {
       avatar: link,
     }),
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function patchProfile(profileName, profileAbout) {
@@ -53,9 +65,13 @@ function patchProfile(profileName, profileAbout) {
       about: profileAbout,
     }),
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function postCard(placeName, placeImage) {
@@ -68,9 +84,13 @@ function postCard(placeName, placeImage) {
       link: placeImage,
     }),
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function deleteCard(event) {
@@ -81,9 +101,13 @@ function deleteCard(event) {
     method: 'DELETE',
     headers: config.headers,
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function putLike(config, card) {
@@ -92,9 +116,13 @@ function putLike(config, card) {
     method: 'PUT',
     headers: config.headers,
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function deleteLike(config, card) {
@@ -103,9 +131,13 @@ function deleteLike(config, card) {
     method: 'DELETE',
     headers: config.headers,
   };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
+  return fetch(url, requestOptions)
+    .then((res) => {
+      return getResponseData(res);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function getResponseData(res) {
