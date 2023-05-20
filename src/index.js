@@ -12,7 +12,7 @@ import { enableValidation } from './components/validate.js';
 
 import { getInitialCards, getProfile } from './components/api.js';
 
-import { clickHandler, renderProfile } from './components/utils.js';
+import { clickHandler } from './components/utils.js';
 
 import { addPlaceCard, hasMyLike } from './components/card';
 
@@ -84,7 +84,13 @@ function removeLike(json) {
 }
 
 function changeAvatar(json) {
-  profileAvatarImage.src = json.avatar;
+  // profileAvatarImage.src = json.avatar;
+}
+
+function renderProfile(json) {
+  // profileNameElement.textContent = json.name;
+  // profileTextElement.textContent = json.about;
+  // changeAvatar(json);
 }
 
 // add listeners

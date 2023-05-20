@@ -42,12 +42,6 @@ function toggleSubmitStatus(btn) {
   }
 }
 
-function renderProfile(json) {
-  profileNameElement.textContent = json.name;
-  profileTextElement.textContent = json.about;
-  changeAvatar(json);
-}
-
 function clickHandler(event) {
   const targetClassList = event.target.classList;
   if (targetClassList.contains(editAvatarBtnClass)) {
@@ -111,4 +105,4 @@ function keydownHandler(event) {
   }
 }
 
-export { toggleSubmitStatus, renderProfile, clickHandler, keydownHandler };
+export { toggleSubmitStatus, clickHandler, keydownHandler };
