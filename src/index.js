@@ -75,6 +75,10 @@ function deletePlace(json) {
   }
 }
 
+function addLike(json) {
+  renderLikesNumber(card, json.likes.length);
+}
+
 // add listeners
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
