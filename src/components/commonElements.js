@@ -48,3 +48,9 @@ export const validationParameters = {
   inactiveBtnClass: 'form__submit_inactive',
   inputErrorClass: 'form__input_type_invalid',
 };
+
+// status for submit buttons
+export const submitStatus = {
+  save: 'Сохранить',
+  saving: 'Сохранение...',
+};
