@@ -9,13 +9,16 @@ import {
   profileNameInput,
   profileTextInput,
   validationParameters,
+  profileSubmitBnt,
 } from './components/commonElements.js';
 
 import { enableValidation, toggleButtonState } from './components/validate.js';
 
 import { getInitialCards, getProfile } from './components/api.js';
 
-import { createCard, addCard, hasMyLike, isMyCard } from './components/card';
+import { createCard, addCard, isMyCard } from './components/card';
+
+import { clickHandler } from './components/utils';
 
 let profileId = '';
 
@@ -61,6 +64,10 @@ Promise.all([getProfile(), getInitialCards()])
     console.log('Error: ', getProfileErr);
     console.log('Error: ', getInitialCardsErr);
   });
+
+// add listeners
+profilePopup.addEventListener('click', clickHandler);
+profileForm.addEventListener('submit', profileSubmitBnt);
 
 // change profile info
 function editProfileInfo(json) {

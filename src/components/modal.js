@@ -37,10 +37,6 @@ function closePopup(popup) {
   popup.classList.remove(openedPopupClass);
 }
 
-// add listeners
-profilePopup.addEventListener('click', clickHandler);
-profileForm.addEventListener('submit', submitProfileForm);
-
 function openAvatarPopup() {
   openPopup(avatarPopup);
 
