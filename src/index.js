@@ -1,6 +1,7 @@
 import './index.css';
 
 import {
+  profileSection,
   cardsSection,
   validationParameters,
 } from './components/commonElements.js';
@@ -12,8 +13,6 @@ import { enableValidation } from './components/validate.js';
 import { getInitialCards, getProfileInfo } from './components/api.js';
 
 import { clickHandler } from './components/utils.js';
-
-const profileSection = document.querySelector('.profile');
 
 let profileId = '';
 
