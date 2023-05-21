@@ -4,9 +4,9 @@ function showInputError(formElement, inputElement, errorMessage, params) {
   errorElement.textContent = errorMessage;
 }
 
-function hideInputError(formElement, inputElement, params) {
-  const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
-  inputElement.classList.remove(params.inputErrorClass);
+function hideInputError(form, input, params) {
+  const errorElement = form.querySelector(`.${input.name}-error`);
+  input.classList.remove(params.inputErrorClass);
   errorElement.textContent = '';
 }
 
@@ -24,8 +24,7 @@ function validateInput(form, input, params) {
   }
 }
 
-function toggleButtonState(form, inputs, params) {
-  const btn = form.querySelector(params.submitButtonSelector);
+function toggleButtonState(inputs, btn, params) {
   const inactiveBtnClass = params.inactiveBtnClass;
 
   if (hasInvalidInput(inputs)) {
@@ -41,13 +40,14 @@ function enableValidation(params) {
   const forms = document.querySelectorAll(params.formSelector);
   forms.forEach((form) => {
     const inputs = Array.from(form.querySelectorAll(params.inputSelector));
+    const btn = form.querySelector(params.submitButtonSelector);
 
-    toggleButtonState(form, inputs, params);
+    toggleButtonState(inputs, btn, params);
 
     inputs.forEach((input) => {
       input.addEventListener('input', () => {
         validateInput(form, input, params);
-        toggleButtonState(form, inputs, params);
+        toggleButtonState(inputs, btn, params);
       });
     });
   });

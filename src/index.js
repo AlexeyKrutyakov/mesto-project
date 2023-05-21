@@ -13,11 +13,16 @@ import {
   profileTextInput,
   profileSubmitBnt,
   validationParameters,
+  placePopup,
   placeForm,
   placeSubmitBtn,
   editAvatarBtn,
   avatarPopup,
   submitStatus,
+  editProfileBtn,
+  addPlaceBtn,
+  placeNameInput,
+  placeImageInput,
 } from './components/commonElements.js';
 
 import {
@@ -26,34 +31,27 @@ import {
   toggleButtonState,
 } from './components/validate.js';
 
-import { getInitialCards, getProfile, patchAvatar } from './components/api.js';
+import {
+  getInitialCards,
+  getProfile,
+  patchAvatar,
+  patchProfile,
+} from './components/api.js';
 
 import { createCard, addCard, isMyCard } from './components/card';
 
 import {
   clickHandler,
+  hideInputsErrors,
   keydownHandler,
   renderSubmit,
+  setSubmitActive,
   setSubmitInactive,
 } from './components/utils';
 
 import { closePopup, openPopup } from './components/modal';
 
 let profileId = '';
-
-// functions works with avatar
-
-function renderAvatar(link) {
-  avatarImage.src = link;
-}
-
-// functions works with profile
-
-function renderProfile(json) {
-  profileName.textContent = json.name;
-  profileAbout.textContent = json.about;
-  renderAvatar(json.avatar);
-}
 
 // enable forms validation
 
@@ -64,7 +62,8 @@ enableValidation(validationParameters);
 Promise.all([getProfile(), getInitialCards()])
   .then(([profileJson, cardsJson]) => {
     profileId = profileJson._id;
-    renderProfile(profileJson);
+    renderProfileInfo(profileJson.name, profileJson.about);
+    renderAvatar(profileJson.avatar);
 
     cardsJson.forEach((card) => {
       const nonRemovable = !isMyCard(card, profileId);
@@ -86,16 +85,57 @@ Promise.all([getProfile(), getInitialCards()])
 
 // add listeners
 
+editAvatarBtn.addEventListener('click', openAvatarPopup);
+editProfileBtn.addEventListener('click', openProfilePopup);
+addPlaceBtn.addEventListener('click', openPlacePopup);
 avatarForm.addEventListener('submit', submitAvatarForm);
 profileForm.addEventListener('submit', submitProfileForm);
 placeForm.addEventListener('submit', submitPlaceForm);
-editAvatarBtn.addEventListener('click', openAvatarPopup);
 
-// profilePopup.addEventListener('click', clickHandler);
-// profileSection.addEventListener('click', clickHandler);
-// cardsSection.addEventListener('click', clickHandler);
+// functions works with profile
 
-// change avatar
+function renderProfileInfo(name, about) {
+  profileName.textContent = name;
+  profileAbout.textContent = about;
+}
+
+function openProfilePopup() {
+  openPopup(profilePopup);
+  hideInputsErrors(profileForm);
+
+  // initiate input values with current profile data
+  profileNameInput.value = profileName.textContent;
+  profileTextInput.value = profileAbout.textContent;
+
+  setSubmitActive(profileSubmitBnt);
+}
+
+function submitProfileForm(event) {
+  // undo standard sumbit behavior
+  event.preventDefault();
+
+  renderSubmit(profileSubmitBnt, submitStatus.saving);
+
+  // update profile
+  patchProfile(profileNameInput.value, profileTextInput.value)
+    .then((json) => {
+      renderProfileInfo(json.name, json.about);
+      closePopup(profilePopup);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    })
+    .finally(() => {
+      renderSubmit(profileSubmitBnt, submitStatus.save);
+    });
+}
+
+// functions works with avatar
+
+function renderAvatar(link) {
+  avatarImage.src = link;
+}
+
 function openAvatarPopup() {
   avatarForm.reset();
   setSubmitInactive(avatarSubmitBtn);
@@ -109,6 +149,7 @@ function submitAvatarForm(event) {
 
   renderSubmit(avatarSubmitBtn, submitStatus.saving);
 
+  // change avatar
   patchAvatar(avatarImageInput.value)
     .then((json) => {
       renderAvatar(json.avatar);
@@ -117,31 +158,27 @@ function submitAvatarForm(event) {
     .catch((err) => {
       console.log('Error: ', err);
     })
-    .finally(renderSubmit(avatarSubmitBtn, submitStatus.save));
+    .finally(() => {
+      renderSubmit(avatarSubmitBtn, submitStatus.save);
+    });
 }
 
-// change profile info
-function editProfileInfo(json) {
-  // toggleSubmitStatus(profileSubmitBnt);
-  renderProfile(json);
+// functions works with cards
+
+function openPlacePopup() {
+  placeForm.reset();
+  hideInputError(placeForm, placeNameInput, placeImageInput);
+  setSubmitInactive(placeSubmitBtn);
+  openPopup(placePopup);
 }
+function submitPlaceForm(event) {
+  // undo standard sumbit behavior
+  event.preventDefault();
 
-// functions works with profile
-function openProfilePopup() {
-  openPopup(profilePopup);
+  postCard(placeNameInput.value, placeImageInput.value, config);
+  placeForm.reset();
 
-  // initiate input values with current profile data
-  profileNameInput.value = profileName.textContent;
-  profileTextInput.value = profileAbout.textContent;
-
-  // validate input values
-  validateInput(profileForm, profileNameInput, validationParameters);
-  validateInput(profileForm, profileTextInput, validationParameters);
-  toggleButtonState(
-    profileForm,
-    [profileNameInput, profileTextInput],
-    validationParameters
-  );
+  closePopup(placePopup);
 }
 
 // post card
@@ -168,25 +205,6 @@ function removeLike(json) {
   renderLikesNumber(card, json.likes.length);
 }
 
-function openPlacePopup() {
-  openPopup(placePopup);
-
-  // clear old name and text in input fields
-  placeForm.reset();
-
-  // validate inputs
-  validateInput(placeForm, placeNameInput, validationParameters);
-  validateInput(placeForm, placeImageInput, validationParameters);
-  toggleButtonState(
-    placeForm,
-    [placeNameInput, placeImageInput],
-    validationParameters
-  );
-
-  // add listeners for popup buttons
-  placePopup.addEventListener('click', clickHandler);
-}
-
 function openEnlargeImagePopup(event) {
   const imageLink = event.target.src;
   const placeName = event.target
@@ -200,26 +218,6 @@ function openEnlargeImagePopup(event) {
   enlargeImagePopup.addEventListener('click', clickHandler);
 
   openPopup(enlargeImagePopup);
-}
-
-function submitProfileForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  // update profile
-  patchProfile(profileNameInput.value, profileTextInput.value, config);
-  // document.removeEventListener('keydown', keydownHandler);
-  closePopup(profilePopup);
-}
-
-function submitPlaceForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  postCard(placeNameInput.value, placeImageInput.value, config);
-  placeForm.reset();
-
-  closePopup(placePopup);
 }
 
 export {

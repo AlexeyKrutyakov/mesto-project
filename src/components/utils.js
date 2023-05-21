@@ -23,6 +23,7 @@ import {
   submitAvatarForm,
   submitPlaceForm,
 } from '../index.js';
+import { hideInputError } from './validate.js';
 
 const editProfileBtnClass = 'profile__edit-button';
 const editAvatarBtnClass = 'profile__edit-avatar-button';
@@ -103,4 +104,22 @@ function setSubmitInactive(btn) {
   btn.classList.add(validationParameters.inactiveBtnClass);
 }
 
-export { clickHandler, closeByClickHandler, renderSubmit, setSubmitInactive };
+function setSubmitActive(btn) {
+  btn.classList.remove(validationParameters.inactiveBtnClass);
+}
+
+function hideInputsErrors(form) {
+  const inputs = form.querySelectorAll(validationParameters.inputSelector);
+  inputs.forEach((input) => {
+    hideInputError(form, input, validationParameters);
+  });
+}
+
+export {
+  clickHandler,
+  closeByClickHandler,
+  renderSubmit,
+  setSubmitInactive,
+  setSubmitActive,
+  hideInputsErrors,
+};

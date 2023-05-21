@@ -20,8 +20,14 @@ export const avatarForm = document.forms['edit-avatar'];
 export const avatarImageInput = avatarForm.elements['avatar-image-input'];
 export const avatarSubmitBtn = avatarForm.querySelector(`.${submitBtnClass}`);
 // profile info
+const editProfileBtnClass = 'profile__edit-button';
+export const editProfileBtn = profileSection.querySelector(
+  `.${editProfileBtnClass}`
+);
 export const profileName = profileSection.querySelector('.profile__name');
 export const profileAbout = profileSection.querySelector('.profile__text');
+const addPlaceBtnClass = 'profile__add-button';
+export const addPlaceBtn = profileSection.querySelector(`.${addPlaceBtnClass}`);
 // profile popup
 const profilePopupClass = 'popup_type_edit-profile';
 export const profilePopup = document.querySelector(`.${profilePopupClass}`);
@@ -46,9 +52,9 @@ export const placePopup = document.querySelector(`.${placePopupClass}`);
 // place form
 export const placeForm = document.forms['place-info'];
 // input 'place name'
-const placeNameInput = placeForm.elements['place-name-input'];
+export const placeNameInput = placeForm.elements['place-name-input'];
 // input 'place text'
-const placeImageInput = placeForm.elements['place-image-input'];
+export const placeImageInput = placeForm.elements['place-image-input'];
 export const placeSubmitBtn = placeForm.querySelector(`.${submitBtnClass}`);
 
 // enlarge image popup elements
