@@ -1,41 +1,37 @@
 import './index.css';
 
 import {
-  avatarImage,
-  avatarForm,
-  avatarImageInput,
-  avatarSubmitBtn,
-  profilePopup,
-  profileName,
-  profileAbout,
-  profileForm,
-  profileNameInput,
-  profileTextInput,
-  profileSubmitBnt,
-  validationParameters,
-  placePopup,
-  placeForm,
-  placeSubmitBtn,
-  editAvatarBtn,
-  avatarPopup,
-  submitStatus,
-  editProfileBtn,
   addPlaceBtn,
-  placeNameInput,
-  placeImageInput,
+  avatarForm,
+  avatarImage,
+  avatarImageInput,
+  avatarPopup,
+  avatarSubmitBtn,
   cardElementClass,
   cardLikeBtnActiveClass,
   cardNameClass,
-  enlargeImagePopup,
+  editAvatarBtn,
+  editProfileBtn,
   enlargeImage,
+  enlargeImagePopup,
   figcaption,
+  placeForm,
+  placeImageInput,
+  placeNameInput,
+  placePopup,
+  placeSubmitBtn,
+  profileAbout,
+  profileForm,
+  profileName,
+  profileNameInput,
+  profilePopup,
+  profileSubmitBnt,
+  profileTextInput,
+  submitStatus,
+  validationParameters,
 } from './components/commonElements.js';
 
-import {
-  enableValidation,
-  hideInputError,
-  toggleButtonState,
-} from './components/validate.js';
+import { enableValidation, hideInputError } from './components/validate.js';
 
 import {
   deleteCard,
@@ -49,17 +45,15 @@ import {
 } from './components/api.js';
 
 import {
-  createCard,
   addCard,
+  createCard,
+  hasMyLike,
   isMyCard,
   renderLikesNumber,
-  hasMyLike,
 } from './components/card';
 
 import {
-  clickHandler,
   hideInputsErrors,
-  keydownHandler,
   renderSubmitStatus,
   setSubmitActive,
   setSubmitInactive,
@@ -279,11 +273,3 @@ export {
   removePlace,
   toggleLike,
 };
-
-// to-do
-
-// card.js
-// modal.js
-// utils.js
-// validate.js
-// api.js

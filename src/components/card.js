@@ -1,6 +1,4 @@
-import { putLike, deleteLike } from './api.js';
-import { cardElementClass, cardsSection } from './commonElements.js';
-import { config } from './api.js';
+import { cardsSection } from './commonElements.js';
 import { openEnlargeImagePopup, removePlace, toggleLike } from '../index.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
