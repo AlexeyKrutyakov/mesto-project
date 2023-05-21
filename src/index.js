@@ -85,8 +85,7 @@ Promise.all([getProfile(), getInitialCards()])
         card.name,
         card.link,
         nonRemovable,
-        likedByMe,
-        card.alt
+        likedByMe
       );
       addCard(newCard);
     });
