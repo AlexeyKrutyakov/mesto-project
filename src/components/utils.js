@@ -19,6 +19,7 @@ function renderSubmitStatus(btn, newState) {
 
 function setSubmitInactive(btn) {
   btn.classList.add(validationParameters.inactiveBtnClass);
+  btn.setAttribute('disabled', '');
 }
 
 function setSubmitActive(btn) {
