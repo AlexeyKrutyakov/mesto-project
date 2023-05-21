@@ -58,7 +58,9 @@ function addCard(card) {
   cardsSection.prepend(card);
 }
 
-function deleteCard(card) {}
+function deleteCard(card) {
+  console.log('Empty function deleteCard works');
+}
 
 function hideRemoveButton(card) {
   card.classList.add('card__remove-button_hidden');

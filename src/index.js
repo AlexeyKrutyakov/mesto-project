@@ -3,6 +3,7 @@ import './index.css';
 import {
   avatarImage,
   avatarForm,
+  avatarImageInput,
   avatarSubmitBtn,
   profilePopup,
   profileName,
@@ -14,22 +15,36 @@ import {
   validationParameters,
   placeForm,
   placeSubmitBtn,
+  editAvatarBtn,
+  avatarPopup,
+  submitStatus,
 } from './components/commonElements.js';
 
-import { enableValidation, toggleButtonState } from './components/validate.js';
+import {
+  enableValidation,
+  hideInputError,
+  toggleButtonState,
+} from './components/validate.js';
 
-import { getInitialCards, getProfile } from './components/api.js';
+import { getInitialCards, getProfile, patchAvatar } from './components/api.js';
 
 import { createCard, addCard, isMyCard } from './components/card';
 
-import { clickHandler, keydownHandler } from './components/utils';
+import {
+  clickHandler,
+  keydownHandler,
+  renderSubmit,
+  setSubmitInactive,
+} from './components/utils';
+
+import { closePopup, openPopup } from './components/modal';
 
 let profileId = '';
 
 // functions works with avatar
 
-function changeAvatar(json) {
-  avatarImage.src = json.avatar;
+function renderAvatar(link) {
+  avatarImage.src = link;
 }
 
 // functions works with profile
@@ -37,7 +52,7 @@ function changeAvatar(json) {
 function renderProfile(json) {
   profileName.textContent = json.name;
   profileAbout.textContent = json.about;
-  changeAvatar(json);
+  renderAvatar(json.avatar);
 }
 
 // enable forms validation
@@ -74,13 +89,40 @@ Promise.all([getProfile(), getInitialCards()])
 avatarForm.addEventListener('submit', submitAvatarForm);
 profileForm.addEventListener('submit', submitProfileForm);
 placeForm.addEventListener('submit', submitPlaceForm);
+editAvatarBtn.addEventListener('click', openAvatarPopup);
+
 // profilePopup.addEventListener('click', clickHandler);
 // profileSection.addEventListener('click', clickHandler);
 // cardsSection.addEventListener('click', clickHandler);
 
+// change avatar
+function openAvatarPopup() {
+  avatarForm.reset();
+  setSubmitInactive(avatarSubmitBtn);
+  hideInputError(avatarForm, avatarImageInput, validationParameters);
+  openPopup(avatarPopup);
+}
+
+function submitAvatarForm(event) {
+  // undo standard sumbit behavior
+  event.preventDefault();
+
+  renderSubmit(avatarSubmitBtn, submitStatus.saving);
+
+  patchAvatar(avatarImageInput.value)
+    .then((json) => {
+      renderAvatar(json.avatar);
+      closePopup(avatarPopup);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    })
+    .finally(renderSubmit(avatarSubmitBtn, submitStatus.save));
+}
+
 // change profile info
 function editProfileInfo(json) {
-  toggleSubmitStatus(profileSubmitBnt);
+  // toggleSubmitStatus(profileSubmitBnt);
   renderProfile(json);
 }
 
@@ -104,7 +146,7 @@ function openProfilePopup() {
 
 // post card
 function addNewPlace(json) {
-  toggleSubmitStatus(placeSubmitBtn);
+  // toggleSubmitStatus(placeSubmitBtn);
   const placeLikes = json.likes.length;
   const cardId = json._id;
   const hasMyLike = false;
@@ -126,11 +168,6 @@ function removeLike(json) {
   renderLikesNumber(card, json.likes.length);
 }
 
-function openAvatarPopup() {
-  openPopup(avatarPopup);
-
-  avatarPopup.addEventListener('click', clickHandler);
-}
 function openPlacePopup() {
   openPopup(placePopup);
 
@@ -175,16 +212,6 @@ function submitProfileForm(event) {
   closePopup(profilePopup);
 }
 
-function submitAvatarForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  patchAvatar(avatarImageInput.value, config);
-  avatarForm.reset();
-
-  closePopup(avatarPopup);
-}
-
 function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
@@ -197,7 +224,7 @@ function submitPlaceForm(event) {
 
 export {
   profileId,
-  changeAvatar,
+  renderAvatar,
   openProfilePopup,
   openAvatarPopup,
   openPlacePopup,
@@ -206,3 +233,13 @@ export {
   submitAvatarForm,
   submitPlaceForm,
 };
+
+// to-do
+// all works
+// keyHandler
+
+// card.js
+// modal.js
+// utils.js
+// validate.js
+// api.js

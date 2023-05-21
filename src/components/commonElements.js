@@ -1,4 +1,7 @@
 // common elements
+export const popupClass = 'popup';
+export const openedPopupClass = 'popup_opened';
+
 // submit button class
 export const submitBtnClass = 'form__submit';
 
@@ -7,12 +10,14 @@ const profileSection = document.querySelector('.profile');
 // avatar
 const avatarImageClass = 'profile__avatar-image';
 export const avatarImage = document.querySelector(`.${avatarImageClass}`);
+const editAvararBtnClass = 'profile__edit-avatar-button';
+export const editAvatarBtn = document.querySelector(`.${editAvararBtnClass}`);
 // avatar popup
 const avatarPopupClass = 'popup_type_edit-avatar';
 export const avatarPopup = document.querySelector(`.${avatarPopupClass}`);
 // avatar form
 export const avatarForm = document.forms['edit-avatar'];
-const avatarImageInput = avatarForm.elements['avatar-image-input'];
+export const avatarImageInput = avatarForm.elements['avatar-image-input'];
 export const avatarSubmitBtn = avatarForm.querySelector(`.${submitBtnClass}`);
 // profile info
 export const profileName = profileSection.querySelector('.profile__name');

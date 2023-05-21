@@ -1,4 +1,5 @@
 import {
+  openedPopupClass,
   submitBtnClass,
   profilePopup,
   profileForm,
@@ -6,6 +7,8 @@ import {
   placeForm,
   avatarPopup,
   avatarForm,
+  popupClass,
+  validationParameters,
 } from './commonElements.js';
 import { config } from './api.js';
 import { closePopup } from './modal.js';
@@ -28,15 +31,6 @@ const cardImageClass = 'card__image';
 const likeBtnClass = 'card__like-button';
 const removeCardBtnClass = 'card__remove-button';
 const closePopupBtnClass = 'popup__close-button';
-
-function toggleSubmitStatus(btn) {
-  const status = btn.textContent;
-  if (status === 'Сохранить') {
-    btn.textContent = 'Сохранение...';
-  } else {
-    btn.textContent = 'Сохранить';
-  }
-}
 
 function clickHandler(event) {
   const targetClassList = event.target.classList;
@@ -92,4 +86,21 @@ function clickHandler(event) {
   }
 }
 
-export { toggleSubmitStatus, clickHandler };
+function closeByClickHandler(evt) {
+  if (
+    evt.target.classList.contains(popupClass) ||
+    evt.target.classList.contains(closePopupBtnClass)
+  ) {
+    closePopup(evt.target.closest(`.${popupClass}`));
+  }
+}
+
+function renderSubmit(btn, newState) {
+  btn.textContent = newState;
+}
+
+function setSubmitInactive(btn) {
+  btn.classList.add(validationParameters.inactiveBtnClass);
+}
+
+export { clickHandler, closeByClickHandler, renderSubmit, setSubmitInactive };
