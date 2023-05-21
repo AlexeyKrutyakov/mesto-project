@@ -93,9 +93,8 @@ function postCard(placeName, placeImage) {
     });
 }
 
-function deleteCard(event) {
-  const currentCard = event.target.closest('.card');
-  const cardId = currentCard.id;
+function deleteCard(card) {
+  const cardId = card.dataset.id;
   const url = `${config.baseUrl}/cards/${cardId}`;
   const requestOptions = {
     method: 'DELETE',

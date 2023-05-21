@@ -1,7 +1,7 @@
 import { putLike, deleteLike } from './api.js';
 import { cardsSection } from './commonElements.js';
 import { config } from './api.js';
-import { openEnlargeImagePopup } from '../index.js';
+import { openEnlargeImagePopup, removePlace } from '../index.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const likeBtnActiveClass = 'card__like-button_active';
@@ -50,7 +50,7 @@ function createCard(
 
   // add listeners
   cardLikeButton.addEventListener('click', toggleLike);
-  cardRemoveButton.addEventListener('click', deleteCard);
+  cardRemoveButton.addEventListener('click', removePlace);
   cardImage.addEventListener('click', openEnlargeImagePopup);
 
   return newCard;
@@ -58,10 +58,6 @@ function createCard(
 
 function addCard(card) {
   cardsSection.prepend(card);
-}
-
-function deleteCard(card) {
-  console.log('Empty function deleteCard works');
 }
 
 function hideRemoveButton(card) {

@@ -32,6 +32,7 @@ import {
 } from './components/validate.js';
 
 import {
+  deleteCard,
   getInitialCards,
   getProfile,
   patchAvatar,
@@ -181,7 +182,6 @@ function submitPlaceForm(event) {
 
   postCard(placeNameInput.value, placeImageInput.value)
     .then((json) => {
-      console.log(json);
       const newCard = createCard(
         json.likes,
         json._id,
@@ -201,10 +201,17 @@ function submitPlaceForm(event) {
     });
 }
 
-function deletePlace(json) {
-  if (json.message === 'Пост удалён') {
-    currentCard.remove();
-  }
+function removePlace(evt) {
+  const card = evt.target.closest('.card');
+  deleteCard(card)
+    .then((json) => {
+      if (json.message === 'Пост удалён') {
+        card.remove();
+      }
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
 }
 
 function addLike(json) {
@@ -240,6 +247,7 @@ export {
   submitProfileForm,
   submitAvatarForm,
   submitPlaceForm,
+  removePlace,
 };
 
 // to-do
