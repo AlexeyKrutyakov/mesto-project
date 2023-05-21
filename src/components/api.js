@@ -111,8 +111,8 @@ function deleteCard(card) {
     });
 }
 
-function putLike(config, card) {
-  const url = `${config.baseUrl}/cards/likes/${card.id}`;
+function putLike(card) {
+  const url = `${config.baseUrl}/cards/likes/${card.dataset.id}`;
   const requestOptions = {
     method: 'PUT',
     headers: config.headers,
@@ -126,8 +126,8 @@ function putLike(config, card) {
     });
 }
 
-function deleteLike(config, card) {
-  const url = `${config.baseUrl}/cards/likes/${card.id}`;
+function deleteLike(card) {
+  const url = `${config.baseUrl}/cards/likes/${card.dataset.id}`;
   const requestOptions = {
     method: 'DELETE',
     headers: config.headers,

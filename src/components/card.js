@@ -1,7 +1,7 @@
 import { putLike, deleteLike } from './api.js';
-import { cardsSection } from './commonElements.js';
+import { cardElementClass, cardsSection } from './commonElements.js';
 import { config } from './api.js';
-import { openEnlargeImagePopup, removePlace } from '../index.js';
+import { openEnlargeImagePopup, removePlace, toggleLike } from '../index.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const likeBtnActiveClass = 'card__like-button_active';
@@ -16,7 +16,7 @@ function createCard(
   placeName,
   placeImage,
   nonRemovable,
-  hasMyLike,
+  likedByMe,
   imageAlt = ''
 ) {
   // copy of template element
@@ -35,7 +35,8 @@ function createCard(
 
   // initialize data place into place card
   newCard.setAttribute('data-id', `${placeId}`);
-  likeNumber.textContent = placeLikes;
+  // likeNumber.textContent = placeLikes;
+  renderLikesNumber(newCard, placeLikes);
   cardName.textContent = placeName;
   cardImage.src = placeImage;
   if (imageAlt === '') {
@@ -43,10 +44,9 @@ function createCard(
   } else {
     cardImage.alt = imageAlt;
   }
-  if (hasMyLike) {
+  if (likedByMe) {
     cardLikeButton.classList.add('card__like-button_active');
   }
-  cardLikesNumber.textContent = '0';
 
   // add listeners
   cardLikeButton.addEventListener('click', toggleLike);
@@ -64,22 +64,17 @@ function hideRemoveButton(card) {
   card.classList.add('card__remove-button_hidden');
 }
 
-function toggleLike(event) {
-  const btnLike = event.target;
-  const btnClasses = btnLike.classList;
-  const card = btnLike.parentElement;
-  if (btnLike.classList.contains(likeBtnActiveClass)) {
-    deleteLike(config, card);
-  } else {
-    putLike(config, card);
-  }
-
-  btnClasses.toggle(likeBtnActiveClass);
-}
-
 function renderLikesNumber(card, likes) {
   const likesNumber = card.querySelector('.card__likes-number');
   likesNumber.textContent = likes;
+}
+
+function toggleLikeStatus(btn, likedByMe) {
+  if (likedByMe) {
+    btn.classList.add(likeBtnActiveClass);
+  } else {
+    btn.classList.remove(likeBtnActiveClass);
+  }
 }
 
 function hasMyLike(card, myId) {
@@ -94,4 +89,5 @@ export {
   toggleLike,
   renderLikesNumber,
   hasMyLike,
+  toggleLikeStatus,
 };

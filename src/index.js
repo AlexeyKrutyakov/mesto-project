@@ -23,6 +23,12 @@ import {
   addPlaceBtn,
   placeNameInput,
   placeImageInput,
+  cardElementClass,
+  cardLikeBtnActiveClass,
+  cardNameClass,
+  enlargeImagePopup,
+  enlargeImage,
+  figcaption,
 } from './components/commonElements.js';
 
 import {
@@ -33,14 +39,22 @@ import {
 
 import {
   deleteCard,
+  deleteLike,
   getInitialCards,
   getProfile,
   patchAvatar,
   patchProfile,
   postCard,
+  putLike,
 } from './components/api.js';
 
-import { createCard, addCard, isMyCard } from './components/card';
+import {
+  createCard,
+  addCard,
+  isMyCard,
+  renderLikesNumber,
+  hasMyLike,
+} from './components/card';
 
 import {
   clickHandler,
@@ -70,12 +84,14 @@ Promise.all([getProfile(), getInitialCards()])
 
     cardsJson.forEach((card) => {
       const nonRemovable = !isMyCard(card, profileId);
+      const likedByMe = hasMyLike(card, profileId);
       const newCard = createCard(
         card.likes.length,
         card._id,
         card.name,
         card.link,
         nonRemovable,
+        likedByMe,
         card.alt
       );
       addCard(newCard);
@@ -184,7 +200,7 @@ function submitPlaceForm(event) {
   postCard(placeNameInput.value, placeImageInput.value)
     .then((json) => {
       const newCard = createCard(
-        json.likes,
+        json.likes.length,
         json._id,
         json.name,
         json.link,
@@ -215,12 +231,25 @@ function removePlace(evt) {
     });
 }
 
-function addLike(json) {
-  renderLikesNumber(card, json.likes.length);
-}
-
-function removeLike(json) {
-  renderLikesNumber(card, json.likes.length);
+function toggleLike(event) {
+  const likeBtn = event.target;
+  const card = likeBtn.closest(`.${cardElementClass}`);
+  const isLikeActive = likeBtn.classList.contains(cardLikeBtnActiveClass);
+  if (isLikeActive) {
+    deleteLike(card)
+      .then((json) => {
+        likeBtn.classList.remove(cardLikeBtnActiveClass);
+        renderLikesNumber(card, json.likes.length);
+      })
+      .catch((err) => show(err));
+  } else {
+    putLike(card)
+      .then((json) => {
+        likeBtn.classList.add(cardLikeBtnActiveClass);
+        renderLikesNumber(card, json.likes.length);
+      })
+      .catch((err) => show(err));
+  }
 }
 
 function openEnlargeImagePopup(event) {
@@ -249,6 +278,7 @@ export {
   submitAvatarForm,
   submitPlaceForm,
   removePlace,
+  toggleLike,
 };
 
 // to-do

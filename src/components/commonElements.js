@@ -43,8 +43,9 @@ export const profileSubmitBnt = profileForm.querySelector(`.${submitBtnClass}`);
 // cards DOM elements
 export const cardsSection = document.querySelector('.cards');
 // card elements
-const cardElementClass = 'card';
-const cardNameClass = 'card__name';
+export const cardElementClass = 'card';
+export const cardNameClass = 'card__name';
+export const cardLikeBtnActiveClass = 'card__like-button_active';
 
 // place popup
 const placePopupClass = 'popup_type_add-place';
@@ -62,8 +63,8 @@ const enlargeImagePopupClass = 'popup_type_enlarge-image';
 export const enlargeImagePopup = document.querySelector(
   `.${enlargeImagePopupClass}`
 );
-const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
-const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
+export const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
+export const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
 
 // parameters for validation
 export const validationParameters = {
