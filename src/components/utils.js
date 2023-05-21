@@ -115,6 +115,10 @@ function hideInputsErrors(form) {
   });
 }
 
+function show(any) {
+  console.log(any);
+}
+
 export {
   clickHandler,
   closeByClickHandler,
@@ -122,4 +126,5 @@ export {
   setSubmitInactive,
   setSubmitActive,
   hideInputsErrors,
+  show,
 };

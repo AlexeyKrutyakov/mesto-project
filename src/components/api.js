@@ -1,3 +1,5 @@
+import { show } from './utils';
+
 // data for server authorization
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
@@ -18,7 +20,7 @@ function getProfile() {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
@@ -33,7 +35,7 @@ function getInitialCards() {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
@@ -51,7 +53,7 @@ function patchAvatar(link) {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
@@ -70,7 +72,7 @@ function patchProfile(profileName, profileAbout) {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
@@ -89,7 +91,7 @@ function postCard(placeName, placeImage) {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
@@ -105,7 +107,7 @@ function deleteCard(card) {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
@@ -120,7 +122,7 @@ function putLike(config, card) {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
@@ -135,7 +137,7 @@ function deleteLike(config, card) {
       return getResponseData(res);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 

@@ -49,6 +49,7 @@ import {
   renderSubmitStatus,
   setSubmitActive,
   setSubmitInactive,
+  show,
 } from './components/utils';
 
 import { closePopup, openPopup } from './components/modal';
@@ -125,7 +126,7 @@ function submitProfileForm(event) {
       closePopup(profilePopup);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     })
     .finally(() => {
       renderSubmitStatus(profileSubmitBnt, submitStatus.save);
@@ -158,7 +159,7 @@ function submitAvatarForm(event) {
       closePopup(avatarPopup);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     })
     .finally(() => {
       renderSubmitStatus(avatarSubmitBtn, submitStatus.save);
@@ -194,7 +195,7 @@ function submitPlaceForm(event) {
       closePopup(placePopup);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     })
     .finally(() => {
       renderSubmitStatus(placeSubmitBtn, submitStatus.save);
@@ -210,7 +211,7 @@ function removePlace(evt) {
       }
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      show(err);
     });
 }
 
