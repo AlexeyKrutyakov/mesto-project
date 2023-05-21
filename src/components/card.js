@@ -26,6 +26,7 @@ function createCard(
   const cardName = newCard.querySelector('.card__name');
   const cardImage = newCard.querySelector('.card__image');
   const cardLikeButton = newCard.querySelector('.card__like-button');
+  const cardLikesNumber = newCard.querySelector('.card__likes-number');
   const likeNumber = newCard.querySelector('.card__likes-number');
   const cardRemoveButton = newCard.querySelector('.card__remove-button');
   if (nonRemovable) {
@@ -45,6 +46,7 @@ function createCard(
   if (hasMyLike) {
     cardLikeButton.classList.add('card__like-button_active');
   }
+  cardLikesNumber.textContent = '0';
 
   // add listeners
   cardLikeButton.addEventListener('click', toggleLike);

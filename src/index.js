@@ -36,6 +36,7 @@ import {
   getProfile,
   patchAvatar,
   patchProfile,
+  postCard,
 } from './components/api.js';
 
 import { createCard, addCard, isMyCard } from './components/card';
@@ -44,7 +45,7 @@ import {
   clickHandler,
   hideInputsErrors,
   keydownHandler,
-  renderSubmit,
+  renderSubmitStatus,
   setSubmitActive,
   setSubmitInactive,
 } from './components/utils';
@@ -114,7 +115,7 @@ function submitProfileForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  renderSubmit(profileSubmitBnt, submitStatus.saving);
+  renderSubmitStatus(profileSubmitBnt, submitStatus.saving);
 
   // update profile
   patchProfile(profileNameInput.value, profileTextInput.value)
@@ -126,7 +127,7 @@ function submitProfileForm(event) {
       console.log('Error: ', err);
     })
     .finally(() => {
-      renderSubmit(profileSubmitBnt, submitStatus.save);
+      renderSubmitStatus(profileSubmitBnt, submitStatus.save);
     });
 }
 
@@ -147,7 +148,7 @@ function submitAvatarForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  renderSubmit(avatarSubmitBtn, submitStatus.saving);
+  renderSubmitStatus(avatarSubmitBtn, submitStatus.saving);
 
   // change avatar
   patchAvatar(avatarImageInput.value)
@@ -159,7 +160,7 @@ function submitAvatarForm(event) {
       console.log('Error: ', err);
     })
     .finally(() => {
-      renderSubmit(avatarSubmitBtn, submitStatus.save);
+      renderSubmitStatus(avatarSubmitBtn, submitStatus.save);
     });
 }
 
@@ -171,24 +172,33 @@ function openPlacePopup() {
   setSubmitInactive(placeSubmitBtn);
   openPopup(placePopup);
 }
+
 function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  postCard(placeNameInput.value, placeImageInput.value, config);
-  placeForm.reset();
+  renderSubmitStatus(placeSubmitBtn, submitStatus.saving);
 
-  closePopup(placePopup);
-}
-
-// post card
-function addNewPlace(json) {
-  // toggleSubmitStatus(placeSubmitBtn);
-  const placeLikes = json.likes.length;
-  const cardId = json._id;
-  const hasMyLike = false;
-  const nonRemovable = false;
-  addCard(placeLikes, cardId, placeName, placeImage, nonRemovable, hasMyLike);
+  postCard(placeNameInput.value, placeImageInput.value)
+    .then((json) => {
+      console.log(json);
+      const newCard = createCard(
+        json.likes,
+        json._id,
+        json.name,
+        json.link,
+        false,
+        false
+      );
+      addCard(newCard);
+      closePopup(placePopup);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    })
+    .finally(() => {
+      renderSubmitStatus(placeSubmitBtn, submitStatus.save);
+    });
 }
 
 function deletePlace(json) {

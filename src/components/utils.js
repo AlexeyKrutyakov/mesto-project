@@ -96,7 +96,7 @@ function closeByClickHandler(evt) {
   }
 }
 
-function renderSubmit(btn, newState) {
+function renderSubmitStatus(btn, newState) {
   btn.textContent = newState;
 }
 
@@ -118,7 +118,7 @@ function hideInputsErrors(form) {
 export {
   clickHandler,
   closeByClickHandler,
-  renderSubmit,
+  renderSubmitStatus,
   setSubmitInactive,
   setSubmitActive,
   hideInputsErrors,
