@@ -30,8 +30,6 @@ function createCard(
     cardRemoveButton.classList.add('card__remove-button_hidden');
   }
 
-  // initialize data place into place card
-  newCard.setAttribute('data-id', `${placeId}`);
   // likeNumber.textContent = placeLikes;
   renderLikesNumber(likesNumberElement, placeLikes);
   cardName.textContent = placeName;
@@ -46,8 +44,12 @@ function createCard(
   }
 
   // add listeners
-  cardLikeButton.addEventListener('click', toggleLike);
-  cardRemoveButton.addEventListener('click', removePlace);
+  cardLikeButton.addEventListener('click', () => {
+    toggleLike(cardLikeButton, placeId, likesNumberElement);
+  });
+  cardRemoveButton.addEventListener('click', () =>
+    removePlace(placeId, newCard)
+  );
   cardImage.addEventListener('click', openEnlargeImagePopup);
 
   return newCard;

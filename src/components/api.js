@@ -73,8 +73,7 @@ function postCard(placeName, placeImage) {
   });
 }
 
-function deleteCard(card) {
-  const cardId = card.dataset.id;
+function deleteCard(cardId) {
   const url = `${config.baseUrl}/cards/${cardId}`;
   const requestOptions = {
     method: 'DELETE',
@@ -85,8 +84,8 @@ function deleteCard(card) {
   });
 }
 
-function putLike(card) {
-  const url = `${config.baseUrl}/cards/likes/${card.dataset.id}`;
+function putLike(cardId) {
+  const url = `${config.baseUrl}/cards/likes/${cardId}`;
   const requestOptions = {
     method: 'PUT',
     headers: config.headers,
@@ -96,8 +95,8 @@ function putLike(card) {
   });
 }
 
-function deleteLike(card) {
-  const url = `${config.baseUrl}/cards/likes/${card.dataset.id}`;
+function deleteLike(cardId) {
+  const url = `${config.baseUrl}/cards/likes/${cardId}`;
   const requestOptions = {
     method: 'DELETE',
     headers: config.headers,

@@ -211,9 +211,8 @@ function submitPlaceForm(event) {
     });
 }
 
-function removePlace(evt) {
-  const card = evt.target.closest('.card');
-  deleteCard(card)
+function removePlace(cardId, card) {
+  deleteCard(cardId)
     .then((json) => {
       if (json.message === 'Пост удалён') {
         card.remove();
@@ -224,20 +223,17 @@ function removePlace(evt) {
     });
 }
 
-function toggleLike(event) {
-  const likeBtn = event.target;
-  const card = likeBtn.closest(`.${cardElementClass}`);
-  const likesNumberElement = card.querySelector('.card__likes-number');
+function toggleLike(likeBtn, placeId, likesNumberElement) {
   const isLikeActive = likeBtn.classList.contains(cardLikeBtnActiveClass);
   if (isLikeActive) {
-    deleteLike(card)
+    deleteLike(placeId)
       .then((json) => {
         likeBtn.classList.remove(cardLikeBtnActiveClass);
         renderLikesNumber(likesNumberElement, json.likes.length);
       })
       .catch((err) => show(err));
   } else {
-    putLike(card)
+    putLike(placeId)
       .then((json) => {
         likeBtn.classList.add(cardLikeBtnActiveClass);
         renderLikesNumber(likesNumberElement, json.likes.length);
