@@ -1,5 +1,3 @@
-import { show } from './utils';
-
 // data for server authorization
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
@@ -15,13 +13,9 @@ function getProfile() {
     method: 'GET',
     headers: config.headers,
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function getInitialCards() {
@@ -30,13 +24,9 @@ function getInitialCards() {
     method: 'GET',
     headers: config.headers,
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function patchAvatar(link) {
@@ -48,13 +38,9 @@ function patchAvatar(link) {
       avatar: link,
     }),
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function patchProfile(profileName, profileAbout) {
@@ -67,13 +53,9 @@ function patchProfile(profileName, profileAbout) {
       about: profileAbout,
     }),
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function postCard(placeName, placeImage) {
@@ -86,13 +68,9 @@ function postCard(placeName, placeImage) {
       link: placeImage,
     }),
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function deleteCard(card) {
@@ -102,13 +80,9 @@ function deleteCard(card) {
     method: 'DELETE',
     headers: config.headers,
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function putLike(card) {
@@ -117,13 +91,9 @@ function putLike(card) {
     method: 'PUT',
     headers: config.headers,
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function deleteLike(card) {
@@ -132,13 +102,9 @@ function deleteLike(card) {
     method: 'DELETE',
     headers: config.headers,
   };
-  return fetch(url, requestOptions)
-    .then((res) => {
-      return getResponseData(res);
-    })
-    .catch((err) => {
-      show(err);
-    });
+  return fetch(url, requestOptions).then((res) => {
+    return getResponseData(res);
+  });
 }
 
 function getResponseData(res) {

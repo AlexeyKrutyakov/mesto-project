@@ -91,8 +91,8 @@ Promise.all([getProfile(), getInitialCards()])
     });
   })
   .catch(([getProfileErr, getInitialCardsErr]) => {
-    console.log('Error: ', getProfileErr);
-    console.log('Error: ', getInitialCardsErr);
+    show(getProfileErr);
+    show(getInitialCardsErr);
   });
 
 // add listeners
