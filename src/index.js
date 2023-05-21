@@ -189,7 +189,7 @@ function submitPlaceForm(event) {
   // undo standard sumbit behavior
   event.preventDefault();
 
-  renderSubmitStatus(placeSubmitBtn, submitStatus.saving);
+  renderSubmitStatus(placeSubmitBtn, submitStatus.creating);
 
   postCard(placeNameInput.value, placeImageInput.value)
     .then((json) => {
@@ -208,7 +208,7 @@ function submitPlaceForm(event) {
       show(err);
     })
     .finally(() => {
-      renderSubmitStatus(placeSubmitBtn, submitStatus.save);
+      renderSubmitStatus(placeSubmitBtn, submitStatus.create);
     });
 }
 

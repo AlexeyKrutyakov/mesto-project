@@ -79,4 +79,6 @@ export const validationParameters = {
 export const submitStatus = {
   save: 'Сохранить',
   saving: 'Сохранение...',
+  create: 'Создать',
+  creating: 'Создание...',
 };
