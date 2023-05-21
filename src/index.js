@@ -234,19 +234,20 @@ function removePlace(evt) {
 function toggleLike(event) {
   const likeBtn = event.target;
   const card = likeBtn.closest(`.${cardElementClass}`);
+  const likesNumberElement = card.querySelector('.card__likes-number');
   const isLikeActive = likeBtn.classList.contains(cardLikeBtnActiveClass);
   if (isLikeActive) {
     deleteLike(card)
       .then((json) => {
         likeBtn.classList.remove(cardLikeBtnActiveClass);
-        renderLikesNumber(card, json.likes.length);
+        renderLikesNumber(likesNumberElement, json.likes.length);
       })
       .catch((err) => show(err));
   } else {
     putLike(card)
       .then((json) => {
         likeBtn.classList.add(cardLikeBtnActiveClass);
-        renderLikesNumber(card, json.likes.length);
+        renderLikesNumber(likesNumberElement, json.likes.length);
       })
       .catch((err) => show(err));
   }
@@ -280,8 +281,6 @@ export {
 };
 
 // to-do
-// all works
-// keyHandler
 
 // card.js
 // modal.js

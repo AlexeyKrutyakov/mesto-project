@@ -26,8 +26,7 @@ function createCard(
   const cardName = newCard.querySelector('.card__name');
   const cardImage = newCard.querySelector('.card__image');
   const cardLikeButton = newCard.querySelector('.card__like-button');
-  const cardLikesNumber = newCard.querySelector('.card__likes-number');
-  const likeNumber = newCard.querySelector('.card__likes-number');
+  const likesNumberElement = newCard.querySelector('.card__likes-number');
   const cardRemoveButton = newCard.querySelector('.card__remove-button');
   if (nonRemovable) {
     cardRemoveButton.classList.add('card__remove-button_hidden');
@@ -36,7 +35,7 @@ function createCard(
   // initialize data place into place card
   newCard.setAttribute('data-id', `${placeId}`);
   // likeNumber.textContent = placeLikes;
-  renderLikesNumber(newCard, placeLikes);
+  renderLikesNumber(likesNumberElement, placeLikes);
   cardName.textContent = placeName;
   cardImage.src = placeImage;
   if (imageAlt === '') {
@@ -64,9 +63,8 @@ function hideRemoveButton(card) {
   card.classList.add('card__remove-button_hidden');
 }
 
-function renderLikesNumber(card, likes) {
-  const likesNumber = card.querySelector('.card__likes-number');
-  likesNumber.textContent = likes;
+function renderLikesNumber(likesNubmerElement, likes) {
+  likesNubmerElement.textContent = likes;
 }
 
 function toggleLikeStatus(btn, likedByMe) {
