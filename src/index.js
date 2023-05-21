@@ -262,8 +262,6 @@ function openEnlargeImagePopup(event) {
   enlargeImage.alt = 'Увеличенное изображение места ' + placeName;
   figcaption.textContent = placeName;
 
-  enlargeImagePopup.addEventListener('click', clickHandler);
-
   openPopup(enlargeImagePopup);
 }
 

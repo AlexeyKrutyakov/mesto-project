@@ -33,60 +33,6 @@ const likeBtnClass = 'card__like-button';
 const removeCardBtnClass = 'card__remove-button';
 const closePopupBtnClass = 'popup__close-button';
 
-function clickHandler(event) {
-  const targetClassList = event.target.classList;
-  if (targetClassList.contains(editAvatarBtnClass)) {
-    openAvatarPopup();
-  }
-  if (targetClassList.contains(editProfileBtnClass)) {
-    openProfilePopup();
-  }
-  if (targetClassList.contains(addPlaceBtnClass)) {
-    openPlacePopup();
-  }
-  if (targetClassList.contains(cardImageClass)) {
-    openEnlargeImagePopup(event);
-  }
-  if (targetClassList.contains(likeBtnClass)) {
-    toggleLike(event);
-  }
-  if (targetClassList.contains(removeCardBtnClass)) {
-    deleteCard(event, config);
-  }
-  if (targetClassList.contains(closePopupBtnClass)) {
-    const popup = event.target.closest('.popup');
-    popup.removeEventListener('click', clickHandler);
-    closePopup(popup);
-  }
-  if (targetClassList.contains(submitBtnClass)) {
-    const form = event.target.closest('.form');
-    switch (form.name) {
-      case 'edit-avatar':
-        avatarPopup.removeEventListener('click', clickHandler);
-        avatarForm.removeEventListener('submit', submitAvatarForm);
-        submitAvatarForm(event);
-        break;
-      case 'profile-info':
-        profilePopup.removeEventListener('click', clickHandler);
-        profileForm.removeEventListener('submit', submitProfileForm);
-        submitProfileForm(event);
-        break;
-      case 'place-info':
-        placePopup.removeEventListener('click', clickHandler);
-        placeForm.removeEventListener('submit', submitPlaceForm);
-        submitPlaceForm(event);
-        break;
-    }
-  }
-  if (
-    targetClassList.contains('popup') &&
-    !targetClassList.contains('popup__container')
-  ) {
-    const popup = event.target.closest('.popup');
-    closePopup(popup);
-  }
-}
-
 function closeByClickHandler(evt) {
   if (
     evt.target.classList.contains(popupClass) ||
@@ -120,7 +66,6 @@ function show(any) {
 }
 
 export {
-  clickHandler,
   closeByClickHandler,
   renderSubmitStatus,
   setSubmitInactive,
