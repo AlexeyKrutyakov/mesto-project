@@ -24,6 +24,7 @@ function setSubmitInactive(btn) {
 
 function setSubmitActive(btn) {
   btn.classList.remove(validationParameters.inactiveBtnClass);
+  btn.removeAttribute('disabled');
 }
 
 function hideInputsErrors(form) {
