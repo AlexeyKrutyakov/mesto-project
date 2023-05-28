@@ -268,6 +268,3 @@ export {
   removePlace,
   toggleLike,
 };
-
-// to-do:
-// 1. change const -> object
