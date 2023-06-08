@@ -1,91 +1,91 @@
-import { cardsSection } from './commonElements.js';
-import { openEnlargeImagePopup, removePlace, toggleLike } from '../index.js';
+import {
+  page,
+  cardSelectors,
+} from './constants.js';
 
-const cardTemplate = document.querySelector('#card-template').content;
-const likeBtnActiveClass = 'card__like-button_active';
+export default class Card {
+  constructor(
+    data,
+    userId,
+    temlateSelector,
+    imageClickHandler,
+    likeClickHandler,
+    deleteClickHandler
+  ) {    
+    this.userId = userId;
+    this.id = data._id;
+    this.likes = data.likes;
+    this._link = data.link;
+    this._name = data.name;
+    this._ownerId = data.owner._id;
+    this._templateSelector = templateSelector;
+    this._imageClickHandler =  imageClickHandler;
+    this._likeClickHandler = likeClickHandler;
+    this._deleteClickHandler = deleteClickHandler;    
+  }  
 
-function isMyCard(card, myId) {
-  return card.owner._id === myId;
-}
-
-function createCard(
-  placeLikes,
-  placeId,
-  placeName,
-  placeImage,
-  nonRemovable,
-  likedByMe,
-  imageAlt = ''
-) {
-  // copy of template element
-  const newCard = cardTemplate.querySelector('.card').cloneNode(true);
-
-  // elements of card
-  const cardName = newCard.querySelector('.card__name');
-  const cardImage = newCard.querySelector('.card__image');
-  const cardLikeButton = newCard.querySelector('.card__like-button');
-  const likesNumberElement = newCard.querySelector('.card__likes-number');
-  const cardRemoveButton = newCard.querySelector('.card__remove-button');
-  if (nonRemovable) {
-    cardRemoveButton.classList.add('card__remove-button_hidden');
+  _getElement() {
+    this._cardElement = page
+      .querySelector(this._templateSelector)
+      .content
+      .querySelector(cardSelectors.cardSelector)
+      .cloneNode(true);
+    return this._cardElement;
   }
 
-  // likeNumber.textContent = placeLikes;
-  renderLikesNumber(likesNumberElement, placeLikes);
-  cardName.textContent = placeName;
-  cardImage.src = placeImage;
-  if (imageAlt === '') {
-    cardImage.alt = 'Изображение места ' + placeName;
-  } else {
-    cardImage.alt = imageAlt;
+  // Навешивание слушателей
+  _setEventListeners() {
+    this._imageElement.addEventListener('click', () => {
+      this._imageClickHandler(this._name, this._link);
+    });
+    this._likeButtonElement.addEventListener('click', () => {
+      this._likeClickHandler(this);
+    });
+    this._deleteButtonElement.addEventListener('click', () => {
+      this._deleteClickHandler(this);
+    });
   }
-  if (likedByMe) {
-    cardLikeButton.classList.add('card__like-button_active');
+
+  // Проверка наличия лайка пользователя
+  checkLikesData() {
+    return this.likes.some((like) => like._id === this.userId);
   }
 
-  // add listeners
-  cardLikeButton.addEventListener('click', () => {
-    toggleLike(cardLikeButton, placeId, likesNumberElement);
-  });
-  cardRemoveButton.addEventListener('click', () =>
-    removePlace(placeId, newCard)
-  );
-  cardImage.addEventListener('click', openEnlargeImagePopup);
+  // Отрисовка счетчика лайков
+  // Попробовать убрать дублирование отрисовки количества лайков
+  renderLikesData() {
+    if (this.checkLikesData()) {
+      this._likeButtonElement.classList.add(cardSelectors.likeBtnActiveClass);
+      this._likesCounter.textContent = this.likes.length;
+    } else {
+      this._likeButtonElement.classList.remove(cardSelectors.likeBtnActiveClass);
+      this._likesCounter.textContent = this.likes.length;
+    }
+  }
 
-  return newCard;
-}
+  // Создание карточки
+  create() {
+    this._cardElement = this._getElement();
+    this._nameElement = this._cardElement.querySelector(cardSelectors.nameSelector);
+    this._imageElement = this._cardElement.querySelector(cardSelectors.imageSelector);
+    this._likeButtonElement = this._cardElement.querySelector(cardSelectors.likeBtnSelector);
+    this._deleteButtonElement = this._cardElement.querySelector(cardSelectors.removeBtnSelector);
+    this._likesCounter = this._cardElement.querySelector(cardSelectors.likeNumSelector);
 
-function addCard(card) {
-  cardsSection.prepend(card);
-}
+    this._imageElement.src = this._link;
+    this._imageElement.alt = this._name;
+    this._nameElement.textContent = this._name;
 
-function hideRemoveButton(card) {
-  card.classList.add('card__remove-button_hidden');
-}
+    if (this._ownerId !== this.userId) this._deleteButtonElement.remove();
+    this.renderLikesData();
+    this._setEventListeners();
 
-function renderLikesNumber(likesNubmerElement, likes) {
-  likesNubmerElement.textContent = likes;
-}
+    return this._cardElement;
+  }
 
-function toggleLikeStatus(btn, likedByMe) {
-  if (likedByMe) {
-    btn.classList.add(likeBtnActiveClass);
-  } else {
-    btn.classList.remove(likeBtnActiveClass);
+  // Удаление карточки
+  delete() {
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 }
-
-function hasMyLike(card, myId) {
-  return card.likes.some((like) => like._id === myId);
-}
-
-export {
-  isMyCard,
-  createCard,
-  addCard,
-  hideRemoveButton,
-  toggleLike,
-  renderLikesNumber,
-  hasMyLike,
-  toggleLikeStatus,
-};

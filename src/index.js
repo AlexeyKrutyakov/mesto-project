@@ -34,6 +34,7 @@ import {
 import { enableValidation, hideInputError } from './components/validate.js';
 
 import Api from './components/Api.js';
+import Card from './components/Card.js';
 
 import {
   addCard,
@@ -41,7 +42,7 @@ import {
   hasMyLike,
   isMyCard,
   renderLikesNumber,
-} from './components/card';
+} from './components/Card';
 
 import {
   hideInputsErrors,
