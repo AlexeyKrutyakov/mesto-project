@@ -1,126 +1,109 @@
-// data for server authorization
-const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-24',
-  headers: {
-    authorization: '9e2d263a-3d5a-40f2-a16e-27e8711676de',
-    'Content-Type': 'application/json',
-  },
-};
-
-function getProfile() {
-  const url = `${config.baseUrl}/users/me`;
-  const requestOptions = {
-    method: 'GET',
-    headers: config.headers,
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function getInitialCards() {
-  const url = `${config.baseUrl}/cards`;
-  const requestOptions = {
-    method: 'GET',
-    headers: config.headers,
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function patchAvatar(link) {
-  const url = `${config.baseUrl}/users/me/avatar`;
-  const requestOptions = {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar: link,
-    }),
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function patchProfile(profileName, profileAbout) {
-  const url = `${config.baseUrl}/users/me`;
-  const requestOptions = {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: profileName,
-      about: profileAbout,
-    }),
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function postCard(placeName, placeImage) {
-  const url = `${config.baseUrl}/cards`;
-  const requestOptions = {
-    method: 'POST',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: placeName,
-      link: placeImage,
-    }),
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function deleteCard(cardId) {
-  const url = `${config.baseUrl}/cards/${cardId}`;
-  const requestOptions = {
-    method: 'DELETE',
-    headers: config.headers,
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function putLike(cardId) {
-  const url = `${config.baseUrl}/cards/likes/${cardId}`;
-  const requestOptions = {
-    method: 'PUT',
-    headers: config.headers,
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function deleteLike(cardId) {
-  const url = `${config.baseUrl}/cards/likes/${cardId}`;
-  const requestOptions = {
-    method: 'DELETE',
-    headers: config.headers,
-  };
-  return fetch(url, requestOptions).then((res) => {
-    return getResponseData(res);
-  });
-}
-
-function getResponseData(res) {
-  if (!res.ok) {
-    return Promise.reject(`Error: ${res.status}`);
+export default class Api {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
-  return res.json();
-}
 
-export {
-  config,
-  patchAvatar,
-  patchProfile,
-  getProfile,
-  postCard,
-  getInitialCards,
-  deleteCard,
-  putLike,
-  deleteLike,
-};
+  _getResponseData(res) {
+    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  }
+
+  getProfile() {
+    const url = `${this._baseUrl}/users/me`;
+    const requestOptions = {
+      method: 'GET',
+      headers: this._headers,
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  getInitialCards() {
+    const url = `${this._baseUrl}/cards`;
+    const requestOptions = {
+      method: 'GET',
+      headers: this._headers,
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  patchAvatar(link) {
+    const url = `${this._baseUrl}/users/me/avatar`;
+    const requestOptions = {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link,
+      }),
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  patchProfile([profileName, profileAbout]) {
+    const url = `${this._baseUrl}/users/me`;
+    const requestOptions = {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: profileName,
+        about: profileAbout,
+      }),
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  postCard([placeName, placeImage]) {
+    const url = `${this._baseUrl}/cards`;
+    const requestOptions = {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: placeName,
+        link: placeImage,
+      }),
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  deleteCard(cardId) {
+    const url = `${this._baseUrl}/cards/${cardId}`;
+    const requestOptions = {
+      method: 'DELETE',
+      headers: this._headers,
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  putLike(cardId) {
+    const url = `${this._baseUrl}/cards/likes/${cardId}`;
+    const requestOptions = {
+      method: 'PUT',
+      headers: this._headers,
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+
+  deleteLike(cardId) {
+    const url = `${this._baseUrl}/cards/likes/${cardId}`;
+    const requestOptions = {
+      method: 'DELETE',
+      headers: this._headers,
+    };
+    return fetch(url, requestOptions).then((res) => {
+      return this._getResponseData(res);
+    });
+  }
+}

@@ -33,16 +33,7 @@ import {
 
 import { enableValidation, hideInputError } from './components/validate.js';
 
-import {
-  deleteCard,
-  deleteLike,
-  getInitialCards,
-  getProfile,
-  patchAvatar,
-  patchProfile,
-  postCard,
-  putLike,
-} from './components/api.js';
+import Api from './components/Api.js';
 
 import {
   addCard,
