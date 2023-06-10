@@ -10,7 +10,7 @@ export const config = {
 // cards
 export const gallerySelectors = {
   cardsContainer: '.cards',
-}
+};
 
 // card selectors
 export const cardSelectors = {
@@ -41,8 +41,35 @@ export const submitStatus = {
   creating: 'Создание...',
 };
 
+export const popupSelectors = {
+  popupClass: 'popup',
+  popupSelector: '.popup',
+  openedPopupClass: 'popup_opened',
+  imageSelector: '.popup__image',
+  captionSelector: '.popup__figcaption',
+  closePopupBtnClass: 'popup__close-button',
+  popupEditProfile: '.popup_type_edit-profile',
+  popupChangeAvatar: '.popup_type_edit-avatar',
+  popupAddCard: '.popup_type_add-place',
+  popupShowImage: '.popup_type_enlarge-image',
+};
 
+export const forms = {
+  editProfile: page.querySelector('.form_type_profile-info'),
+  changeAvatar: page.querySelector('.form_type_edit-avatar'),
+  addCard: page.querySelector('.form_type_place-info'),
+};
+export const formInputs = {
+  inputUserName: page.querySelector('.forminput_type_profile-name'),
+  inputUserAbout: page.querySelector('.forminput_type_profile-text'),
+};
 
+// buttons
+export const buttons = {
+  editProfile: page.querySelector('.profile__edit-button'),
+  changeAvatar: page.querySelector('.profile__edit-avatar-button'),
+  addCard: page.querySelector('.profile__add-button'),
+};
 
 // OLD CONSTANTS
 
@@ -113,5 +140,3 @@ export const enlargeImagePopup = document.querySelector(
 );
 export const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
 export const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
-
-
