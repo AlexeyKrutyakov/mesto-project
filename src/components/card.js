@@ -1,7 +1,4 @@
-import {
-  page,
-  cardSelectors,
-} from './constants.js';
+import { page, cardSelectors } from './constants.js';
 
 export default class Card {
   constructor(
@@ -11,7 +8,7 @@ export default class Card {
     imageClickHandler,
     likeClickHandler,
     deleteClickHandler
-  ) {    
+  ) {
     this.userId = userId;
     this.id = data._id;
     this.likes = data.likes;
@@ -19,16 +16,15 @@ export default class Card {
     this._name = data.name;
     this._ownerId = data.owner._id;
     this._templateSelector = templateSelector;
-    this._imageClickHandler =  imageClickHandler;
+    this._imageClickHandler = imageClickHandler;
     this._likeClickHandler = likeClickHandler;
-    this._deleteClickHandler = deleteClickHandler;    
-  }  
+    this._deleteClickHandler = deleteClickHandler;
+  }
 
   _getElement() {
     this._cardElement = page
       .querySelector(this._templateSelector)
-      .content
-      .querySelector(cardSelectors.cardSelector)
+      .content.querySelector(cardSelectors.cardSelector)
       .cloneNode(true);
     return this._cardElement;
   }
@@ -52,25 +48,35 @@ export default class Card {
   }
 
   // Отрисовка счетчика лайков
-  // Попробовать убрать дублирование отрисовки количества лайков
   renderLikesData() {
     if (this.checkLikesData()) {
       this._likeButtonElement.classList.add(cardSelectors.likeBtnActiveClass);
-      this._likesCounter.textContent = this.likes.length;
     } else {
-      this._likeButtonElement.classList.remove(cardSelectors.likeBtnActiveClass);
-      this._likesCounter.textContent = this.likes.length;
+      this._likeButtonElement.classList.remove(
+        cardSelectors.likeBtnActiveClass
+      );
     }
+    this._likesCounter.textContent = this.likes.length;
   }
 
   // Создание карточки
   create() {
     this._cardElement = this._getElement();
-    this._nameElement = this._cardElement.querySelector(cardSelectors.nameSelector);
-    this._imageElement = this._cardElement.querySelector(cardSelectors.imageSelector);
-    this._likeButtonElement = this._cardElement.querySelector(cardSelectors.likeBtnSelector);
-    this._deleteButtonElement = this._cardElement.querySelector(cardSelectors.removeBtnSelector);
-    this._likesCounter = this._cardElement.querySelector(cardSelectors.likeNumSelector);
+    this._nameElement = this._cardElement.querySelector(
+      cardSelectors.nameSelector
+    );
+    this._imageElement = this._cardElement.querySelector(
+      cardSelectors.imageSelector
+    );
+    this._likeButtonElement = this._cardElement.querySelector(
+      cardSelectors.likeBtnSelector
+    );
+    this._deleteButtonElement = this._cardElement.querySelector(
+      cardSelectors.removeBtnSelector
+    );
+    this._likesCounter = this._cardElement.querySelector(
+      cardSelectors.likeNumSelector
+    );
 
     this._imageElement.src = this._link;
     this._imageElement.alt = this._name;

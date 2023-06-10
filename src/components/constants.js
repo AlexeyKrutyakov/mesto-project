@@ -7,6 +7,29 @@ export const config = {
   },
 };
 
+// card selectors
+export const cardSelectors = {
+  cardSelector: '.card',
+  nameSelector: '.cardname',
+  imageSelector: '.cardimage',
+  likeBtnSelector: '.cardlike-button',
+  likeBtnActiveClass: 'cardlike-button_active',
+  likeNumSelector: '.cardlikes-number',
+  removeBtnSelector: '.cardremove-button',
+};
+
+// parameters for validation
+export const formSelectors = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitBtnClass: 'form__submit',
+  submitBtnSelector: '.form__submit',
+  inactiveBtnClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_invalid',
+};
+
+// OLD CONSTANTS
+
 // common elements
 export const popupClass = 'popup';
 export const openedPopupClass = 'popup_opened';
@@ -74,15 +97,6 @@ export const enlargeImagePopup = document.querySelector(
 );
 export const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
 export const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
-
-// parameters for validation
-export const validationParameters = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit',
-  inactiveBtnClass: 'form__submit_inactive',
-  inputErrorClass: 'form__input_type_invalid',
-};
 
 // status for submit buttons
 export const submitStatus = {
