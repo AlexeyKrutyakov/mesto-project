@@ -4,7 +4,7 @@ export default class Card {
   constructor(
     data,
     userId,
-    temlateSelector,
+    templateSelector,
     imageClickHandler,
     likeClickHandler,
     deleteClickHandler

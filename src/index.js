@@ -1,48 +1,13 @@
 import './index.css';
 
 import {
-  addPlaceBtn,
-  avatarForm,
-  avatarImage,
-  avatarImageInput,
-  avatarPopup,
-  avatarSubmitBtn,
-  cardElementClass,
-  cardLikeBtnActiveClass,
-  cardNameClass,
-  editAvatarBtn,
-  editProfileBtn,
-  enlargeImage,
-  enlargeImagePopup,
-  figcaption,
-  placeForm,
-  placeImageInput,
-  placeNameInput,
-  placePopup,
-  placeSubmitBtn,
-  profileAbout,
-  profileForm,
-  profileName,
-  profileNameInput,
-  profilePopup,
-  profileSubmitBnt,
-  profileTextInput,
+  config,
+  gallerySelectors,
+  cardSelectors,
+  formSelectors,
   submitStatus,
-  validationParameters,
-} from './components/commonElements.js';
-
-import { enableValidation, hideInputError } from './components/validate.js';
-
-import Api from './components/Api.js';
-import Card from './components/Card.js';
-
-import {
-  addCard,
-  createCard,
-  hasMyLike,
-  isMyCard,
-  renderLikesNumber,
-} from './components/Card';
+  cardsSection,
+} from './components/constants.js';
 
 import {
   hideInputsErrors,
@@ -52,9 +17,12 @@ import {
   show,
 } from './components/utils';
 
-import { closePopup, openPopup } from './components/modal';
+import Api from './components/Api.js';
+import Card from './components/Card.js';
+import Section from './components/Section.js';
 
-let profileId = '';
+
+const gallery = new Section(gallerySelectors.cardsContainer, renderCard);
 
 // enable forms validation
 

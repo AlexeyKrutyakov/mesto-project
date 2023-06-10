@@ -7,6 +7,11 @@ export const config = {
   },
 };
 
+// cards
+export const gallerySelectors = {
+  cardsContainer: '.cards',
+}
+
 // card selectors
 export const cardSelectors = {
   cardSelector: '.card',
@@ -27,6 +32,17 @@ export const formSelectors = {
   inactiveBtnClass: 'form__submit_inactive',
   inputErrorClass: 'form__input_type_invalid',
 };
+
+// status for submit buttons
+export const submitStatus = {
+  save: 'Сохранить',
+  saving: 'Сохранение...',
+  create: 'Создать',
+  creating: 'Создание...',
+};
+
+
+
 
 // OLD CONSTANTS
 
@@ -98,10 +114,4 @@ export const enlargeImagePopup = document.querySelector(
 export const enlargeImage = enlargeImagePopup.querySelector('.popup__image');
 export const figcaption = enlargeImagePopup.querySelector('.popup__figcaption');
 
-// status for submit buttons
-export const submitStatus = {
-  save: 'Сохранить',
-  saving: 'Сохранение...',
-  create: 'Создать',
-  creating: 'Создание...',
-};
+
