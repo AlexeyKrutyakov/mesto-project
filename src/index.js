@@ -11,6 +11,7 @@ import {
   formInputs,
   formSelectors,
   submitStatus,
+  submitStatuses,
 } from './components/constants.js';
 
 import {
@@ -52,21 +53,6 @@ const showImagePopup = new PopupWithImage(popupSelectors.popupShowImage);
 // create user info
 const userInfo = new UserInfo(profileSelectors);
 
-// add listeners to main buttons
-buttons.editProfile.addEventListener('click', () => {
-  handlePopupOpening(editProfilePopup, forms.editProfile, formProfileValidator);
-});
-buttons.changeAvatar.addEventListener('click', () => {
-  handlePopupOpening(
-    changeAvatarPopup,
-    forms.changeAvatar,
-    formAvatarValidator
-  );
-});
-buttons.addCard.addEventListener('click', () => {
-  handlePopupOpening(addCardPopup, forms.addCard, formCardValidator);
-});
-
 const handlePopupOpening = (popup, form, formValidator) => {
   formValidator.resetFormErrors();
 
@@ -82,6 +68,51 @@ const handlePopupOpening = (popup, form, formValidator) => {
   }
 };
 
+// add listeners to main buttons
+buttons.editProfile.addEventListener('click', () => {
+  handlePopupOpening(editProfilePopup, forms.editProfile, formProfileValidator);
+});
+buttons.changeAvatar.addEventListener('click', () => {
+  handlePopupOpening(
+    changeAvatarPopup,
+    forms.changeAvatar,
+    formAvatarValidator
+  );
+});
+buttons.addCard.addEventListener('click', () => {
+  handlePopupOpening(addCardPopup, forms.addCard, formCardValidator);
+});
+
+const api = new Api(config);
+
+// PROFILE
+function handleProfileFormSubmit(inputValues) {
+  renderLoading(
+    true,
+    forms.editProfile,
+    submitStatuses.saving,
+    submitStatuses.save
+  );
+  api
+    .patchProfile(inputValues)
+    .then((profileJson) => {
+      userInfo.setUserInfo(profileJson);
+      editProfilePopup.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    })
+    .finally(() => {
+      renderLoading(
+        false,
+        forms.editProfile,
+        submitStatuses.saving,
+        submitStatuses.save
+      );
+    });
+}
+
+// CARDS
 function renderCard() {
   const card = new Card(
     cardData,
@@ -98,12 +129,10 @@ function renderCard() {
 
 const gallery = new Section(gallerySelectors.cardsContainer, renderCard);
 
-const api = new Api(config);
-
-
-const handleLikeClick = (card) => {  
+const handleLikeClick = (card) => {
   if (card.checkLikesData()) {
-    api.deleteLike(card.id)
+    api
+      .deleteLike(card.id)
       .then((cardJson) => {
         card.likes = cardJson.likes;
         card.renderLikesData();
@@ -112,7 +141,8 @@ const handleLikeClick = (card) => {
         console.log(`Ошибка: ${err}`);
       });
   } else {
-    api.putLike(card.id)
+    api
+      .putLike(card.id)
       .then((cardJson) => {
         card.likes = cardJson.likes;
         card.renderLikesData();
@@ -121,22 +151,23 @@ const handleLikeClick = (card) => {
         console.log(`Ошибка: ${err}`);
       });
   }
-}
+};
 
-const handleDeleteClick = (card) => {  
-  api.deleteCard(card.id)
+const handleDeleteClick = (card) => {
+  api
+    .deleteCard(card.id)
     .then((cardJson) => {
       card.delete();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     });
-}
+};
 
 // create image click handler
 const handleImageClick = (name, link) => {
   popupShowImage.open(name, link);
-}
+};
 
 const renderInitialContent = () => {
   Promise.all([api.getProfile(), api.getInitialCards()])
@@ -196,19 +227,6 @@ function submitProfileForm(event) {
   event.preventDefault();
 
   renderSubmitStatus(profileSubmitBnt, submitStatus.saving);
-
-  // update profile
-  patchProfile(profileNameInput.value, profileTextInput.value)
-    .then((json) => {
-      renderProfileInfo(json.name, json.about);
-      closePopup(profilePopup);
-    })
-    .catch((err) => {
-      show(err);
-    })
-    .finally(() => {
-      renderSubmitStatus(profileSubmitBnt, submitStatus.save);
-    });
 }
 
 // functions works with avatar
