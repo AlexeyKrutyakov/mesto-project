@@ -10,7 +10,6 @@ import {
   forms,
   formInputs,
   formSelectors,
-  submitStatus,
   submitStatuses,
 } from './components/constants.js';
 
@@ -33,6 +32,7 @@ const formProfileValidator = new FormValidator(
   forms.editProfile,
   formSelectors
 );
+
 const formAvatarValidator = new FormValidator(
   forms.changeAvatar,
   formSelectors
@@ -45,9 +45,18 @@ formAvatarValidator.enableValidation();
 formCardValidator.enableValidation();
 
 // create popups
-const editProfilePopup = new PopupWithForm(popupSelectors.popupEditProfile);
-const changeAvatarPopup = new PopupWithForm(popupSelectors.popupChangeAvatar);
-const addCardPopup = new PopupWithForm(popupSelectors.popupAddCard);
+const editProfilePopup = new PopupWithForm(
+  popupSelectors.popupEditProfile,
+  handleProfileFormSubmit
+);
+const changeAvatarPopup = new PopupWithForm(
+  popupSelectors.popupChangeAvatar,
+  handleAvatarFormSubmit
+);
+const addCardPopup = new PopupWithForm(
+  popupSelectors.popupAddCard,
+  handleCardFormSubmit
+);
 const showImagePopup = new PopupWithImage(popupSelectors.popupShowImage);
 
 // create user info
@@ -60,12 +69,15 @@ const handlePopupOpening = (popup, form, formValidator) => {
 
   if (popup === editProfilePopup) {
     const { name, about } = userInfo.getUserInfo();
+    console.log(about);
     formInputs.inputUserName.value = name;
     formInputs.inputUserAbout.value = about;
     activateSubmitBtn(submitBtn);
   } else {
     inactivateSubmitBtn(submitBtn);
   }
+
+  popup.open();
 };
 
 // add listeners to main buttons
@@ -114,24 +126,34 @@ function handleProfileFormSubmit(inputValues) {
 
 // Обработчик события submit формы редактирования аватара
 function handleAvatarFormSubmit(avatar) {
-  renderLoading(true, forms.changeAvatar, submitStatus.saving, submitStatus.save);
+  renderLoading(
+    true,
+    forms.changeAvatar,
+    submitStatuses.saving,
+    submitStatuses.save
+  );
 
-  api.patchAvatar(avatar)
+  api
+    .patchAvatar(avatar)
     .then((profileJson) => {
       userInfo.setAvatar(profileJson);
-      popupChangeAvatar.close();
+      changeAvatarPopup.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
-      renderLoading(false, forms.changeAvatar, submitStatus.saving, submitStatus.save);
+      renderLoading(
+        false,
+        forms.changeAvatar,
+        submitStatuses.saving,
+        submitStatuses.save
+      );
     });
 }
 
-
 // CARDS
-function renderCard() {
+function renderCard(cardData) {
   const card = new Card(
     cardData,
     userInfo.id,
@@ -146,6 +168,34 @@ function renderCard() {
 }
 
 const gallery = new Section(gallerySelectors.cardsContainer, renderCard);
+
+function handleCardFormSubmit(inputValues) {
+  renderLoading(
+    true,
+    forms.changeAvatar,
+    submitStatuses.saving,
+    submitStatuses.save
+  );
+  api
+    .postCard(inputValues)
+    .then((cardJson) => {
+      const cardData = cardJson;
+      const card = renderCard(cardData);
+      gallery.addItem(card);
+      addCardPopup.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    })
+    .finally(() => {
+      renderLoading(
+        false,
+        forms.changeAvatar,
+        submitStatuses.saving,
+        submitStatuses.save
+      );
+    });
+}
 
 const handleLikeClick = (card) => {
   if (card.checkLikesData()) {
@@ -184,7 +234,7 @@ const handleDeleteClick = (card) => {
 
 // create image click handler
 const handleImageClick = (name, link) => {
-  popupShowImage.open(name, link);
+  showImagePopup.open(name, link);
 };
 
 const renderInitialContent = () => {
@@ -207,169 +257,3 @@ const renderInitialContent = () => {
 };
 
 renderInitialContent();
-
-//
-//
-//
-// OLD CODE
-
-// add listeners
-
-editAvatarBtn.addEventListener('click', openAvatarPopup);
-editProfileBtn.addEventListener('click', openProfilePopup);
-addPlaceBtn.addEventListener('click', openPlacePopup);
-avatarForm.addEventListener('submit', submitAvatarForm);
-profileForm.addEventListener('submit', submitProfileForm);
-placeForm.addEventListener('submit', submitPlaceForm);
-
-// functions works with profile
-
-function renderProfileInfo(name, about) {
-  profileName.textContent = name;
-  profileAbout.textContent = about;
-}
-
-function openProfilePopup() {
-  openPopup(profilePopup);
-  hideInputsErrors(profileForm);
-
-  // initiate input values with current profile data
-  profileNameInput.value = profileName.textContent;
-  profileTextInput.value = profileAbout.textContent;
-
-  setSubmitActive(profileSubmitBnt);
-}
-
-function submitProfileForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  renderSubmitStatus(profileSubmitBnt, submitStatus.saving);
-}
-
-// functions works with avatar
-
-function renderAvatar(link) {
-  avatarImage.src = link;
-}
-
-function openAvatarPopup() {
-  avatarForm.reset();
-  setSubmitInactive(avatarSubmitBtn);
-  hideInputError(avatarForm, avatarImageInput, validationParameters);
-  openPopup(avatarPopup);
-}
-
-function submitAvatarForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  renderSubmitStatus(avatarSubmitBtn, submitStatus.saving);
-
-  // change avatar
-  patchAvatar(avatarImageInput.value)
-    .then((json) => {
-      renderAvatar(json.avatar);
-      closePopup(avatarPopup);
-    })
-    .catch((err) => {
-      show(err);
-    })
-    .finally(() => {
-      renderSubmitStatus(avatarSubmitBtn, submitStatus.save);
-    });
-}
-
-// functions works with cards
-
-function openPlacePopup() {
-  placeForm.reset();
-  hideInputError(placeForm, placeNameInput, placeImageInput);
-  setSubmitInactive(placeSubmitBtn);
-  openPopup(placePopup);
-}
-
-function submitPlaceForm(event) {
-  // undo standard sumbit behavior
-  event.preventDefault();
-
-  renderSubmitStatus(placeSubmitBtn, submitStatus.creating);
-
-  postCard(placeNameInput.value, placeImageInput.value)
-    .then((json) => {
-      const newCard = createCard(
-        json.likes.length,
-        json._id,
-        json.name,
-        json.link,
-        false,
-        false
-      );
-      addCard(newCard);
-      closePopup(placePopup);
-    })
-    .catch((err) => {
-      show(err);
-    })
-    .finally(() => {
-      renderSubmitStatus(placeSubmitBtn, submitStatus.create);
-    });
-}
-
-function removePlace(cardId, card) {
-  deleteCard(cardId)
-    .then((json) => {
-      if (json.message === 'Пост удалён') {
-        card.remove();
-      }
-    })
-    .catch((err) => {
-      show(err);
-    });
-}
-
-function toggleLike(likeBtn, placeId, likesNumberElement) {
-  const isLikeActive = likeBtn.classList.contains(cardLikeBtnActiveClass);
-  if (isLikeActive) {
-    deleteLike(placeId)
-      .then((json) => {
-        likeBtn.classList.remove(cardLikeBtnActiveClass);
-        renderLikesNumber(likesNumberElement, json.likes.length);
-      })
-      .catch((err) => show(err));
-  } else {
-    putLike(placeId)
-      .then((json) => {
-        likeBtn.classList.add(cardLikeBtnActiveClass);
-        renderLikesNumber(likesNumberElement, json.likes.length);
-      })
-      .catch((err) => show(err));
-  }
-}
-
-function openEnlargeImagePopup(event) {
-  const imageLink = event.target.src;
-  const placeName = event.target
-    .closest(`.${cardElementClass}`)
-    .querySelector(`.${cardNameClass}`).textContent;
-
-  enlargeImage.src = imageLink;
-  enlargeImage.alt = 'Увеличенное изображение места ' + placeName;
-  figcaption.textContent = placeName;
-
-  openPopup(enlargeImagePopup);
-}
-
-export {
-  profileId,
-  renderAvatar,
-  openProfilePopup,
-  openAvatarPopup,
-  openPlacePopup,
-  openEnlargeImagePopup,
-  submitProfileForm,
-  submitAvatarForm,
-  submitPlaceForm,
-  removePlace,
-  toggleLike,
-};

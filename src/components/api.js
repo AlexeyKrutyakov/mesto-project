@@ -4,106 +4,90 @@ export default class Api {
     this._headers = headers;
   }
 
-  _getResponseData(res) {
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  _checkResult(res) {
+    return res.ok ? res.json() : Promise.reject(res.status);
   }
 
   getProfile() {
-    const url = `${this._baseUrl}/users/me`;
-    const requestOptions = {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers,
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
+    }).then((res) => {
+      return this._checkResult(res);
     });
   }
 
   getInitialCards() {
-    const url = `${this._baseUrl}/cards`;
-    const requestOptions = {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
       headers: this._headers,
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
+    }).then((res) => {
+      return this._checkResult(res);
     });
   }
 
-  patchAvatar(link) {
-    const url = `${this._baseUrl}/users/me/avatar`;
-    const requestOptions = {
+  patchProfile([name, about]) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
+    }).then((res) => {
+      return this._checkResult(res);
+    });
+  }
+
+  patchAvatar([link]) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar: link,
       }),
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
+    }).then((res) => {
+      return this._checkResult(res);
     });
   }
 
-  patchProfile([profileName, profileAbout]) {
-    const url = `${this._baseUrl}/users/me`;
-    const requestOptions = {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: profileName,
-        about: profileAbout,
-      }),
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
-    });
-  }
-
-  postCard([placeName, placeImage]) {
-    const url = `${this._baseUrl}/cards`;
-    const requestOptions = {
+  postCard([cardName, cardLink]) {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: placeName,
-        link: placeImage,
+        name: cardName,
+        link: cardLink,
       }),
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
+    }).then((res) => {
+      return this._checkResult(res);
     });
   }
 
   deleteCard(cardId) {
-    const url = `${this._baseUrl}/cards/${cardId}`;
-    const requestOptions = {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
+    }).then((res) => {
+      return this._checkResult(res);
     });
   }
 
   putLike(cardId) {
-    const url = `${this._baseUrl}/cards/likes/${cardId}`;
-    const requestOptions = {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}/`, {
       method: 'PUT',
       headers: this._headers,
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
+    }).then((res) => {
+      return this._checkResult(res);
     });
   }
 
   deleteLike(cardId) {
-    const url = `${this._baseUrl}/cards/likes/${cardId}`;
-    const requestOptions = {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}/`, {
       method: 'DELETE',
       headers: this._headers,
-    };
-    return fetch(url, requestOptions).then((res) => {
-      return this._getResponseData(res);
+    }).then((res) => {
+      return this._checkResult(res);
     });
   }
 }

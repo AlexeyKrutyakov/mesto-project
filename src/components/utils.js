@@ -1,72 +1,28 @@
 import { formSelectors } from './constants.js';
 
 // Отрисовка сообщения о процессе загрузки
-export const renderLoading = (isLoading, formElement, loadingValue, baseValue) => {
-  const buttonElement = formElement.querySelector(formSelectors.submitBtnSelector);
-  if(isLoading) {
+export const renderLoading = (
+  isLoading,
+  formElement,
+  loadingValue,
+  baseValue
+) => {
+  const buttonElement = formElement.querySelector(
+    formSelectors.submitBtnSelector
+  );
+  if (isLoading) {
     buttonElement.value = loadingValue;
   } else {
     buttonElement.value = baseValue;
   }
-}
+};
 
 export const inactivateSubmitBtn = (btn) => {
   btn.classList.add(formSelectors.inactiveBtnClass);
   btn.setAttribute('disabled', true);
-}
+};
 
 export const activateSubmitBtn = (btn) => {
   btn.classList.remove(formSelectors.inactiveBtnClass);
   btn.removeAttribute('disabled');
-}
-
-
-
-// import { popupClass, validationParameters } from './commonElements.js';
-// import { closePopup } from './modal.js';
-// import { hideInputError } from './validate.js';
-
-// const closePopupBtnClass = 'popup__close-button';
-
-// function closeByClickHandler(evt) {
-//   if (
-//     evt.target.classList.contains(popupClass) ||
-//     evt.target.classList.contains(closePopupBtnClass)
-//   ) {
-//     closePopup(evt.target.closest(`.${popupClass}`));
-//   }
-// }
-
-// function renderSubmitStatus(btn, newState) {
-//   btn.textContent = newState;
-// }
-
-// function setSubmitInactive(btn) {
-//   btn.classList.add(validationParameters.inactiveBtnClass);
-//   btn.setAttribute('disabled', '');
-// }
-
-// function setSubmitActive(btn) {
-//   btn.classList.remove(validationParameters.inactiveBtnClass);
-//   btn.removeAttribute('disabled');
-// }
-
-// function hideInputsErrors(form) {
-//   const inputs = form.querySelectorAll(validationParameters.inputSelector);
-//   inputs.forEach((input) => {
-//     hideInputError(form, input, validationParameters);
-//   });
-// }
-
-// function show(any) {
-//   console.log(any);
-// }
-
-// export {
-//   closeByClickHandler,
-//   renderSubmitStatus,
-//   setSubmitInactive,
-//   setSubmitActive,
-//   hideInputsErrors,
-//   show,
-// };
+};

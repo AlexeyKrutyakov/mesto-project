@@ -5,6 +5,9 @@ export default class FormValidator {
     this._submitBtn = this._form.querySelector(
       this._selectors.submitBtnSelector
     );
+    this._inputList = Array.from(
+      this._form.querySelectorAll(this._selectors.inputSelector)
+    );
   }
 
   _showInputError(inputElement) {
@@ -53,16 +56,7 @@ export default class FormValidator {
     }
   }
 
-  // delete function ?? ( and in enableValidation() )
-  _getInputList() {
-    return Array.from(
-      this._form.querySelectorAll(this._selectors.inputSelector)
-    );
-  }
-
   enableValidation() {
-    this._inputList = this._getInputList();
-
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._validateInput(inputElement);
@@ -71,11 +65,7 @@ export default class FormValidator {
     });
   }
 
-  // обращение к несуществующему this._inputList!
-  // он создается только в методе enableValidation
   resetFormErrors() {
-    this._inputList = this._getInputList();
-
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
