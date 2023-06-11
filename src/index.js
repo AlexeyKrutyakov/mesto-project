@@ -2,31 +2,30 @@ import './index.css';
 
 import {
   config,
+  profileSelectors,
   gallerySelectors,
   buttons,
-  cardsSection,
-  cardSelectors,
-  forms,
-  formSelectors,
-  formInputs,
-  submitStatus,
+  templateSelectors,
   popupSelectors,
+  forms,
+  formInputs,
+  formSelectors,
+  submitStatus,
 } from './components/constants.js';
 
 import {
-  hideInputsErrors,
-  renderSubmitStatus,
-  setSubmitActive,
-  setSubmitInactive,
-  show,
-} from './components/utils';
+  renderLoading,
+  inactivateSubmitBtn,
+  activateSubmitBtn,
+} from './components/utils.js';
 
 import Api from './components/Api.js';
 import Card from './components/Card.js';
-import Section from './components/Section.js';
 import FormValidator from './components/formValidator.js';
+import Section from './components/Section.js';
 import PopupWithForm from './components/PopupWithForm';
 import PopupWithImage from './components/PopupWithImage';
+import UserInfo from './components/UserInfo.js';
 
 // create form validators
 const formProfileValidator = new FormValidator(
