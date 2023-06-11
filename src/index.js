@@ -49,6 +49,8 @@ const changeAvatarPopup = new PopupWithForm(popupSelectors.popupChangeAvatar);
 const addCardPopup = new PopupWithForm(popupSelectors.popupAddCard);
 const showImagePopup = new PopupWithImage(popupSelectors.popupShowImage);
 
+const userInfo = new UserInfo(profileSelectors);
+
 // add listeners to main buttons
 buttons.editProfile.addEventListener('click', () => {
   handlePopupOpening(editProfilePopup, forms.editProfile, formProfileValidator);
