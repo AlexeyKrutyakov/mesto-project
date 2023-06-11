@@ -112,6 +112,24 @@ function handleProfileFormSubmit(inputValues) {
     });
 }
 
+// Обработчик события submit формы редактирования аватара
+function handleAvatarFormSubmit(avatar) {
+  renderLoading(true, forms.changeAvatar, submitStatus.saving, submitStatus.save);
+
+  api.patchAvatar(avatar)
+    .then((profileJson) => {
+      userInfo.setAvatar(profileJson);
+      popupChangeAvatar.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    })
+    .finally(() => {
+      renderLoading(false, forms.changeAvatar, submitStatus.saving, submitStatus.save);
+    });
+}
+
+
 // CARDS
 function renderCard() {
   const card = new Card(
