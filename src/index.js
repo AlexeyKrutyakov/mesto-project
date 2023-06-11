@@ -89,7 +89,7 @@ function renderCard() {
     templateSelectors.defaultCardSelector,
     handleImageClick,
     handleLikeClick,
-    handlerDeleteClick
+    handleDeleteClick
   );
 
   const cardElement = card.create();
@@ -99,6 +99,44 @@ function renderCard() {
 const gallery = new Section(gallerySelectors.cardsContainer, renderCard);
 
 const api = new Api(config);
+
+
+const handleLikeClick = (card) => {  
+  if (card.checkLikesData()) {
+    api.deleteLike(card.id)
+      .then((cardJson) => {
+        card.likes = cardJson.likes;
+        card.renderLikesData();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  } else {
+    api.putLike(card.id)
+      .then((cardJson) => {
+        card.likes = cardJson.likes;
+        card.renderLikesData();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+}
+
+const handleDeleteClick = (card) => {  
+  api.deleteCard(card.id)
+    .then((cardJson) => {
+      card.delete();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    });
+}
+
+// create image click handler
+const handleImageClick = (name, link) => {
+  popupShowImage.open(name, link);
+}
 
 const renderInitialContent = () => {
   Promise.all([api.getProfile(), api.getInitialCards()])
@@ -111,9 +149,11 @@ const renderInitialContent = () => {
       const cardsJson = data[1];
       gallery.renderItems(cardsJson);
     })
-    .catch(([getProfileErr, getInitialCardsErr]) => {
-      show(getProfileErr);
-      show(getInitialCardsErr);
+    .catch((err) => {
+      const profileDataErr = err[0];
+      const cardsDataErr = err[1];
+      console.log(`Ошибка: ${profileDataErr}`);
+      console.log(`Ошибка: ${cardsDataErr}`);
     });
 };
 
