@@ -82,7 +82,7 @@ export const formSelectors = {
 };
 
 // status for submit buttons
-export const submitStatus = {
+export const submitStatuses = {
   save: 'Сохранить',
   saving: 'Сохранение...',
   create: 'Создать',

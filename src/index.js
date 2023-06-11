@@ -49,6 +49,7 @@ const changeAvatarPopup = new PopupWithForm(popupSelectors.popupChangeAvatar);
 const addCardPopup = new PopupWithForm(popupSelectors.popupAddCard);
 const showImagePopup = new PopupWithImage(popupSelectors.popupShowImage);
 
+// create user info
 const userInfo = new UserInfo(profileSelectors);
 
 // add listeners to main buttons
@@ -66,42 +67,62 @@ buttons.addCard.addEventListener('click', () => {
   handlePopupOpening(addCardPopup, forms.addCard, formCardValidator);
 });
 
+const handlePopupOpening = (popup, form, formValidator) => {
+  formValidator.resetFormErrors();
+
+  const submitBtn = form.querySelector(formSelectors.submitBtnSelector);
+
+  if (popup === editProfilePopup) {
+    const { name, about } = userInfo.getUserInfo();
+    formInputs.inputUserName.value = name;
+    formInputs.inputUserAbout.value = about;
+    activateSubmitBtn(submitBtn);
+  } else {
+    inactivateSubmitBtn(submitBtn);
+  }
+};
+
+function renderCard() {
+  const card = new Card(
+    cardData,
+    userInfo.id,
+    templateSelectors.defaultCardSelector,
+    handleImageClick,
+    handleLikeClick,
+    handlerDeleteClick
+  );
+
+  const cardElement = card.create();
+  return cardElement;
+}
+
 const gallery = new Section(gallerySelectors.cardsContainer, renderCard);
+
+const api = new Api(config);
+
+const renderInitialContent = () => {
+  Promise.all([api.getProfile(), api.getInitialCards()])
+    .then((data) => {
+      // destructurization ?
+      const profileJson = data[0];
+      userInfo.setUserInfo(profileJson);
+      userInfo.setAvatar(profileJson);
+
+      const cardsJson = data[1];
+      gallery.renderItems(cardsJson);
+    })
+    .catch(([getProfileErr, getInitialCardsErr]) => {
+      show(getProfileErr);
+      show(getInitialCardsErr);
+    });
+};
+
+renderInitialContent();
 
 //
 //
 //
 // OLD CODE
-// enable forms validation
-
-enableValidation(validationParameters);
-
-// initial page
-
-Promise.all([getProfile(), getInitialCards()])
-  .then(([profileJson, cardsJson]) => {
-    profileId = profileJson._id;
-    renderProfileInfo(profileJson.name, profileJson.about);
-    renderAvatar(profileJson.avatar);
-
-    cardsJson.forEach((card) => {
-      const nonRemovable = !isMyCard(card, profileId);
-      const likedByMe = hasMyLike(card, profileId);
-      const newCard = createCard(
-        card.likes.length,
-        card._id,
-        card.name,
-        card.link,
-        nonRemovable,
-        likedByMe
-      );
-      addCard(newCard);
-    });
-  })
-  .catch(([getProfileErr, getInitialCardsErr]) => {
-    show(getProfileErr);
-    show(getInitialCardsErr);
-  });
 
 // add listeners
 
