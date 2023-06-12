@@ -16,7 +16,7 @@
 
 [Алексей Крутяков](https://github.com/AlexeyKrutyakov)
 
-#### _Контрибьютор:_
+#### _Колаборатор:_
 
 [Баланюк Иванна](https://github.com/IvannaBalanyuk)
 ( e-mail: ivannabalanyuk@yandex.ru )
