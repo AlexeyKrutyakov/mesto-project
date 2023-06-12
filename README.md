@@ -18,7 +18,7 @@
 
 #### _Контрибьютор:_
 
-Баланюк Иванна
+[Баланюк Иванна](https://github.com/IvannaBalanyuk)
 ( e-mail: ivannabalanyuk@yandex.ru )
 
 #### _Используемые инструменты и технологии:_
