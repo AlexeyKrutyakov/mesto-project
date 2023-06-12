@@ -26,3 +26,7 @@ export const activateSubmitBtn = (btn) => {
   btn.classList.remove(formSelectors.inactiveBtnClass);
   btn.removeAttribute('disabled');
 };
+
+export const showError = (err) => {
+  console.log('Error: ', err);
+};

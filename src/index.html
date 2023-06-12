@@ -33,13 +33,13 @@
         <form class="form form_type_profile-info" name="profile-info">
           <fieldset class="form__set">
             <h2 class="form__title">Редактировать профиль</h2>
-            <input type="text" class="form__input form__input_type_profile-name" name="profile-name-input" value="" minlength="2" maxlength="40"
-              pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+            <input type="text" class="form__input form__input_type_profile-name" name="profile-name-input" value=""
+              minlength="2" maxlength="40" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
               data-error-message='Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы'
               required>
             <span class="form__input-error profile-name-input-error"></span>
-            <input type="text" class="form__input form__input_type_profile-text" name="profile-text-input" value="" minlength="2" maxlength="200"
-              pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+            <input type="text" class="form__input form__input_type_profile-text" name="profile-text-input" value=""
+              minlength="2" maxlength="200" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
               data-error-message='Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы'
               required>
             <span class="form__input-error profile-text-input-error"></span>
@@ -55,13 +55,14 @@
         <form class="form form_type_place-info" name="place-info">
           <fieldset class="form__set">
             <h2 class="form__title">Новое место</h2>
-            <input type="text" class="form__input" name="place-name-input" placeholder="Название" minlength="2"
-              maxlength="30" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+            <input type="text" class="form__input form__input_type_card-name" name="place-name-input"
+              placeholder="Название" minlength="2" maxlength="30" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
               data-error-message="Поле «Название» может содержать латинские буквы, кириллические буквы, знаки дефиса и пробелы"
               required>
             <span class="form__input-error place-name-input-error"></span>
-            <input type="text" class="form__input" name="place-image-input" placeholder="Ссылка на картинку"
-              pattern="https?://[\S]{4,}" data-error-message="В поле «Ссылка на картинку» должен быть URL" required>
+            <input type="text" class="form__input form__input_type_card-image-link" name="place-image-input"
+              placeholder="Ссылка на картинку" pattern="https?://[\S]{4,}"
+              data-error-message="В поле «Ссылка на картинку» должен быть URL" required>
             <span class="form__input-error place-image-input-error"></span>
             <button type="submit" class="form__submit">Создать</button>
           </fieldset>
@@ -85,8 +86,9 @@
         <form class="form form_type_edit-avatar" name="edit-avatar">
           <fieldset class="form__set">
             <h2 class="form__title">Обновить аватар</h2>
-            <input type="text" class="form__input" name="avatar-image-input" placeholder="Ссылка на картинку"
-              pattern="https?://[\S]{4,}" data-error-message="В поле «Ссылка на картинку» должен быть URL" required>
+            <input type="text" class="form__input form__input_type_avatar-image-link" name="avatar-image-input"
+              placeholder="Ссылка на картинку" pattern="https?://[\S]{4,}"
+              data-error-message="В поле «Ссылка на картинку» должен быть URL" required>
             <span class="form__input-error avatar-image-input-error"></span>
             <button type="submit" class="form__submit">Сохранить</button>
           </fieldset>

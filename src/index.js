@@ -17,6 +17,7 @@ import {
   renderLoading,
   inactivateSubmitBtn,
   activateSubmitBtn,
+  showError,
 } from './components/utils.js';
 
 import Api from './components/Api.js';
@@ -27,7 +28,10 @@ import PopupWithForm from './components/PopupWithForm';
 import PopupWithImage from './components/PopupWithImage';
 import UserInfo from './components/UserInfo.js';
 
-// create form validators
+// CREATE USER INFO
+const userInfo = new UserInfo(profileSelectors);
+
+// CREATE FORM VALIDATORS
 const formProfileValidator = new FormValidator(
   forms.editProfile,
   formSelectors
@@ -39,28 +43,27 @@ const formAvatarValidator = new FormValidator(
 );
 const formCardValidator = new FormValidator(forms.addCard, formSelectors);
 
-// enable validation
+// ENABLE VALIDATION
 formProfileValidator.enableValidation();
 formAvatarValidator.enableValidation();
 formCardValidator.enableValidation();
 
-// create popups
+// WORK WITH POPUPS
 const editProfilePopup = new PopupWithForm(
-  popupSelectors.popupEditProfile,
+  popupSelectors.popupEditProfileSelector,
   handleProfileFormSubmit
 );
 const changeAvatarPopup = new PopupWithForm(
-  popupSelectors.popupChangeAvatar,
+  popupSelectors.popupChangeAvatarSelector,
   handleAvatarFormSubmit
 );
 const addCardPopup = new PopupWithForm(
-  popupSelectors.popupAddCard,
+  popupSelectors.popupAddCardSelector,
   handleCardFormSubmit
 );
-const showImagePopup = new PopupWithImage(popupSelectors.popupShowImage);
-
-// create user info
-const userInfo = new UserInfo(profileSelectors);
+const showImagePopup = new PopupWithImage(
+  popupSelectors.popupShowImageSelector
+);
 
 const handlePopupOpening = (popup, form, formValidator) => {
   formValidator.resetFormErrors();
@@ -70,8 +73,8 @@ const handlePopupOpening = (popup, form, formValidator) => {
   if (popup === editProfilePopup) {
     const { name, about } = userInfo.getUserInfo();
     console.log(about);
-    formInputs.inputUserName.value = name;
-    formInputs.inputUserAbout.value = about;
+    formInputs.userName.value = name;
+    formInputs.userAbout.value = about;
     activateSubmitBtn(submitBtn);
   } else {
     inactivateSubmitBtn(submitBtn);
@@ -80,7 +83,7 @@ const handlePopupOpening = (popup, form, formValidator) => {
   popup.open();
 };
 
-// add listeners to main buttons
+// ADD LISTENERS FOR MAIN BUTTONS
 buttons.editProfile.addEventListener('click', () => {
   handlePopupOpening(editProfilePopup, forms.editProfile, formProfileValidator);
 });
@@ -97,7 +100,7 @@ buttons.addCard.addEventListener('click', () => {
 
 const api = new Api(config);
 
-// PROFILE
+// WORK WITH PROFILE
 function handleProfileFormSubmit(inputValues) {
   renderLoading(
     true,
@@ -112,7 +115,7 @@ function handleProfileFormSubmit(inputValues) {
       editProfilePopup.close();
     })
     .catch((err) => {
-      console.log(`Ошибка: ${err}`);
+      showError(err);
     })
     .finally(() => {
       renderLoading(
@@ -124,7 +127,6 @@ function handleProfileFormSubmit(inputValues) {
     });
 }
 
-// Обработчик события submit формы редактирования аватара
 function handleAvatarFormSubmit(avatar) {
   renderLoading(
     true,
@@ -140,7 +142,7 @@ function handleAvatarFormSubmit(avatar) {
       changeAvatarPopup.close();
     })
     .catch((err) => {
-      console.log(`Ошибка: ${err}`);
+      showError(err);
     })
     .finally(() => {
       renderLoading(
@@ -152,7 +154,7 @@ function handleAvatarFormSubmit(avatar) {
     });
 }
 
-// CARDS
+// WORK WITH CARDS
 function renderCard(cardData) {
   const card = new Card(
     cardData,
@@ -167,7 +169,10 @@ function renderCard(cardData) {
   return cardElement;
 }
 
-const gallery = new Section(gallerySelectors.cardsContainer, renderCard);
+const gallery = new Section(
+  gallerySelectors.cardsContainerSelector,
+  renderCard
+);
 
 function handleCardFormSubmit(inputValues) {
   renderLoading(
@@ -185,7 +190,7 @@ function handleCardFormSubmit(inputValues) {
       addCardPopup.close();
     })
     .catch((err) => {
-      console.log(`Ошибка: ${err}`);
+      showError(err);
     })
     .finally(() => {
       renderLoading(
@@ -198,7 +203,7 @@ function handleCardFormSubmit(inputValues) {
 }
 
 const handleLikeClick = (card) => {
-  if (card.checkLikesData()) {
+  if (card.hasMyLike()) {
     api
       .deleteLike(card.id)
       .then((cardJson) => {
@@ -206,7 +211,7 @@ const handleLikeClick = (card) => {
         card.renderLikesData();
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}`);
+        showError(err);
       });
   } else {
     api
@@ -216,7 +221,7 @@ const handleLikeClick = (card) => {
         card.renderLikesData();
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}`);
+        showError(err);
       });
   }
 };
@@ -224,35 +229,30 @@ const handleLikeClick = (card) => {
 const handleDeleteClick = (card) => {
   api
     .deleteCard(card.id)
-    .then((cardJson) => {
+    .then(() => {
       card.delete();
     })
     .catch((err) => {
-      console.log(`Ошибка: ${err}`);
+      showError(err);
     });
 };
 
-// create image click handler
 const handleImageClick = (name, link) => {
   showImagePopup.open(name, link);
 };
 
+// RENDER INITIAL CONTENT
 const renderInitialContent = () => {
   Promise.all([api.getProfile(), api.getInitialCards()])
-    .then((data) => {
-      // destructurization ?
-      const profileJson = data[0];
+    .then(([profileJson, cardsJson]) => {
       userInfo.setUserInfo(profileJson);
       userInfo.setAvatar(profileJson);
 
-      const cardsJson = data[1];
       gallery.renderItems(cardsJson);
     })
-    .catch((err) => {
-      const profileDataErr = err[0];
-      const cardsDataErr = err[1];
-      console.log(`Ошибка: ${profileDataErr}`);
-      console.log(`Ошибка: ${cardsDataErr}`);
+    .catch(([getProfileDataErr, getCardsDataErr]) => {
+      showError(getProfileDataErr);
+      showError(getCardsDataErr);
     });
 };
 

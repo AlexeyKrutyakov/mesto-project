@@ -22,13 +22,13 @@ export default class Popup {
 
   open() {
     this._popup.classList.add(popupSelectors.openedPopupClass);
-    this._popup.addEventListener('keydown', this._handleEscClose.bind(this));
+    page.addEventListener('keydown', this._handleEscClose.bind(this));
     this._popup.addEventListener('click', this._handleClickClose.bind(this));
   }
 
   close() {
     this._popup.classList.remove(popupSelectors.openedPopupClass);
-    this._popup.removeEventListener('keydown', this._handleEscClose.bind(this));
+    page.removeEventListener('keydown', this._handleEscClose.bind(this));
     this._popup.removeEventListener('click', this._handleClickClose.bind(this));
   }
 }

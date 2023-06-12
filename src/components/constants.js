@@ -19,7 +19,7 @@ export const profileSelectors = {
 
 // cards
 export const gallerySelectors = {
-  cardsContainer: '.cards',
+  cardsContainerSelector: '.cards',
 };
 
 // buttons
@@ -53,10 +53,10 @@ export const popupSelectors = {
   imageSelector: '.popup__image',
   captionSelector: '.popup__figcaption',
   closePopupBtnClass: 'popup__close-button',
-  popupEditProfile: '.popup_type_edit-profile',
-  popupChangeAvatar: '.popup_type_edit-avatar',
-  popupAddCard: '.popup_type_add-place',
-  popupShowImage: '.popup_type_enlarge-image',
+  popupEditProfileSelector: '.popup_type_edit-profile',
+  popupChangeAvatarSelector: '.popup_type_edit-avatar',
+  popupAddCardSelector: '.popup_type_add-place',
+  popupShowImageSelector: '.popup_type_enlarge-image',
 };
 
 // forms
@@ -65,10 +65,14 @@ export const forms = {
   changeAvatar: page.querySelector('.form_type_edit-avatar'),
   addCard: page.querySelector('.form_type_place-info'),
 };
+
 // form inputs
 export const formInputs = {
-  inputUserName: page.querySelector('.form__input_type_profile-name'),
-  inputUserAbout: page.querySelector('.form__input_type_profile-text'),
+  userName: page.querySelector('.form__input_type_profile-name'),
+  userAbout: page.querySelector('.form__input_type_profile-text'),
+  // cardName: page.querySelector('.form__input_type_card-name'),
+  // cardImageLink: page.querySelector('.form__input_type_card-image-link'),
+  // avatarImageLink: page.querySelector('.form__input_type_avatar-image-link'),
 };
 
 // parameters for validation

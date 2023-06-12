@@ -29,7 +29,7 @@ export default class Card {
     return this._cardElement;
   }
 
-  // Навешивание слушателей
+  // set listeners
   _setEventListeners() {
     this._imageElement.addEventListener('click', () => {
       this._imageClickHandler(this._name, this._link);
@@ -42,14 +42,14 @@ export default class Card {
     });
   }
 
-  // Проверка наличия лайка пользователя
-  checkLikesData() {
+  // check my like in this card
+  hasMyLike() {
     return this.likes.some((like) => like._id === this.userId);
   }
 
-  // Отрисовка счетчика лайков
+  // render like counter and like sybmol
   renderLikesData() {
-    if (this.checkLikesData()) {
+    if (this.hasMyLike()) {
       this._likeButtonElement.classList.add(cardSelectors.likeBtnActiveClass);
     } else {
       this._likeButtonElement.classList.remove(
@@ -59,7 +59,7 @@ export default class Card {
     this._likesCounter.textContent = this.likes.length;
   }
 
-  // Создание карточки
+  // create card
   create() {
     this._cardElement = this._getElement();
     this._nameElement = this._cardElement.querySelector(
@@ -89,7 +89,7 @@ export default class Card {
     return this._cardElement;
   }
 
-  // Удаление карточки
+  // delete card
   delete() {
     this._cardElement.remove();
     this._cardElement = null;
