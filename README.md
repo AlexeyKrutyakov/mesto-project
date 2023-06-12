@@ -19,7 +19,7 @@
 #### _Контрибьютор:_
 
 Баланюк Иванна
-e-mail: ivannabalanyuk@yandex.ru
+( e-mail: ivannabalanyuk@yandex.ru )
 
 #### _Используемые инструменты и технологии:_
 
