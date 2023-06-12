@@ -83,6 +83,7 @@ export const formSelectors = {
   submitBtnSelector: '.form__submit',
   inactiveBtnClass: 'form__submit_inactive',
   inputErrorClass: 'form__input_type_invalid',
+  errorVisibleClass: 'form__input-error_visible',
 };
 
 // status for submit buttons

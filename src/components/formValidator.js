@@ -16,6 +16,7 @@ export default class FormValidator {
     );
     inputElement.classList.add(this._selectors.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this._selectors.errorVisibleClass);
   }
 
   _hideInputError(inputElement) {
@@ -24,6 +25,7 @@ export default class FormValidator {
     );
     inputElement.classList.remove(this._selectors.inputErrorClass);
     errorElement.textContent = '';
+    errorElement.classList.remove(this._selectors.errorVisibleClass);
   }
 
   _validateInput(inputElement) {

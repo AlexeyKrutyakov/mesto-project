@@ -3,9 +3,10 @@
   height: 100%;
   left: 0;
   opacity: 0;
+  pointer-events: none;
   position: fixed;
   top: 0;
-  transition: visibility 0s, opacity 1s ease;
+  transition: all 1s ease;
   visibility: hidden;
   width: 100%;
   z-index: 10;
