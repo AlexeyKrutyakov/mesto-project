@@ -11,9 +11,9 @@ export const renderLoading = (
     formSelectors.submitBtnSelector
   );
   if (isLoading) {
-    buttonElement.value = loadingValue;
+    buttonElement.textContent = loadingValue;
   } else {
-    buttonElement.value = baseValue;
+    buttonElement.textContent = baseValue;
   }
 };
 
