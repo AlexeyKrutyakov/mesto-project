@@ -6,41 +6,29 @@ import {
   gallerySelectors,
   buttons,
   templateSelectors,
+  cardSelectors,
   popupSelectors,
   forms,
-  formInputs,
   formSelectors,
   submitStatuses,
-} from './components/constants.js';
+} from './utils/constants.js';
 
-import {
-  renderLoading,
-  inactivateSubmitBtn,
-  activateSubmitBtn,
-  showError,
-} from './components/utils.js';
+import { renderLoading, showError } from './utils/utils.js';
 
 import Api from './components/Api.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
-import PopupWithForm from './components/PopupWithForm';
-import PopupWithImage from './components/PopupWithImage';
+import PopupWithForm from './components/PopupWithForm.js';
+import PopupWithImage from './components/PopupWithImage.js';
 import UserInfo from './components/UserInfo.js';
 
 // CREATE USER INFO
 const userInfo = new UserInfo(profileSelectors);
 
 // CREATE FORM VALIDATORS
-const formProfileValidator = new FormValidator(
-  forms.editProfile,
-  formSelectors
-);
-
-const formAvatarValidator = new FormValidator(
-  forms.changeAvatar,
-  formSelectors
-);
+const formProfileValidator = new FormValidator(forms.editProfile,formSelectors);
+const formAvatarValidator = new FormValidator(forms.changeAvatar,formSelectors);
 const formCardValidator = new FormValidator(forms.addCard, formSelectors);
 
 // ENABLE VALIDATION
@@ -51,51 +39,45 @@ formCardValidator.enableValidation();
 // WORK WITH POPUPS
 const editProfilePopup = new PopupWithForm(
   popupSelectors.popupEditProfileSelector,
+  popupSelectors,
+  formSelectors,
   handleProfileFormSubmit
 );
 const changeAvatarPopup = new PopupWithForm(
   popupSelectors.popupChangeAvatarSelector,
+  popupSelectors,
+  formSelectors,
   handleAvatarFormSubmit
 );
 const addCardPopup = new PopupWithForm(
   popupSelectors.popupAddCardSelector,
+  popupSelectors,
+  formSelectors,
   handleCardFormSubmit
 );
 const showImagePopup = new PopupWithImage(
-  popupSelectors.popupShowImageSelector
+  popupSelectors.popupShowImageSelector,
+  popupSelectors
 );
 
-const handlePopupOpening = (popup, form, formValidator) => {
-  formValidator.resetFormErrors();
-
-  const submitBtn = form.querySelector(formSelectors.submitBtnSelector);
-
+const handlePopupOpening = (popup, formValidator) => {
   if (popup === editProfilePopup) {
-    const { name, about } = userInfo.getUserInfo();
-    console.log(about);
-    formInputs.userName.value = name;
-    formInputs.userAbout.value = about;
-    activateSubmitBtn(submitBtn);
-  } else {
-    inactivateSubmitBtn(submitBtn);
-  }
+    popup.setInputValues(userInfo.getUserInfo());
+  };
 
+  formValidator.resetValidation();
   popup.open();
 };
 
 // ADD LISTENERS FOR MAIN BUTTONS
 buttons.editProfile.addEventListener('click', () => {
-  handlePopupOpening(editProfilePopup, forms.editProfile, formProfileValidator);
+  handlePopupOpening(editProfilePopup, formProfileValidator);
 });
 buttons.changeAvatar.addEventListener('click', () => {
-  handlePopupOpening(
-    changeAvatarPopup,
-    forms.changeAvatar,
-    formAvatarValidator
-  );
+  handlePopupOpening(changeAvatarPopup,formAvatarValidator);
 });
 buttons.addCard.addEventListener('click', () => {
-  handlePopupOpening(addCardPopup, forms.addCard, formCardValidator);
+  handlePopupOpening(addCardPopup, formCardValidator);
 });
 
 const api = new Api(config);
@@ -108,8 +90,7 @@ function handleProfileFormSubmit(inputValues) {
     submitStatuses.saving,
     submitStatuses.save
   );
-  api
-    .patchProfile(inputValues)
+  api.patchProfile(inputValues)
     .then((profileJson) => {
       userInfo.setUserInfo(profileJson);
       editProfilePopup.close();
@@ -135,8 +116,7 @@ function handleAvatarFormSubmit(avatar) {
     submitStatuses.save
   );
 
-  api
-    .patchAvatar(avatar)
+  api.patchAvatar(avatar)
     .then((profileJson) => {
       userInfo.setAvatar(profileJson);
       changeAvatarPopup.close();
@@ -160,6 +140,7 @@ function renderCard(cardData) {
     cardData,
     userInfo.id,
     templateSelectors.defaultCardSelector,
+    cardSelectors,
     handleImageClick,
     handleLikeClick,
     handleDeleteClick
@@ -181,8 +162,7 @@ function handleCardFormSubmit(inputValues) {
     submitStatuses.saving,
     submitStatuses.save
   );
-  api
-    .postCard(inputValues)
+  api.postCard(inputValues)
     .then((cardJson) => {
       const cardData = cardJson;
       const card = renderCard(cardData);
@@ -204,8 +184,7 @@ function handleCardFormSubmit(inputValues) {
 
 const handleLikeClick = (card) => {
   if (card.hasMyLike()) {
-    api
-      .deleteLike(card.id)
+    api.deleteLike(card.id)
       .then((cardJson) => {
         card.likes = cardJson.likes;
         card.renderLikesData();
@@ -214,8 +193,7 @@ const handleLikeClick = (card) => {
         showError(err);
       });
   } else {
-    api
-      .putLike(card.id)
+    api.putLike(card.id)
       .then((cardJson) => {
         card.likes = cardJson.likes;
         card.renderLikesData();
@@ -227,8 +205,7 @@ const handleLikeClick = (card) => {
 };
 
 const handleDeleteClick = (card) => {
-  api
-    .deleteCard(card.id)
+  api.deleteCard(card.id)
     .then(() => {
       card.delete();
     })

@@ -1,16 +1,14 @@
-import { page } from './constants.js';
-
 export default class UserInfo {
   constructor(selectors) {
-    this._name = page.querySelector(selectors.nameSelector);
-    this._about = page.querySelector(selectors.aboutSelector);
-    this._avatar = page.querySelector(selectors.avatarSelector);
+    this._name = document.querySelector(selectors.nameSelector);
+    this._about = document.querySelector(selectors.aboutSelector);
+    this._avatar = document.querySelector(selectors.avatarSelector);
   }
 
   getUserInfo() {
     const userInfo = {
-      name: this._name.textContent,
-      about: this._about.textContent,
+      'profile-name-input': this._name.textContent,
+      'profile-text-input': this._about.textContent,
     };
     return userInfo;
   }

@@ -17,16 +17,6 @@ export const renderLoading = (
   }
 };
 
-export const inactivateSubmitBtn = (btn) => {
-  btn.classList.add(formSelectors.inactiveBtnClass);
-  btn.setAttribute('disabled', true);
-};
-
-export const activateSubmitBtn = (btn) => {
-  btn.classList.remove(formSelectors.inactiveBtnClass);
-  btn.removeAttribute('disabled');
-};
-
 export const showError = (err) => {
   console.log('Error: ', err);
 };

@@ -66,15 +66,6 @@ export const forms = {
   addCard: page.querySelector('.form_type_place-info'),
 };
 
-// form inputs
-export const formInputs = {
-  userName: page.querySelector('.form__input_type_profile-name'),
-  userAbout: page.querySelector('.form__input_type_profile-text'),
-  // cardName: page.querySelector('.form__input_type_card-name'),
-  // cardImageLink: page.querySelector('.form__input_type_card-image-link'),
-  // avatarImageLink: page.querySelector('.form__input_type_avatar-image-link'),
-};
-
 // parameters for validation
 export const formSelectors = {
   formSelector: '.form',

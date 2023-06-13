@@ -1,10 +1,9 @@
-import { page, cardSelectors } from './constants.js';
-
 export default class Card {
   constructor(
     data,
     userId,
     templateSelector,
+    cardSelectors,
     imageClickHandler,
     likeClickHandler,
     deleteClickHandler
@@ -16,15 +15,16 @@ export default class Card {
     this._name = data.name;
     this._ownerId = data.owner._id;
     this._templateSelector = templateSelector;
+    this._cardSelectors = cardSelectors;
     this._imageClickHandler = imageClickHandler;
     this._likeClickHandler = likeClickHandler;
     this._deleteClickHandler = deleteClickHandler;
   }
 
   _getElement() {
-    this._cardElement = page
+    this._cardElement = document
       .querySelector(this._templateSelector)
-      .content.querySelector(cardSelectors.cardSelector)
+      .content.querySelector(this._cardSelectors.cardSelector)
       .cloneNode(true);
     return this._cardElement;
   }
@@ -50,10 +50,10 @@ export default class Card {
   // render like counter and like sybmol
   renderLikesData() {
     if (this.hasMyLike()) {
-      this._likeButtonElement.classList.add(cardSelectors.likeBtnActiveClass);
+      this._likeButtonElement.classList.add(this._cardSelectors.likeBtnActiveClass);
     } else {
       this._likeButtonElement.classList.remove(
-        cardSelectors.likeBtnActiveClass
+        this._cardSelectors.likeBtnActiveClass
       );
     }
     this._likesCounter.textContent = this.likes.length;
@@ -63,19 +63,19 @@ export default class Card {
   create() {
     this._cardElement = this._getElement();
     this._nameElement = this._cardElement.querySelector(
-      cardSelectors.nameSelector
+      this._cardSelectors.nameSelector
     );
     this._imageElement = this._cardElement.querySelector(
-      cardSelectors.imageSelector
+      this._cardSelectors.imageSelector
     );
     this._likeButtonElement = this._cardElement.querySelector(
-      cardSelectors.likeBtnSelector
+      this._cardSelectors.likeBtnSelector
     );
     this._deleteButtonElement = this._cardElement.querySelector(
-      cardSelectors.removeBtnSelector
+      this._cardSelectors.removeBtnSelector
     );
     this._likesCounter = this._cardElement.querySelector(
-      cardSelectors.likeNumSelector
+      this._cardSelectors.likeNumSelector
     );
 
     this._imageElement.src = this._link;
