@@ -16,6 +16,11 @@
 
 [Алексей Крутяков](https://github.com/AlexeyKrutyakov)
 
+#### _Коллаборатор:_
+
+[Баланюк Иванна](https://github.com/IvannaBalanyuk)
+( e-mail: ivannabalanyuk@yandex.ru )
+
 #### _Используемые инструменты и технологии:_
 
 ![Stack](https://skillicons.dev/icons?i=vscode,figma,git,html,css,js,webpack,babel&perline=10)
