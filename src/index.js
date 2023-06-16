@@ -19,6 +19,7 @@ import Api from './components/Api.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
+import Popup from './components/Popup';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import UserInfo from './components/UserInfo.js';
@@ -27,8 +28,14 @@ import UserInfo from './components/UserInfo.js';
 const userInfo = new UserInfo(profileSelectors);
 
 // CREATE FORM VALIDATORS
-const formProfileValidator = new FormValidator(forms.editProfile,formSelectors);
-const formAvatarValidator = new FormValidator(forms.changeAvatar,formSelectors);
+const formProfileValidator = new FormValidator(
+  forms.editProfile,
+  formSelectors
+);
+const formAvatarValidator = new FormValidator(
+  forms.changeAvatar,
+  formSelectors
+);
 const formCardValidator = new FormValidator(forms.addCard, formSelectors);
 
 // ENABLE VALIDATION
@@ -59,11 +66,16 @@ const showImagePopup = new PopupWithImage(
   popupSelectors.popupShowImageSelector,
   popupSelectors
 );
+console.log(popupSelectors.popupConfirmDeletionSelector);
+const confirmDeletionPopup = new Popup(
+  popupSelectors.popupConfirmDeletionSelector,
+  popupSelectors
+);
 
 const handlePopupOpening = (popup, formValidator) => {
   if (popup === editProfilePopup) {
     popup.setInputValues(userInfo.getUserInfo());
-  };
+  }
 
   formValidator.resetValidation();
   popup.open();
@@ -74,7 +86,7 @@ buttons.editProfile.addEventListener('click', () => {
   handlePopupOpening(editProfilePopup, formProfileValidator);
 });
 buttons.changeAvatar.addEventListener('click', () => {
-  handlePopupOpening(changeAvatarPopup,formAvatarValidator);
+  handlePopupOpening(changeAvatarPopup, formAvatarValidator);
 });
 buttons.addCard.addEventListener('click', () => {
   handlePopupOpening(addCardPopup, formCardValidator);
@@ -90,7 +102,8 @@ function handleProfileFormSubmit(inputValues) {
     submitStatuses.saving,
     submitStatuses.save
   );
-  api.patchProfile(inputValues)
+  api
+    .patchProfile(inputValues)
     .then((profileJson) => {
       userInfo.setUserInfo(profileJson);
       editProfilePopup.close();
@@ -116,7 +129,8 @@ function handleAvatarFormSubmit(avatar) {
     submitStatuses.save
   );
 
-  api.patchAvatar(avatar)
+  api
+    .patchAvatar(avatar)
     .then((profileJson) => {
       userInfo.setAvatar(profileJson);
       changeAvatarPopup.close();
@@ -162,7 +176,8 @@ function handleCardFormSubmit(inputValues) {
     submitStatuses.saving,
     submitStatuses.save
   );
-  api.postCard(inputValues)
+  api
+    .postCard(inputValues)
     .then((cardJson) => {
       const cardData = cardJson;
       const card = renderCard(cardData);
@@ -184,7 +199,8 @@ function handleCardFormSubmit(inputValues) {
 
 const handleLikeClick = (card) => {
   if (card.hasMyLike()) {
-    api.deleteLike(card.id)
+    api
+      .deleteLike(card.id)
       .then((cardJson) => {
         card.likes = cardJson.likes;
         card.renderLikesData();
@@ -193,7 +209,8 @@ const handleLikeClick = (card) => {
         showError(err);
       });
   } else {
-    api.putLike(card.id)
+    api
+      .putLike(card.id)
       .then((cardJson) => {
         card.likes = cardJson.likes;
         card.renderLikesData();
@@ -204,15 +221,21 @@ const handleLikeClick = (card) => {
   }
 };
 
-const handleDeleteClick = (card) => {
-  api.deleteCard(card.id)
-    .then(() => {
-      card.delete();
-    })
-    .catch((err) => {
-      showError(err);
-    });
+const handleDeleteClick = () => {
+  console.log('delete click');
+  confirmDeletionPopup.open();
 };
+
+// const handleDeleteClick = (card) => {
+//   api
+//     .deleteCard(card.id)
+//     .then(() => {
+//       card.delete();
+//     })
+//     .catch((err) => {
+//       showError(err);
+//     });
+// };
 
 const handleImageClick = (name, link) => {
   showImagePopup.open(name, link);

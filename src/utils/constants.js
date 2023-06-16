@@ -57,6 +57,7 @@ export const popupSelectors = {
   popupChangeAvatarSelector: '.popup_type_edit-avatar',
   popupAddCardSelector: '.popup_type_add-place',
   popupShowImageSelector: '.popup_type_enlarge-image',
+  popupConfirmDeletionSelector: '.popup_type_confirm-deletion',
 };
 
 // forms

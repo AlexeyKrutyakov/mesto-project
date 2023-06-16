@@ -1,0 +1,11 @@
+.popup__close-button_type_confirm-deletion {
+  left: calc(50% + 430px / 2 + 8px);
+  top: calc(50% - 186px / 2 - 32px - 8px);
+}
+
+@media (max-width: 1279px) {
+  .popup__close-button_type_confirm-deletion {
+    left: calc(50% + 282px / 2 - 20px);
+    top: calc(50% - 153px / 2 - 20px - 16px);
+  }
+}
