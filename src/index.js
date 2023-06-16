@@ -19,9 +19,10 @@ import Api from './components/Api.js';
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
-import Popup from './components/Popup';
+import Popup from './components/Popup.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithConfirm from './components/PopupWithConfirm.js';
 import UserInfo from './components/UserInfo.js';
 
 // CREATE USER INFO
@@ -66,10 +67,10 @@ const showImagePopup = new PopupWithImage(
   popupSelectors.popupShowImageSelector,
   popupSelectors
 );
-console.log(popupSelectors.popupConfirmDeletionSelector);
-const confirmDeletionPopup = new Popup(
+const confirmDeletionPopup = new PopupWithConfirm(
   popupSelectors.popupConfirmDeletionSelector,
-  popupSelectors
+  popupSelectors,
+  handleDeletionConfirm
 );
 
 const handlePopupOpening = (popup, formValidator) => {
@@ -221,21 +222,22 @@ const handleLikeClick = (card) => {
   }
 };
 
-const handleDeleteClick = () => {
-  console.log('delete click');
-  confirmDeletionPopup.open();
+const handleDeleteClick = (card) => {
+  confirmDeletionPopup.open(card);
 };
 
-// const handleDeleteClick = (card) => {
-//   api
-//     .deleteCard(card.id)
-//     .then(() => {
-//       card.delete();
-//     })
-//     .catch((err) => {
-//       showError(err);
-//     });
-// };
+function handleDeletionConfirm() {
+  const card = this._card;
+  api
+    .deleteCard(card.id)
+    .then(() => {
+      card.delete();
+    })
+    .catch((err) => {
+      showError(err);
+    });
+  confirmDeletionPopup.close();
+}
 
 const handleImageClick = (name, link) => {
   showImagePopup.open(name, link);
