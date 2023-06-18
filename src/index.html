@@ -33,16 +33,16 @@
         <form class="form form_type_profile-info" name="profile-info">
           <fieldset class="form__set">
             <h2 class="form__title">Редактировать профиль</h2>
-            <input type="text" class="form__input form__input_type_profile-name" name="profile-name-input" value=""
-              minlength="2" maxlength="40" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+            <input type="text" class="form__input form__input_type_profile-name" name="name" value="" minlength="2"
+              maxlength="40" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
               data-error-message='Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы'
               required>
-            <span class="form__input-error profile-name-input-error"></span>
-            <input type="text" class="form__input form__input_type_profile-text" name="profile-text-input" value=""
-              minlength="2" maxlength="200" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
+            <span class="form__input-error name-error"></span>
+            <input type="text" class="form__input form__input_type_profile-text" name="about" value="" minlength="2"
+              maxlength="200" pattern="[A-Za-zА-ЯЁа-яё\s\-]+"
               data-error-message='Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы'
               required>
-            <span class="form__input-error profile-text-input-error"></span>
+            <span class="form__input-error about-error"></span>
             <button type="submit" class="form__submit">Сохранить</button>
           </fieldset>
         </form>

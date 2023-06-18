@@ -7,8 +7,8 @@ export default class UserInfo {
 
   getUserInfo() {
     const userInfo = {
-      'profile-name-input': this._name.textContent,
-      'profile-text-input': this._about.textContent,
+      name: this._name.textContent,
+      about: this._about.textContent,
     };
     return userInfo;
   }
