@@ -7,7 +7,8 @@
     "build": "webpack --mode production",
     "dev": "webpack serve",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy:ghpages": "gh-pages -d dist",
+    "deploy:cloud": "yarn build && scp -Cr ./dist/* akrutyakov@51.250.7.163:/home/akrutyakov/mesto-frontend"
   },
   "author": "Alexey Krutyakov",
   "license": "Apache-2.0",
