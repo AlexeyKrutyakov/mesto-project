@@ -1,4 +1,5 @@
-.prettierignore
-*.DS_Store
 node_modules
 dist
+.idea
+.prettierignore
+*.DS_Store
